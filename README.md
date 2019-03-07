@@ -10,3 +10,9 @@ locaties musea Gent
 ### JSON
 
 ### CSV
+
+## idea
+
+## functionality
+
+## entities
