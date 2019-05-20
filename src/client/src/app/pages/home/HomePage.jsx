@@ -9,6 +9,8 @@ Import internal libraries
 import Api from '../../services';
 import PostsList from '../../components/posts-list';
 
+import GoldenLayout from '../../layouts/GoldenLayout';
+
 class HomePage extends Component {
     state = {
         posts: [],
@@ -37,6 +39,7 @@ class HomePage extends Component {
 
     render() {
         const { posts } = this.state;
+        return (<GoldenLayout/>)
         return (
             <React.Fragment>
                 <h1 className="hidden">Overzicht Grafische en Digitale Media</h1>

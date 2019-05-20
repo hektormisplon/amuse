@@ -27,7 +27,7 @@ import PostDetailPage from './pages/post-detail';
 /*
 Import styling
 */
-import './Main.css';
+import './index.sass';
 
 class Main extends Component {
   render() {

@@ -1,10 +1,10 @@
 import React from 'react';
-
 /*
 Import styling
 */
-import logo from '../assets/images/logo.svg';
-import './Page.scss';
+import logo from '../assets/logo/logo.svg';
+import Header from '../components/header/header.js'
+import './Page.sass';
 
 class PageLayout extends React.Component {
     render() {
@@ -12,9 +12,7 @@ class PageLayout extends React.Component {
 
         return (
             <div className="page">
-                <header role="header">
-                    HEADER
-                </header>
+                <Header />
                 <main className="main" role="main">
                     { children }
                 </main>
