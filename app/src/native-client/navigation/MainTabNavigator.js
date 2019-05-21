@@ -12,14 +12,14 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Tours',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? 'map'
+          : 'map'
       }
     />
   ),
@@ -30,11 +30,11 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Badges',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'user' : 'user'}
     />
   ),
 };
@@ -44,17 +44,29 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Clubs',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'users' : 'users'}
     />
   ),
 };
 
-export default createBottomTabNavigator({
+export default bottomTabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
-});
+},
+{
+  initialRouteName: 'LinksStack',
+  tabBarOptions: {
+    safeAreaInset: 'never',
+    showLabel: false,
+    style: {
+      borderTop: 0,
+      height: 90,
+    },
+  }
+}
+);

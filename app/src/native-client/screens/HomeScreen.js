@@ -1,16 +1,20 @@
 import React from 'react';
+
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
   View,
+  Switch
 } from 'react-native';
-import { WebBrowser } from 'expo';
+
+import { Dimensions} from 'react-native';
+
+
+import { Feather } from '@expo/vector-icons';
 
 import { MonoText } from '../components/StyledText';
-import { Text } from '../components/StyledText';
+import { Title, Text } from '../components/StyledText';
 
 
 export default class HomeScreen extends React.Component {
@@ -19,74 +23,35 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            {/* <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            /> */}
-          </View>
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
+      <React.Fragment>
+        <View style={styles.topContainer}>
+          <Title style={styles.infoMessage}>Some title.</Title>
+          <Text>This is the body</Text>
+          <Switch/>
         </View>
-      </View>
+        <View style={styles.bottomContainer}>
+          <Title style={styles.infoMessage}>Some title.</Title>
+          <Text>This is the body text</Text>
+          <Switch/>
+        </View>
+      </React.Fragment>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  topContainer: {
+    height: Dimensions.get('window').height * .62,
+    justifyContent: 'center',
+  },
+  bottomContainer: {
+    height: Dimensions.get('window').height * .38,
+    backgroundColor: '#314452',
+  },
+  infoMessage: {
+    fontSize: 40
   },
   developmentModeText: {
     marginBottom: 20,
