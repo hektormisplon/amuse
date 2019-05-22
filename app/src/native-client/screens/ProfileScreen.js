@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Icon, MapView } from 'expo';
+import { MapView } from 'expo';
+import {} from '@expo/vector-icons/Feather'
 
 
 
