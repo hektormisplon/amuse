@@ -7,6 +7,8 @@ import {
   Switch
 } from 'react-native';
 
+import { MapView } from 'expo'
+
 import {SafeAreaView} from 'react-navigation'
 
 import { Dimensions} from 'react-native';
@@ -21,13 +23,25 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-
     return (
       <SafeAreaView>
         <View style={styles.topContainer}>
-          <Title style={styles.infoMessage}>Some title.</Title>
-          <Text>This is the body</Text>
-          <Switch/>
+        <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        >
+          <MapView.Marker
+            coordinate={{latitude: 37.73538,
+                longitude: -122.4324,}}
+            title={"marker.title"}
+            description={"desss"}
+          />
+        </MapView>
         </View>
         <View style={styles.bottomContainer}>
           <Title style={styles.infoMessage}>Some title.</Title>
