@@ -20,8 +20,8 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         </View>
       );
     }
@@ -36,7 +36,6 @@ export default class App extends React.Component {
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Feather.font,
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         'HKGrotesk-light': require('./assets/fonts/HKGrotesk-Light.otf'),
         'HKGrotesk-medium': require('./assets/fonts/HKGrotesk-Medium.otf'),
         'VremenaGrotesk-medium': require('./assets/fonts/VremenaGroteskMedium.otf'),

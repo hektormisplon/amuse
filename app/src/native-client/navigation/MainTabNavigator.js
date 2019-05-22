@@ -4,8 +4,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,11 +25,11 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const ProfileStack = createStackNavigator({
+  Links: ProfileScreen,
 });
 
-LinksStack.navigationOptions = {
+ProfileStack.navigationOptions = {
   tabBarLabel: 'Badges',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -55,17 +55,15 @@ SettingsStack.navigationOptions = {
 
 export default bottomTabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  ProfileStack,
   SettingsStack,
 },
 {
-  initialRouteName: 'LinksStack',
+  initialRouteName: 'ProfileStack',
   tabBarOptions: {
-    safeAreaInset: 'never',
     showLabel: false,
     style: {
-      borderTop: 0,
-      height: 90,
+      height: 60,
     },
   }
 }

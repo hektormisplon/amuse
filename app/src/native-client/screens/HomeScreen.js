@@ -2,18 +2,16 @@ import React from 'react';
 
 import {
   Platform,
-  ScrollView,
   StyleSheet,
   View,
   Switch
 } from 'react-native';
 
+import {SafeAreaView} from 'react-navigation'
+
 import { Dimensions} from 'react-native';
-
-
 import { Feather } from '@expo/vector-icons';
-
-import { MonoText } from '../components/StyledText';
+import Colors from '../constants/Colors';
 import { Title, Text } from '../components/StyledText';
 
 
@@ -25,7 +23,7 @@ export default class HomeScreen extends React.Component {
   render() {
 
     return (
-      <React.Fragment>
+      <SafeAreaView>
         <View style={styles.topContainer}>
           <Title style={styles.infoMessage}>Some title.</Title>
           <Text>This is the body</Text>
@@ -36,7 +34,7 @@ export default class HomeScreen extends React.Component {
           <Text>This is the body text</Text>
           <Switch/>
         </View>
-      </React.Fragment>
+      </SafeAreaView>
     );
   }
 }
@@ -45,28 +43,12 @@ const styles = StyleSheet.create({
   topContainer: {
     height: Dimensions.get('window').height * .62,
     justifyContent: 'center',
+    color: Colors.primaryBrand.light
   },
   bottomContainer: {
     height: Dimensions.get('window').height * .38,
-    backgroundColor: '#314452',
-  },
-  infoMessage: {
-    fontSize: 40
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    color: Colors.primaryBrand.dark,
+    backgroundColor: Colors.primaryBrand.light,
   },
   welcomeImage: {
     width: 100,
@@ -74,27 +56,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -115,24 +76,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
     paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+  }
 });

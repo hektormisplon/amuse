@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "@mapbox/react-native-mapbox-gl": "https://github.com/nitaliano/react-native-mapbox-gl#master",
     "expo": "^32.0.0",
     "feather-icons-react": "^0.3.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-navigation": "^3.0.9"
+    "react-navigation": "^3.0.9",
+    "yarn": "^1.16.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
