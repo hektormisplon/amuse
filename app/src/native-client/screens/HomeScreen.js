@@ -1,21 +1,9 @@
+import { MapView } from 'expo';
 import React from 'react';
-
-import {
-  Platform,
-  StyleSheet,
-  View,
-  Switch
-} from 'react-native';
-
-import { MapView } from 'expo'
-
-import {SafeAreaView} from 'react-navigation'
-
-import { Dimensions} from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Dimensions, StyleSheet, Switch, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+import { Text, Title } from '../components/StyledText';
 import Colors from '../constants/Colors';
-import { Title, Text } from '../components/StyledText';
-
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -44,7 +32,7 @@ export default class HomeScreen extends React.Component {
         </MapView>
         </View>
         <View style={styles.bottomContainer}>
-          <Title style={styles.infoMessage}>Some title.</Title>
+          <Title>Some title.</Title>
           <Text>This is the body text</Text>
           <Switch/>
         </View>
@@ -64,31 +52,4 @@ const styles = StyleSheet.create({
     color: Colors.primaryBrand.dark,
     backgroundColor: Colors.primaryBrand.light,
   },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  }
 });
