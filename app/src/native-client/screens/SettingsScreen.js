@@ -14,22 +14,28 @@ export default class SettingsScreen extends React.Component {
 
   render(){
     return (
-      <SafeAreaView>
-      <View style={styles.topContainer}>
-      <Title>Mijn clubs</Title>
-      <View style={styles.hokjes}>
-      <View style={{width: 100, height: 50, backgroundColor: Colors.primaryBrand.light }} />
-      <View style={{width: 100, height: 50, backgroundColor: Colors.primaryBrand.light }} />
-      <View style={{width: 100, height: 50, backgroundColor: Colors.primaryBrand.light }} />
-      </View>
       
-      <Text>Club 2</Text>
-      <Text>Club 3</Text>
+      <SafeAreaView>
+        
+      <View style={styles.topContainer}>
+      <Switch/>
+
+
+      <Title>Mijn clubs</Title>
+      <View style={styles.hokjesHorizontaal}>
+      <Text style={styles.contentHokjes}>Club 1</Text>
+      <Text style={styles.contentHokjes}>Club 2</Text>
+      <Text style={styles.contentHokjes}>Club 3</Text>
+      </View>
 
 
       <Title>Opkomende evenementen</Title>
-      <Text>Evenement 1</Text>
-      <Text>Evenement 2</Text>
+      <View style={styles.hokjesVerticaal}>
+      <Text style={styles.contentHokjes}>Evenement 1</Text>
+      <Text style={styles.contentHokjes}>Evenement 2</Text>
+      <Text style={styles.contentHokjes}>Evenemnt 3</Text>     
+      </View>
+
 
       
       </View>
@@ -47,11 +53,24 @@ const styles = StyleSheet.create({
     color: Colors.primaryBrand.light,
   },
 
-  hokjes: {
+  hokjesHorizontaal: {
     flex:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
- 
+  },
+
+  hokjesVerticaal: {
+    flex:1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+
+  contentHokjes: {
+    width: 100, 
+    height: 50, 
+    backgroundColor: Colors.primaryBrand.light,
   }
+
+
 
 });
