@@ -1,3 +1,6 @@
+@ONA: 
+- [ ] check je eens of localhost:8080/api/v1/musea ook werkt bij jou?
+
 # App
 
 - [ ] Tour screen

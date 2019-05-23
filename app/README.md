@@ -1,10 +1,9 @@
 ## setup
-### 1. install 
-```
-yarn install
-```
-### 2. dotenv
-Create a `.env`-file under the root of the project with the following contents:
+### install 
+`yarn install`
+
+### dotenv
+create `.env` file in root containing:
 ```
 NMD_BASELINE='Like Graphics Love Code'  
 NODE_ENV={your node environment} (Development, Production or Staging)  
@@ -18,60 +17,38 @@ AUTH_JWT_SESSION={your JWT session true or false}
 AUTH_FACEBOOK_CLIENT_ID={your Facebook Client id} 
 AUTH_FACEBOOK_CLIENT_SECRET={your Facebook Client secret} 
 ```
-Create a `.env`-file under the `src/client` folder following contents:
+create `.env` file in `src/client` containing:
 ```
 SKIP_PREFLIGHT_CHECK=true
 SASS_PATH=node_modules:src
 ```
 ## scripts
 
-Running the Express-server in development
-```
-yarn server:start
-```
-Running the React client in development
-```
-yarn client:start
-```
-Running the React-native client in development
-```
-yarn native-client:start
-```
-Running the Express-server and React-client in development
-```
-yarn start:all
-```
+### run for development
+run server (express)
+`yarn server:start`
+run web client (react)
+`yarn client:start`
+run native client (react-native)
+`yarn native-client:start`
+run server & web client
+`yarn start:all`
 
+## testing/linting
+run tests for server
+`yarn server:test`
+linting for server
+`yarn server:lint`
+run tests web client
+`yarn client:test`
+
+## building
 client must be built to visit default route: `http://{your domain}:{your port}/` (yarn client build)
+creates `src/client/build` dir & copies it to `dist\client` dir (root folder).
 
-#### Running the tests for Express-server
-Under the root execute:
-```
-yarn server:test
-```
-#### Check eslint for the server
-Under the root execute:
-```
-yarn server:lint
-```
-#### Running the React-app
-Under the root execute:
-```
-yarn client:start
-```
-#### Building the React-app
-Under the root execute:
-```
-yarn client:build
-```
-This command creates a directory `build` under the client folder. Afster building, the `build` folder will be copied to the `dist\client` folder (under the root of the project).
-
-#### Running the tests for React-client
-Under the root execute:
-```
-yarn client:test
-```
-
+build web client - creates
+`yarn client:build`
+___
 ## api
 ### docs
 - [Swagger Ui for Express](http://{your domain}:{your port]/api/v1/docs/)
