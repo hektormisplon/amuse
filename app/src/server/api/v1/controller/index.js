@@ -3,6 +3,8 @@ import AuthController from './auth.controller';
 import BlogController from './blog.controller';
 import CategoryController from './category.controller';
 import PostController from './post.controller';
+import TourController from './tour.controller';
+import MuseumController from './museum.controller';
 import UserController from './user.controller';
 
 export {
@@ -10,5 +12,7 @@ export {
     BlogController,
     CategoryController,
     PostController,
+    TourController,
+    MuseumController,
     UserController,
 };

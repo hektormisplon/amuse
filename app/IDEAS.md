@@ -57,7 +57,6 @@ Notes:
 
 ### questions:
 
-[X] mongodb connection
 [?] **app / webapp**
 [?] open data api -> server side (import mongo-db?) vs client side
 [?] tour - aug real. replacement?? notes etc.
@@ -66,12 +65,3 @@ Notes:
 arkit / camera
 geolocation
 qrcode
-
-
-# planning
-
-- api mongodb (maps etc)
-
-# styling
-
-https://feathericons.com/

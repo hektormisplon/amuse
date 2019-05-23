@@ -59,7 +59,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#fff',
-    borderColor: '#ff0000',
-    borderWidth: 1
   },
 });

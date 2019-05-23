@@ -10,16 +10,18 @@ Import the internal libraries:
 - Blog
 - Category
 - Post
+- Museum
 - User
 */
 import { logger } from '../../../utilities';
-import { Blog, Category, Post, User } from './schemas';
+import { Blog, Category, Post, Museum, User } from './schemas';
 
 class Seeder {
     constructor() {
         this.blogs = [];
         this.categories = [];
         this.posts = [];
+        this.musea = [];
         this.users = [];
     }
 
@@ -98,6 +100,24 @@ class Seeder {
         }
     }
 
+    museumCreate = async (title, body) => {
+        const museumDetail = {
+            title,
+            body,
+            categoryId: this.getRandomCategory()
+        };
+        const museum = new Museum(museumDetail);
+
+        try {
+            const newMuseum = await museum.save();
+            this.musea.push(newMuseum);
+
+            logger.log({ level: 'info', message: `Museum created with id: ${newMuseum.id}!` });
+        } catch(err) {
+            logger.log({ level: 'info', message: `An error occurred when creating a museum: ${err}!` });
+        }
+    }
+
     createBlogs = async () => {
         await Promise.all([
             (async () => this.blogCreate(faker.lorem.sentence(), faker.lorem.paragraph()))(),
@@ -125,6 +145,18 @@ class Seeder {
         ]);
     }
 
+    createMusea = async () => {
+        await Promise.all([
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+        ]);
+    }
+
     createUsers = async () => {
         await Promise.all([
             (async () => this.userCreate(faker.internet.email(), 'wicked4u'))(),
@@ -136,7 +168,8 @@ class Seeder {
             (async () => this.userCreate(faker.internet.email(), 'wicked4u'))(),
         ]);
     }
-
+    
+    
     getRandomCategory = () => {
         let category = null;
         if (this.categories && this.categories.length > 0) {
@@ -178,6 +211,13 @@ class Seeder {
             }
             return Blog.find().exec();
         });
+        
+        this.musea = await Museum.estimatedDocumentCount().exec().then(async (count) => {
+            if (count === 0) {
+                await this.createMusea();
+            }
+            return Museum.find().exec();
+        });
 
         this.users = await User.estimatedDocumentCount().exec().then(async (count) => {
             if (count === 0) {
@@ -185,6 +225,7 @@ class Seeder {
             }
             return User.find().exec();
         });
+        
     }
 }
 export default Seeder;

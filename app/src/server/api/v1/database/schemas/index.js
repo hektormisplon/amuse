@@ -2,11 +2,15 @@
 import Blog from './blog.schema';
 import Category from './category.schema';
 import Post from './post.schema';
+import Tour from './tour.schema'
+import Museum from './museum.schema';
 import User from './user.schema';
 
 export {
     Blog,
     Category,
     Post,
+    Tour,
+    Museum,
     User,
 };

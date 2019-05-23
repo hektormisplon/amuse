@@ -1,13 +1,3 @@
-# NMD MERN Template
-
-Template for the course **Mobile Development II** specialisation **New Media Development** in the department **Graphical and Digital Media** within **Artevelde University College Ghent**.
-
-Template consists of:
-
-- Node.js
-- Express
-- React
-
 ## setup
 ### 1. install 
 ```
@@ -52,61 +42,41 @@ Running the Express-server and React-client in development
 yarn start:all
 ```
 
-The React-client must be build in order to visit the default route: `http://{your domain}:{your port}/`. Run `yarn client:build` to create a `build` folder under the root of the `client` folder.
+client must be built to visit default route: `http://{your domain}:{your port}/` (yarn client build)
 
 #### Running the tests for Express-server
-
 Under the root execute:
-
 ```
 yarn server:test
 ```
-
 #### Check eslint for the server
-
 Under the root execute:
-
 ```
 yarn server:lint
 ```
-
 #### Running the React-app
-
 Under the root execute:
-
 ```
 yarn client:start
 ```
-
 #### Building the React-app
-
 Under the root execute:
-
 ```
 yarn client:build
 ```
-
 This command creates a directory `build` under the client folder. Afster building, the `build` folder will be copied to the `dist\client` folder (under the root of the project).
 
 #### Running the tests for React-client
-
 Under the root execute:
-
 ```
 yarn client:test
 ```
 
-## API Specification
-
-### Urls
-
+## api
+### docs
 - [Swagger Ui for Express](http://{your domain}:{your port]/api/v1/docs/)
 - [ReDoc](http://{your domain}:{your port]/docs/)
-
-## Client
-
-### Urls
-
+### urls
 - Public
   - Home: http://{your domain}:{your port]
   - News: http://{your domain}:{your port]/news
@@ -122,17 +92,3 @@ yarn client:test
   - Posts List: http://{your domain}:{your port]/admin/posts
   - Post Create: http://{your domain}:{your port]/admin/posts/create
   - Post Edit: http://{your domain}:{your port]/admin/posts/{post id}/edit
-
-## Built With
-
-- Node.js
-- Express
-- React
-
-## Authors
-
-Philippe De Pauw - Waterschoot | [drdynscript](https://github.com/drdynscript)
-
-## License
-
-This project is licensed under the Apache License - see the LICENSE file for details
