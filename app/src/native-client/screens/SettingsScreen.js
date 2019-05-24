@@ -18,14 +18,17 @@ export default class SettingsScreen extends React.Component {
       <SafeAreaView>
         
       <View style={styles.topContainer}>
-      <Switch/>
+      <Switch style={styles.switch}></Switch>
 
 
       <Title>Mijn clubs</Title>
       <View style={styles.hokjes}>
-      <Text style={styles.contentHokjes}>Club 1</Text>
-      <Text style={styles.contentHokjes}>Club 2</Text>
-      <Text style={styles.contentHokjes}>Club 3</Text>
+      <Text style={styles.contentHokjes}>Beeldhouwkunst {"\n"}
+        <Text>28 leden</Text></Text>
+      <Text style={styles.contentHokjes}>Schilderkunst {"\n"}
+        <Text>28 leden</Text></Text>
+      <Text style={styles.contentHokjes}>Moderne kunst {"\n"} 
+        <Text>28 leden</Text></Text>
       </View>
 
 
@@ -33,7 +36,7 @@ export default class SettingsScreen extends React.Component {
       <View style={styles.hokjes}>
       <Text style={styles.contentHokjes}>Evenement 1</Text>
       <Text style={styles.contentHokjes}>Evenement 2</Text>
-      <Text style={styles.contentHokjes}>Evenemnt 3</Text>     
+      <Text style={styles.contentHokjes}>Evenement 3</Text>     
       </View>
 
 
@@ -49,17 +52,22 @@ export default class SettingsScreen extends React.Component {
 const styles = StyleSheet.create({
   topContainer: {
     height: Dimensions.get('window').height,
-    justifyContent: 'center',
+    //justifyContent: 'center',
     color: Colors.primaryBrand.light,
+    margin: 20,
   },
 
   hokjes: {
     flex:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderRadius: 10,
   },
 
-
+  switch: {
+    justifyContent: 'center',
+    marginLeft: 300,
+  },
 
   contentHokjes: {
     width: 120, 
@@ -67,10 +75,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryBrand.light,
     color: 'white',
     justifyContent: 'center',
+    borderRadius: 15, //werkt niet???
+    textAlign: 'center', // <-- the magic
+    fontWeight: 'bold',
+
+
   },
-
-
-
-
 
 });
