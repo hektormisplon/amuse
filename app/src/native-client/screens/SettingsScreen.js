@@ -3,7 +3,7 @@ import { Text, Title } from '../components/StyledText';
 import { Dimensions, StyleSheet, Switch, View, AppRegistry } from 'react-native';
 import Colors from '../constants/Colors';
 import { SafeAreaView, createAppContainer, createStackNavigator, NavigationEvents } from 'react-navigation';
-
+//import { Button } from 'react-native-switch';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -24,6 +24,7 @@ export default class SettingsScreen extends React.Component {
       <View style={styles.hokjes}>
       <Text style={styles.contentHokjes}>Beeldhouwkunst {"\n"}
         <Text>28 leden</Text></Text>
+        {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Agenda')}>   */}
       <Text style={styles.contentHokjes}>Schilderkunst {"\n"}
         <Text>28 leden</Text></Text>
       <Text style={styles.contentHokjes}>Moderne kunst {"\n"} 
