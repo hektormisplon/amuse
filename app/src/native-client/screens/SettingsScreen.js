@@ -1,15 +1,14 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import { Text, Title } from '../components/StyledText';
 import { Dimensions, StyleSheet, Switch, View, AppRegistry } from 'react-native';
 import Colors from '../constants/Colors';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, createAppContainer, createStackNavigator, NavigationEvents } from 'react-navigation';
 
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    //title: 'Clubs',
-    header: null,
+    title: 'Clubs',
+    //header: null,
   };
 
   render(){
