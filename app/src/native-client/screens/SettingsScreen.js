@@ -22,7 +22,7 @@ export default class SettingsScreen extends React.Component {
 
 
       <Title>Mijn clubs</Title>
-      <View style={styles.hokjesHorizontaal}>
+      <View style={styles.hokjes}>
       <Text style={styles.contentHokjes}>Club 1</Text>
       <Text style={styles.contentHokjes}>Club 2</Text>
       <Text style={styles.contentHokjes}>Club 3</Text>
@@ -30,7 +30,7 @@ export default class SettingsScreen extends React.Component {
 
 
       <Title>Opkomende evenementen</Title>
-      <View style={styles.hokjesVerticaal}>
+      <View style={styles.hokjes}>
       <Text style={styles.contentHokjes}>Evenement 1</Text>
       <Text style={styles.contentHokjes}>Evenement 2</Text>
       <Text style={styles.contentHokjes}>Evenemnt 3</Text>     
@@ -53,23 +53,23 @@ const styles = StyleSheet.create({
     color: Colors.primaryBrand.light,
   },
 
-  hokjesHorizontaal: {
+  hokjes: {
     flex:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
 
-  hokjesVerticaal: {
-    flex:1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
+
 
   contentHokjes: {
-    width: 100, 
-    height: 50, 
+    width: 120, 
+    height: 240, 
     backgroundColor: Colors.primaryBrand.light,
-  }
+    color: 'white',
+    justifyContent: 'center',
+  },
+
+
 
 
 
