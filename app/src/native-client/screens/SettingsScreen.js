@@ -1,15 +1,14 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import { Text, Title } from '../components/StyledText';
 import { Dimensions, StyleSheet, Switch, View, AppRegistry } from 'react-native';
 import Colors from '../constants/Colors';
-import { SafeAreaView } from 'react-navigation';
-
+import { SafeAreaView, createAppContainer, createStackNavigator, NavigationEvents } from 'react-navigation';
+//import { Button } from 'react-native-switch';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    //title: 'Clubs',
-    header: null,
+    title: 'Clubs',
+    //header: null,
   };
 
   render(){
@@ -18,22 +17,26 @@ export default class SettingsScreen extends React.Component {
       <SafeAreaView>
         
       <View style={styles.topContainer}>
-      <Switch/>
+      <Switch style={styles.switch}></Switch>
 
 
       <Title>Mijn clubs</Title>
-      <View style={styles.hokjesHorizontaal}>
-      <Text style={styles.contentHokjes}>Club 1</Text>
-      <Text style={styles.contentHokjes}>Club 2</Text>
-      <Text style={styles.contentHokjes}>Club 3</Text>
+      <View style={styles.hokjes}>
+      <Text style={styles.contentHokjes}>Beeldhouwkunst {"\n"}
+        <Text>28 leden</Text></Text>
+        {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Agenda')}>   */}
+      <Text style={styles.contentHokjes}>Schilderkunst {"\n"}
+        <Text>28 leden</Text></Text>
+      <Text style={styles.contentHokjes}>Moderne kunst {"\n"} 
+        <Text>28 leden</Text></Text>
       </View>
 
 
       <Title>Opkomende evenementen</Title>
-      <View style={styles.hokjesVerticaal}>
+      <View style={styles.hokjes}>
       <Text style={styles.contentHokjes}>Evenement 1</Text>
       <Text style={styles.contentHokjes}>Evenement 2</Text>
-      <Text style={styles.contentHokjes}>Evenemnt 3</Text>     
+      <Text style={styles.contentHokjes}>Evenement 3</Text>     
       </View>
 
 
@@ -49,28 +52,34 @@ export default class SettingsScreen extends React.Component {
 const styles = StyleSheet.create({
   topContainer: {
     height: Dimensions.get('window').height,
-    justifyContent: 'center',
+    //justifyContent: 'center',
     color: Colors.primaryBrand.light,
+    margin: 20,
   },
 
-  hokjesHorizontaal: {
+  hokjes: {
     flex:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderRadius: 10,
   },
 
-  hokjesVerticaal: {
-    flex:1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  switch: {
+    justifyContent: 'center',
+    marginLeft: 300,
   },
 
   contentHokjes: {
-    width: 100, 
-    height: 50, 
+    width: 120, 
+    height: 240, 
     backgroundColor: Colors.primaryBrand.light,
-  }
+    color: 'white',
+    justifyContent: 'center',
+    borderRadius: 15, //werkt niet???
+    textAlign: 'center', // <-- the magic
+    fontWeight: 'bold',
 
 
+  },
 
 });
