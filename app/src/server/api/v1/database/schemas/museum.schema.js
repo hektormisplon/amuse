@@ -6,14 +6,15 @@ const { Schema } = mongoose;
 
 const MuseumSchema = new Schema(
     {
-        title: {type:String, required: true, max: 128},
-        body: { type: String, required: false },
+        shortName: {type:String, required: false, max: 128},
+        name: { type: String, required: true, max: 256 },
+        coords: { type: [{
+            lng: { type: Number },
+            lat: { type: Number },
+        }]},
         slug: {
             type: String, lowercase: true, unique: true, required: true
         },
-        published_at: { type: Date, required: false },
-        deleted_at: { type: Date, required: false },
-        categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: false },
     },
     {
         toJSON: { virtuals: true },

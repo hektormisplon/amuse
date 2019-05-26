@@ -100,11 +100,11 @@ class Seeder {
         }
     }
 
-    museumCreate = async (title, body) => {
+    museumCreate = async (shortName, name, coords) => {
         const museumDetail = {
-            title,
-            body,
-            categoryId: this.getRandomCategory()
+            shortName,
+            name,
+            coords,
         };
         const museum = new Museum(museumDetail);
 
@@ -147,13 +147,10 @@ class Seeder {
 
     createMusea = async () => {
         await Promise.all([
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
-            (async () => this.museumCreate(faker.lorem.sentence(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), faker.lorem.sentence(), [{lng: 0, lat: 0}]))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), faker.lorem.sentence(), [{lng: 0, lat: 0}]))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), faker.lorem.sentence(), [{lng: 0, lat: 0}]))(),
+            (async () => this.museumCreate(faker.lorem.sentence(), faker.lorem.sentence(), [{lng: 0, lat: 0}]))(),
         ]);
     }
 
