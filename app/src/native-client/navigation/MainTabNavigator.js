@@ -4,7 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ClubScreen from '../screens/ClubScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 const HomeStack = createStackNavigator({
@@ -39,11 +39,11 @@ ProfileStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const ClubStack = createStackNavigator({
+  Club: ClubScreen,
 });
 
-SettingsStack.navigationOptions = {
+ClubStack.navigationOptions = {
   tabBarLabel: 'Clubs',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -56,7 +56,7 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   ProfileStack,
-  SettingsStack,
+  ClubStack,
 },
 {
   initialRouteName: 'ProfileStack',
