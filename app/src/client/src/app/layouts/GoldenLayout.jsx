@@ -5,6 +5,9 @@ export default class GoldenLayout extends Component {
     return (
       <div className={'container_full'}>
         <div className={'golden-grid_2'}>
+          <main>
+            {this.props.children}
+          </main>
           </div>
           <div className="circle"></div>
       </div>
