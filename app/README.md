@@ -1,9 +1,10 @@
 ## setup
-### install 
+
+Install dependencies (root & client folders)
+
 `yarn install`
 
-### dotenv
-create `.env` file in root containing:
+create `.env` file (root)
 ```
 NMD_BASELINE='Like Graphics Love Code'  
 NODE_ENV={your node environment} (Development, Production or Staging)  
@@ -22,6 +23,7 @@ create `.env` file in `src/client` containing:
 SKIP_PREFLIGHT_CHECK=true
 SASS_PATH=node_modules:src
 ```
+
 ## scripts
 
 ### run for development
