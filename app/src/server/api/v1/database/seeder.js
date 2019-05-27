@@ -14,13 +14,14 @@ Import the internal libraries:
 - User
 */
 import { logger } from '../../../utilities';
-import { Blog, Category, Post, Museum, User } from './schemas';
+import { Blog, Category, Post, Tour, Museum, User } from './schemas';
 
 class Seeder {
     constructor() {
         this.blogs = [];
         this.categories = [];
         this.posts = [];
+        this.tours = [];
         this.musea = [];
         this.users = [];
     }
