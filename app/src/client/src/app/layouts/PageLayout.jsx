@@ -16,7 +16,7 @@ class PageLayout extends React.Component {
                 <main className="main" role="main">
                     { children }
                 </main>
-                <footer className="footer" role="footer">
+                <footer className="footer" role="footer" style={{fontFamily: 'HKGrotesk', fontWeight: 'normal'}}>
                     FOOTER
                 </footer>
             </div>
