@@ -3,7 +3,6 @@ import { Text, SubTitle, Title } from '../components/StyledText';
 import { Dimensions, StyleSheet, Switch, View, AppRegistry } from 'react-native';
 import Colors from '../constants/Colors';
 import { SafeAreaView, createAppContainer, createStackNavigator, NavigationEvents } from 'react-navigation';
-//import { Button } from 'react-native-switch';
 
 export default class ClubScreen extends React.Component {
   static navigationOptions = {
@@ -20,23 +19,20 @@ export default class ClubScreen extends React.Component {
         <Title>Mijn clubs</Title>
         <View style={styles.cardContainer}>
           <View style={styles.card}>
-            <SubTitle style={styles.cardText}>Beeldhouwkunst {"\n"}
+            <SubTitle style={styles.cardText}>Beeldhouwkunst</SubTitle>
               <Text>28 leden</Text>
-            </SubTitle>
           </View>
           <View style={styles.card}>
-            <SubTitle style={styles.cardText}>Schilderkunst {"\n"}
+            <SubTitle style={styles.cardText}>Schilderkunst</SubTitle>
+
               <Text>28 leden</Text>
-            </SubTitle>
           </View>
           <View style={styles.card}>
-            <SubTitle style={styles.cardText}>Moderne kunst {"\n"}
+            <SubTitle style={styles.cardText}>Moderne kunst</SubTitle>
               <Text>28 leden</Text>
-            </SubTitle>
           </View>
             {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Agenda')}>   */}
         </View>
-
         <Title>Opkomende evenementen</Title>
         <View style={styles.cardContainer}>
           <View style={styles.card}>

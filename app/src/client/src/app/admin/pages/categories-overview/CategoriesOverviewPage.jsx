@@ -15,6 +15,9 @@ Pages
 import PostsTablePage from '../posts-table';
 import PostFormPage from '../post-form';
 
+import MuseaTablePage from '../musea-table';
+import MuseumFormPage from '../museum-form';
+
 const tabs = [
   { id: 'List', link: '/admin/categories' },
   { id: 'Create new category', link: '/admin/categories/create' },
