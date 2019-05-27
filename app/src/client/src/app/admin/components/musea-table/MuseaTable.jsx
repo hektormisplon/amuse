@@ -1,14 +1,10 @@
-/*
-External libraries
-*/
+// External libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Enum from "es6-enum";
 
-/*
-Material UI
-*/
+// Material UI
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -29,9 +25,6 @@ import Paper from '@material-ui/core/Paper';
 
 const POSTACTIONSENUM = Enum('DELETE', 'SOFTDELETE', 'SOFTUNDELETE');
 
-/*
-Styles
-*/
 const styles = theme => ({
   root: {
     marginTop: theme.spacing.unit * 3,
@@ -55,8 +48,6 @@ class MuseaTable extends Component {
     dialogTitle: '',
     dialogMessage: ''
   };
-
-  
 
   handleDialogOpen = (museumId, museumAction) => {
     let title = '';

@@ -1,26 +1,17 @@
-/*
-Import external libraries
-*/
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import { EditorState } from 'draft-js';
 
-/*
-Material UI
-*/
+// material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper";
 
-/*
-Custom Form
-*/
+// custom form
 import Form from "./Form";
 
-/*
-Validation
-*/
+// form validation
 const validationSchema = Yup.object(
 {
     shortName: Yup.string("Enter a title").required("Title is required").min(10).max(128),
@@ -28,9 +19,7 @@ const validationSchema = Yup.object(
     coords: Yup.string('Enter the coords').required('Coords are required'),
 });
 
-/*
-Styling
-*/
+// styling
 const styles = theme => ({
  paper: {
    marginTop: theme.spacing.unit * 8,
@@ -40,16 +29,13 @@ const styles = theme => ({
    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 5}px ${theme
      .spacing.unit * 5}px`
  },
- container: {
-   
- }
 });
 
 class MuseumForm extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
     }
-    
+
     state = {
         categories: [],
         museum: { shortName: "", name: "", coords: "", categoryId: "", },
@@ -57,7 +43,6 @@ class MuseumForm extends Component {
 
     componentWillMount() {
         this.loadCategories();
-        
         if (this.props.museumId) {            
             this.loadMuseum(this.props.museumId);
         }
@@ -70,7 +55,6 @@ class MuseumForm extends Component {
                 mode: 'cors',
                 cache: 'default'
             };
-
             const response = await fetch('/api/v1/categories', options);
             console.log(response);
             const responseJson = await response.json();
