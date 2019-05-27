@@ -1,27 +1,24 @@
-import React from 'react';
-/*
-Import styling
-*/
-import logo from '../assets/logo/logo.svg';
-import Header from '../components/header/header.js'
-import './Page.sass';
+import React from "react";
+import Header from "../components/header/header.js";
+import "./Page.sass";
 
 class PageLayout extends React.Component {
-    render() {
-        const { children, classes } = this.props;
-
-        return (
-            <div className="page">
-                <Header />
-                <main className="main" role="main">
-                    { children }
-                </main>
-                <footer className="footer" role="footer" style={{fontFamily: 'HKGrotesk', fontWeight: 'normal'}}>
-                    FOOTER
-                </footer>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="page">
+        <Header />
+        <main className="main" role="main">
+          {this.props.children}
+        </main>
+        <footer
+          className="footer"
+          style={{ fontFamily: "HKGrotesk", fontWeight: "normal" }}
+        >
+          FOOTER
+        </footer>
+      </div>
+    );
+  }
 }
- 
+
 export default PageLayout;

@@ -1,17 +1,9 @@
-/*
-Import extenal libraries
-*/
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-/*
-Material UI
-*/
-import Grid from '@material-ui/core/Grid';
+// Material UI
+import Grid from "@material-ui/core/Grid";
 
-/*
-Components
-*/
-import MuseumForm from '../../components/museum-form';
+import MuseumForm from "../../components/museum-form";
 
 class MuseumFormPage extends Component {
   render() {
@@ -19,16 +11,12 @@ class MuseumFormPage extends Component {
 
     return (
       <Grid container spacing={24}>
-          <Grid item xs={12}>
-              {id ? (
-              <MuseumForm postId={id} />
-              ) : (
-              <MuseumForm />
-              )}
-          </Grid>
+        <Grid item xs={12}>
+          {id ? <MuseumForm postId={id} /> : <MuseumForm />}
+        </Grid>
       </Grid>
-    )
+    );
   }
 }
 
-export default (MuseumFormPage);
+export default MuseumFormPage;
