@@ -17,6 +17,7 @@ export default class ClubScreen extends React.Component {
       <SafeAreaView>
       <View style={styles.topContainer}>
         <Switch style={styles.switch}></Switch>
+      {/*   <Image source={require('../dist/client/static/media/logo.de89e55.svg')} /> */}
         <Title>Mijn clubs</Title>
         <View style={styles.cardContainer}>
           <View style={styles.card}>
@@ -60,8 +61,8 @@ export default class ClubScreen extends React.Component {
 const styles = StyleSheet.create({
   topContainer: {
     height: Dimensions.get('window').height,
-    //justifyContent: 'center',
-    color: Colors.primaryBrand.light,
+    justifyContent: 'center',
+    color: Colors.primaryBrand.dark,
     margin: 20,
   },
 
@@ -78,8 +79,8 @@ const styles = StyleSheet.create({
   },
 
   switch: {
-    // justifyContent: 'center',
-    // marginLeft: 300,
+    justifyContent: 'center',
+    marginLeft: 300,
   },
 
   cardText: {
