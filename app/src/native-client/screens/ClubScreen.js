@@ -24,7 +24,6 @@ export default class ClubScreen extends React.Component {
           </View>
           <View style={styles.card}>
             <SubTitle style={styles.cardText}>Schilderkunst</SubTitle>
-
               <Text>28 leden</Text>
           </View>
           <View style={styles.card}>
@@ -56,21 +55,21 @@ export default class ClubScreen extends React.Component {
 const styles = StyleSheet.create({
   topContainer: {
     height: Dimensions.get('window').height,
-    //justifyContent: 'center',
     color: Colors.primaryBrand.light,
-    margin: 20,
+    margin: 20
   },
 
   cardContainer: {
     flex:1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
 
   card: {
     width: '30%',
     height: '30%',
     backgroundColor: '#333',
+    borderRadius: 100,
   },
 
   switch: {
