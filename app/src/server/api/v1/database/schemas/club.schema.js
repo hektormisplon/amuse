@@ -4,14 +4,9 @@ import slug from 'slug';
 
 const { Schema } = mongoose;
 
-const MuseumSchema = new Schema(
+const ClubSchema = new Schema(
     {
-        shortName: {type:String, required: false, max: 128},
-        name: { type: String, required: true, max: 256 },
-        coords: { type: [{
-            lng: { type: Number },
-            lat: { type: Number },
-        }]},
+        title: { type: String, required: true, max: 256 },
         // slug: {
         //     type: String, lowercase: true, unique: true, required: true
         // },
@@ -25,26 +20,25 @@ const MuseumSchema = new Schema(
     },
 );
 
-MuseumSchema.methods.slugify = function () {
+ClubSchema.methods.slugify = function () {
     this.slug = slug(this.title);
 };
 
-MuseumSchema.pre('validate', function (next) {
+ClubSchema.pre('validate', function (next) {
     if (!this.slug) {
         this.slugify();
     }
     return next();
 });
 
-MuseumSchema.virtual('id').get(function () { return this._id; });
-MuseumSchema.virtual('category', {
+ClubSchema.virtual('id').get(function () { return this._id; });
+ClubSchema.virtual('category', {
     ref: 'Category',
     localField: 'categoryId',
     foreignField: '_id',
     justOne: true,
 });
 
-MuseumSchema.plugin(mongoosePaginate);
+ClubSchema.plugin(mongoosePaginate);
 
-// 3rd parameter to explicitly name database plural (otherwise mongodb adds 's')
-export default mongoose.model('Museum', MuseumSchema, 'musea');
+export default mongoose.model('Club', ClubSchema);

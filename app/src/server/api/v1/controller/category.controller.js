@@ -1,18 +1,8 @@
-/*
-Import the external libraries:
-- uuidv4
-*/
-
-/*
-Import the internal libraries:
-- * from database
-- errorHandler
-*/
 import { Category } from '../database';
 import { APIError, handleAPIError } from '../../../utilities';
 
 class CategoryController {
-    // List all the models
+    // List all models
     index = async (req, res, next) => {
         try {
             const { limit, skip } = req.query;
@@ -29,7 +19,7 @@ class CategoryController {
             }
 
             if (categories === undefined || categories === null) {
-                throw new APIError(404, 'Collection for categories not found!');
+                throw new APIError(404, 'Collection for categories not found');
             }
             return res.status(200).json(categories);
         } catch (err) {

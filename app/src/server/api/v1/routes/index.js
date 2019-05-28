@@ -20,6 +20,8 @@ import postRouter from './post.routes';
 import tourRouter from './tour.routes';
 import museumRouter from './museum.routes';
 import userRouter from './user.routes';
+import clubRouter from './club.routes';
+import badgeRouter from './badge.routes';
 
 // Initialize the AuthService
 const authService = new AuthService();
@@ -33,5 +35,7 @@ postRouter(apiV1Router, authService);
 tourRouter(apiV1Router, authService);
 museumRouter(apiV1Router, authService);
 userRouter(apiV1Router, authService);
+clubRouter(apiV1Router, authService);
+badgeRouter(apiV1Router, authService);
 
 export default apiV1Router;

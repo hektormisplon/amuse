@@ -32,16 +32,18 @@
   - [ ] Edit museum info
 
 # Database
-- [ ] Create routes
+- [X] Create routes
   - [X] Tours
   - [X] Musea
-  - [X] Users
-  - [ ] Badges
-  - [ ] Clubs
+  - [X] Badges
+  - [X] Clubs
 
 - [ ] Configure routes
   - [ ] Tours
+    - [ ] seeding / create
   - [ ] Musea
-  - [ ] Users
+    - [ ] seeding / create
   - [ ] Badges
+    - [ ] seeding / create
   - [ ] Clubs
+    - [ ] seeding / create

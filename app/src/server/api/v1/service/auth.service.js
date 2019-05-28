@@ -1,19 +1,10 @@
-/*
-Import external libraries
-*/
 import passport from 'passport';
 import * as passportLocal from 'passport-local';
 import passportJWT from 'passport-jwt';
 
-/*
-Import internal libraries
-*/
 import { User } from '../database';
 import config from '../../../config';
 
-/*
-Constants
-*/
 const LocalStrategy = passportLocal.Strategy;
 const { ExtractJwt, Strategy: JwtStrategy } = passportJWT;
 

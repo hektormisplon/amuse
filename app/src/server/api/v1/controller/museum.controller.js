@@ -28,7 +28,6 @@ class MuseumController {
             } else {
                 musea = await Museum.find().populate('category').sort({ created_at: -1 }).exec();
             }
-
             if (musea === undefined || musea === null) {
                 throw new APIError(404, 'Collection for musea not found!');
             }
@@ -37,7 +36,6 @@ class MuseumController {
             return handleAPIError(500, err.message || 'Some error occurred while retrieving musea', next);
         }
     };
-
     // Show specific model by id
     show = async (req, res, next) => {
         try {
@@ -51,7 +49,6 @@ class MuseumController {
             return handleAPIError(err.status || 500, err.message || 'Some error occurred while retrieving musea', next);
         }
     }
-
     // ViewModel for Insert / Create
     create = (req, res) => {
         const vm = {
@@ -59,7 +56,6 @@ class MuseumController {
         };
         return res.status(200).json(vm);
     }
-
     // Store / Create the new model
     store = async (req, res, next) => {
         try {
@@ -74,14 +70,11 @@ class MuseumController {
             return handleAPIError(err.status || 500, err.message || 'Some error occurred while saving the Museum!', next);
         }
     }
-
     // ViewModel for Edit / Update
     edit = async (req, res, next) => {
         const { id } = req.params;
-
         try {
             const museum = await Museum.findById(id).exec();
-
             if (!museum) {
                 throw new APIError(404, `Museum with id: ${id} not found!`);
             } else {
@@ -95,15 +88,12 @@ class MuseumController {
             return handleAPIError(err.status || 500, err.message || `Some error occurred while deleting the Museum with id: ${id}!`, next);
         }
     }
-
     // Update the model
     update = async (req, res, next) => {
         const { id } = req.params;
-
         try {
             const museumUpdate = req.body;
             const museum = await Museum.findOneAndUpdate({ _id: id }, museumUpdate, { new: true }).exec();
-
             if (!museum) {
                 throw new APIError(404, `Museum with id: ${id} not found!`);
             }
@@ -112,14 +102,11 @@ class MuseumController {
             return handleAPIError(err.status || 500, err.message || `Some error occurred while deleting the Museum with id: ${id}!`, next);
         }
     }
-
     // Delete / Destroy the model
     destroy = async (req, res, next) => {
         const { id } = req.params;
-
         try {
             let museum = null;
-
             let { mode } = req.query;
             if (mode) {
                 museum = await Museum.findByIdAndUpdate({ _id: id }, { deleted_at: (mode === 'softdelete' ? Date.now() : null) }, { new: true });
@@ -127,7 +114,6 @@ class MuseumController {
                 mode = 'delete';
                 museum = await Museum.findOneAndRemove({ _id: id });
             }
-
             if (!museum) {
                 throw new APIError(404, `Museum with id: ${id} not found!`);
             } else {

@@ -7,14 +7,9 @@ import faker from 'faker';
 /*
 Import the internal libraries:
 - logger
-- Blog
-- Category
-- Post
-- Museum
-- User
 */
 import { logger } from '../../../utilities';
-import { Blog, Category, Post, Tour, Museum, User } from './schemas';
+import { Blog, Category, Post, Tour, Museum, User, Club, Badge } from './schemas';
 
 class Seeder {
     constructor() {
@@ -24,6 +19,8 @@ class Seeder {
         this.tours = [];
         this.musea = [];
         this.users = [];
+        this.clubs = [];
+        this.badges = [];
     }
 
     blogCreate = async (title, description) => {
@@ -101,6 +98,24 @@ class Seeder {
         }
     }
 
+    
+    tourCreate = async (title) => {
+        const tourDetail = {
+            title,
+            categoryId: this.getRandomCategory(),
+        };
+        const tour = new Tour(tourDetail);
+
+        try {
+            const newTour = await tour.save();
+            this.tours.push(newTour);
+            logger.log({ level: 'info', message: `Post created with id: ${newTour.id}!` });
+        } catch (err) {
+            logger.log({ level: 'info', message: `An error occurred when creating a post: ${err}!` });
+        }
+    }
+
+
     museumCreate = async (shortName, name, coords) => {
         const museumDetail = {
             shortName,
@@ -144,6 +159,14 @@ class Seeder {
             (async () => this.postCreate(faker.lorem.sentence(), faker.lorem.paragraph(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
             (async () => this.postCreate(faker.lorem.sentence(), faker.lorem.paragraph(), `<p>${faker.lorem.paragraphs(10, '</p></p>')}</p>`))(),
         ]);
+    }
+
+    createTours = async () => {
+        await Promise.all([
+            (async () => this.tourCreate(faker.lorem.sentence())),
+            (async () => this.tourCreate(faker.lorem.sentence())),
+            (async () => this.tourCreate(faker.lorem.sentence())),
+        ])
     }
 
     createMusea = async () => {
@@ -195,28 +218,30 @@ class Seeder {
             }
             return Category.find().exec();
         });
-
         this.posts = await Post.estimatedDocumentCount().exec().then(async (count) => {
             if (count === 0) {
                 await this.createPosts();
             }
             return Post.find().exec();
         });
-
         this.blogs = await Blog.estimatedDocumentCount().exec().then(async (count) => {
             if (count === 0) {
                 await this.createBlogs();
             }
             return Blog.find().exec();
         });
-        
+        this.tours = await Tour.estimatedDocumentCount().exec().then(async (count) => {
+            if(count === 0) {
+                await this.createTours();
+            }
+            return Tour.find().exec();
+        });
         this.musea = await Museum.estimatedDocumentCount().exec().then(async (count) => {
             if (count === 0) {
                 await this.createMusea();
             }
             return Museum.find().exec();
         });
-
         this.users = await User.estimatedDocumentCount().exec().then(async (count) => {
             if (count === 0) {
                 await this.createUsers();

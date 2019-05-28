@@ -1,8 +1,3 @@
-/*
-Import the internal libraries:
-- * from database
-- errorHandler
-*/
 import { APIError, handleAPIError, createToken } from '../../../utilities';
 import config from '../../../config';
 
@@ -11,7 +6,7 @@ class AuthController {
         authService.passport.authenticate('local', config.jwtSession, (err, user, info) => {
             if (err) { return next(err); }
             if (!user) {
-                return next(new Error("kkjkj"));
+                return next(new Error("Not logged in."));
             }
             req.auth = {
                 id: user.id,

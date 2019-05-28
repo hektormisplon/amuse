@@ -43,5 +43,4 @@ TourSchema.virtual('category', {
 
 TourSchema.plugin(mongoosePaginate);
 
-// 3rd parameter to explicitly name database plural (otherwise mongodb adds 's')
 export default mongoose.model('Tour', TourSchema);

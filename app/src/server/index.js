@@ -1,7 +1,3 @@
-/* eslint-disable import/order */
-/*
-Import configuration
-*/
 import config from './config';
 
 /*

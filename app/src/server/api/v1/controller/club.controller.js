@@ -1,46 +1,46 @@
-import { Blog } from '../database';
+import { Club } from '../database';
 import { APIError, handleAPIError } from '../../../utilities';
 
-class BlogController {
+class ClubController {
     // List all models
     index = async (req, res, next) => {
         try {
-            const blogs = await Blog.find().populate('__category').sort({ created_at: -1 }).exec();
-            if (blogs === undefined || blogs === null) {
-                throw new APIError(404, 'Collection for blogs not found');
+            const clubs = await Club.find().populate('__category').sort({ created_at: -1 }).exec();
+            if (clubs === undefined || clubs === null) {
+                throw new APIError(404, 'Collection for clubs not found');
             }
-            return res.status(200).json(blogs);
+            return res.status(200).json(clubs);
         } catch (err) {
-            return handleAPIError(500, err.message || 'Could not list blogs', next);
+            return handleAPIError(500, err.message || 'Could not list clubs', next);
         }
     };
     // Show specific model by id
     show = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const item = await Blog.findById(id).populate('__category').populate('__posts').exec();
+            const item = await Club.findById(id).populate('__category').populate('__posts').exec();
             if (item === undefined || item === null) {
-                throw new APIError(404, `Blog with id: ${id} not found!`);
+                throw new APIError(404, `Club with id: ${id} not found!`);
             }
             return res.status(200).json(item);
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || 'Could not show blogs', next);
+            return handleAPIError(err.status || 500, err.message || 'Could not show clubs', next);
         }
     }
     // ViewModel for Insert / Create
     create = (req, res) => {
         const vm = {
-            blogs: [],
+            clubs: [],
         };
         return res.status(200).json(vm);
     }
     // Store / Create the new model
     store = async (req, res, next) => {
         try {
-            const categoryCreate = new Blog({
+            const categoryCreate = new Club({
                 title: req.body.title,
-                synopsis: req.body.synopsis,
-                body: req.body.body,
+                // synopsis: req.body.synopsis,
+                // body: req.body.body,
             });
             const blog = await categoryCreate.save();
             return res.status(201).json(blog);
@@ -53,14 +53,14 @@ class BlogController {
         const { id } = req.params;
 
         try {
-            const blog = await Blog.findById(id).exec();
+            const blog = await Club.findById(id).exec();
 
             if (!blog) {
-                throw new APIError(404, `Blog with id: ${id} not found`);
+                throw new APIError(404, `Club with id: ${id} not found`);
             } else {
                 const vm = {
                     blog,
-                    blogs: [],
+                    clubs: [],
                 };
                 return res.status(200).json(vm);
             }
@@ -74,10 +74,10 @@ class BlogController {
 
         try {
             const categoryUpdate = req.body;
-            const blog = await Blog.findOneAndUpdate({ _id: id }, categoryUpdate, { new: true }).exec();
+            const blog = await Club.findOneAndUpdate({ _id: id }, categoryUpdate, { new: true }).exec();
 
             if (!blog) {
-                throw new APIError(404, `Blog with id: ${id} not found`);
+                throw new APIError(404, `Club with id: ${id} not found`);
             }
             return res.status(200).json(blog);
         } catch (err) {
@@ -88,10 +88,10 @@ class BlogController {
     destroy = async (req, res, next) => {
         const { id } = req.params;
         try {
-            const blog = await Blog.findOneAndRemove({ _id: id });
+            const blog = await Club.findOneAndRemove({ _id: id });
 
             if (!blog) {
-                throw new APIError(404, `Blog with id: ${id} not found!`);
+                throw new APIError(404, `Club with id: ${id} not found!`);
             } else {
                 return res.status(200).json({ message: `Deleted blog (id: ${id})` });
             }
@@ -101,4 +101,4 @@ class BlogController {
     }
 }
 
-export default BlogController;
+export default ClubController;
