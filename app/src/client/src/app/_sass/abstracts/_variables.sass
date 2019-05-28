@@ -1,12 +1,14 @@
+// golden ratio
+$phi: 1.6180339887498948482;
 
+@function golden-ratio($value, $increment)
+  @return modular-scale($value, $increment, $phi)
+    
 // font
-
-$font-family-heebo: 'Heebo', sans-serif
-$font-family-roboto: 'Roboto', sans-serif
-$font-family-sourcecodepro: 'Source Code Pro', monospace
+$font-family-hk: 'HKGrotesk', sans-serif
 
 // colors
-
+$brand_white: #fff
 $brand_primary: #314452
 $brand_primary_dark: #212E3E
 $brand_secondary: #903F46

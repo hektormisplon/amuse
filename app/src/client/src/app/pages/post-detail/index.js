@@ -1,2 +1,1 @@
-import PostDetailPage from './PostDetailPage';
-export default PostDetailPage;
+export { default } from "./PostDetailPage";

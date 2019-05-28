@@ -1,2 +1,1 @@
-import Api from './Api';
-export default Api;
+export { default } from "./Api";

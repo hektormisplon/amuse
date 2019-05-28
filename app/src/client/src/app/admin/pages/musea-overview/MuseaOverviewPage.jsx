@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { /* Redirect, */ Route } from "react-router-dom";
+import React, { Component } from 'react';
+import { /* Redirect, */ Route } from 'react-router-dom';
 
-import { ContentLayout } from "../../layouts";
+import { ContentLayout } from '../../layouts';
 
 //pages
-import MuseaTablePage from "../musea-table";
-import MuseumFormPage from "../museum-form";
+import MuseaTablePage from '../musea-table';
+import MuseumFormPage from '../museum-form';
 
 const tabs = [
-  { id: "List", link: "/admin/musea" },
-  { id: "Create new museum", link: "/admin/musea/create" }
+  { id: 'List', link: '/admin/musea' },
+  { id: 'Create new museum', link: '/admin/musea/create' }
 ];
 
 class MuseaOverviewPage extends Component {

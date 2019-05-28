@@ -1,2 +1,1 @@
-import NewsPage from './NewsPage';
-export default NewsPage;
+export { default } from "./NewsPage";

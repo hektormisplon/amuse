@@ -14,27 +14,27 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
+      marginRight: 'auto'
+    }
+  }
 });
 
 class LoginLayout extends Component {
-    static propTypes = {
-        classes: PropTypes.object.isRequired,
-    };
+  static propTypes = {
+    classes: PropTypes.object.isRequired
+  };
 
-    render() {
-        const { children, classes } = this.props;
+  render() {
+    const { children, classes } = this.props;
 
-        return (
-            <div className="page">
-                <main className={ classes.main } role="main">
-                    { children }
-                </main>
-            </div>
-        )
-    }
+    return (
+      <div className="container">
+        <main className={classes.main} role="main">
+          {children}
+        </main>
+      </div>
+    );
+  }
 }
- 
+
 export default withStyles(styles)(LoginLayout);
