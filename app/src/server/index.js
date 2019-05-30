@@ -16,7 +16,7 @@ Import the external libraries:
 - passport
 */
 import http from 'http';
-/* import https from 'https'; */
+import https from 'https';
 import express from 'express';
 import morgan from 'morgan';
 import chalk from 'chalk';
@@ -27,6 +27,8 @@ import mongoose from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import passport from 'passport';
+
+import fs from 'fs';
 
 /*
 Import internal libraries
@@ -129,9 +131,7 @@ app.use((error, req, res, next) => {
             timestamp: new Date().getTime(),
         },
     };
-
     logger.log({ level: 'error', message: `${obj.error.message}` });
-
     if (req.xhr) {
         res.json(obj);
     } else if (!req.xhr && error.status === 404) {
@@ -142,12 +142,22 @@ app.use((error, req, res, next) => {
     return next();
 });
 
-// Create the http Node.js server
-const httpServer = http.Server(app);
+// Create server (http & https)
 
-// Launch the http server: ip and port
+// TODO: https
+// const httpsOptions = {
+    //     key: fs.readFileSync('./security/cert.key'),
+    //     cert: fs.readFileSync('./security/cert.pem')
+    // }
+// const httpsServer = https.Server(httpsOptions ,app);
+// httpsServer.listen(config.nodePort, config.nodeHostname, () => {
+//     logger.log({level: 'info', message: `Server running at https://${config.nodeHostname}:${config.nodePort}`});
+// });
+
+//http
+const httpServer = http.Server(app);
 httpServer.listen(config.nodePort, config.nodeHostname, () => {
-    logger.log({ level: 'info', message: `Server is running at http://${config.nodeHostname}:${config.nodePort} !` });
+    logger.log({ level: 'info', message: `Server running at http://${config.nodeHostname}:${config.nodePort}`});
 });
 
 if (config.nodeEnvironment === 'Development') {
@@ -155,5 +165,4 @@ if (config.nodeEnvironment === 'Development') {
     seeder.seed();
 }
 
-// Export our app for testing purposes
 export default app;
