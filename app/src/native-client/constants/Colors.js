@@ -9,6 +9,7 @@ export default {
     light: "#903F46",
     dark: "#89252F"
   },
+  white: "#fff",
   ternaryBrand: "#BCB29C",
   tintColor,
   tabIconDefault: "#ccc",

@@ -20,6 +20,8 @@ import { Text, Title } from "../components/StyledText";
 
 import Colors from "../constants/Colors";
 import TourList from "../components/TourList";
+import { UserMarker, MuseumMarker } from "../components/MapMarker";
+import mapStyle from "../constants/mapStyle";
 
 export default class TourScreen extends Component {
   state = {
@@ -95,6 +97,7 @@ export default class TourScreen extends Component {
 
   render() {
     const { loading, tours, locationEnabled, location } = this.state;
+
     return (
       <SafeAreaView>
         {locationEnabled ? (
@@ -117,6 +120,9 @@ export default class TourScreen extends Component {
         <View style={styles.bottomContainer}>
           {location && (
             <MapView
+              rotateEnabled={false}
+              loadingEnabled={true}
+              customMapStyle={mapStyle}
               style={styles.map}
               initialRegion={{
                 latitude: 51.05,
@@ -131,23 +137,15 @@ export default class TourScreen extends Component {
                 longitudeDelta: 0.0421
               }}
             >
-              {/* <React.Fragment>
-                {!loading && (
-                  <View>
-                    {tours.map((tour, index) => {
-                      return (
-                        <MapView.Marker
-                          key={index}
-                          coordinate={{
-                            latitude: Number(tour.waypoints[0].lat),
-                            longitude: Number(tour.waypoints[0].lng)
-                          }}
-                        />
-                      );
-                    })}
-                  </View>
-                )}
-              </React.Fragment> */}
+              <MapView.Marker
+                coordinate={{
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude
+                }}
+                title={"Your are here"}
+              >
+                <UserMarker />
+              </MapView.Marker>
               {!loading && (
                 <View>
                   {tours[0].waypoints.map((waypoint, index) => {
@@ -158,19 +156,14 @@ export default class TourScreen extends Component {
                           latitude: Number(waypoint["lat"]),
                           longitude: Number(waypoint["lng"])
                         }}
-                        title={index.toString()}
-                      />
+                        title={tours[0].title}
+                      >
+                        <MuseumMarker />
+                      </MapView.Marker>
                     );
                   })}
                 </View>
               )}
-              <MapView.Marker
-                coordinate={{
-                  latitude: location.coords.latitude,
-                  longitude: location.coords.longitude
-                }}
-                title={"Your are here"}
-              />
             </MapView>
           )}
         </View>
