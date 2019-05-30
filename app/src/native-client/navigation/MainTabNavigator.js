@@ -1,70 +1,67 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from "react";
+import { Platform } from "react-native";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import ClubScreen from '../screens/ClubScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import TabBarIcon from "../components/TabBarIcon";
+import TourScreen from "../screens/TourScreen";
+import ClubScreen from "../screens/ClubScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const TourStack = createStackNavigator({
+  Tour: TourScreen
 });
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Tours',
+TourStack.navigationOptions = {
+  tabBarLabel: "Tours",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? 'map'
-          : 'map'
-      }
+      name={Platform.OS === "ios" ? "map" : "map"}
     />
-  ),
+  )
 };
 
 const ProfileStack = createStackNavigator({
-  Links: ProfileScreen,
+  Links: ProfileScreen
 });
-
 ProfileStack.navigationOptions = {
-  tabBarLabel: 'Badges',
+  tabBarLabel: "Badges",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'user' : 'user'}
+      name={Platform.OS === "ios" ? "user" : "user"}
     />
-  ),
+  )
 };
 
 const ClubStack = createStackNavigator({
-  Club: ClubScreen,
+  Club: ClubScreen
 });
-
 ClubStack.navigationOptions = {
-  tabBarLabel: 'Clubs',
+  tabBarLabel: "Clubs",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'users' : 'users'}
+      name={Platform.OS === "ios" ? "users" : "users"}
     />
-  ),
+  )
 };
 
-export default createBottomTabNavigator({
-  HomeStack,
-  ProfileStack,
-  ClubStack,
-},
-{
-  initialRouteName: 'ProfileStack',
-  tabBarOptions: {
-    showLabel: false,
-    style: {
-      height: 60,
-    },
+export default createBottomTabNavigator(
+  {
+    TourStack,
+    ProfileStack,
+    ClubStack
+  },
+  {
+    initialRouteName: "TourStack",
+    tabBarOptions: {
+      showLabel: false,
+      style: {
+        height: 60
+      }
+    }
   }
-}
 );

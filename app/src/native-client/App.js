@@ -6,9 +6,6 @@ import AppNavigator from './navigation/AppNavigator';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    locationEnabled: null,
-    location: null,
-    errorMessage: null
   };
 
   render() {
@@ -23,7 +20,6 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          {console.log(this.state.locationEnabled)}
           <AppNavigator />
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         </View>
@@ -41,25 +37,7 @@ export default class App extends React.Component {
         'HKGrotesk-medium': require('./assets/fonts/HKGrotesk-Medium.otf'),
         'VremenaGrotesk-medium': require('./assets/fonts/VremenaGroteskMedium.otf'),
       }),
-      this._checkLocationServices(),
-      this.state.locationEnabled ? this._getLocationAsync() : null,
     ]);
-  };
-
-  _checkLocationServices = async () => {
-    let locationEnabled = await Location.hasServicesEnabledAsync();
-    locationEnabled ? this.setState({ locationEnabled: true }) : this.setState({locationEnabled: false})
-  }
-
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted' ) {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
-    let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
   };
 
   _handleLoadingError = error => {
