@@ -148,7 +148,6 @@ export default class TourScreen extends Component {
               </MapView.Marker>
               {!loading && (
                 <View>
-                  {console.log(tours)}
                   {tours.map(tour => {
                     return tour.waypoints.map((waypoint, index) => {
                       return (
