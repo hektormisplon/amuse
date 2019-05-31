@@ -20,6 +20,7 @@ export const TabBar = props => {
     renderIcon,
     jumpTo
   } = props;
+
   return (
     <SafeAreaView
       pointerEvents="box-none"
@@ -29,7 +30,7 @@ export const TabBar = props => {
         bottom: "always"
       }}
     >
-      <View pointerEvents="box-none" style={styles.content}>
+      <View pointerEvents="box-none" style={[styles.content, style]}>
         {routes.map((route, idx) => {
           const focused = index === idx;
           if (!route.params || !route.params.navigationDisabled) {

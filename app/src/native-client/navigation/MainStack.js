@@ -77,15 +77,9 @@ export default createBottomTabNavigator(
   },
   {
     initialRouteName: "TourStack",
-    tabBarComponent: props => <TabBar {...props} />,
-    tabBarOptions: {
-      showLabel: false,
-      activeTintColor: "#F8F8F8",
-      inactiveTintColor: "#586589",
-      style: {
-        backgroundColor: "#171F33"
-      },
-      tabStyle: {}
+    // TODO: redux tabbar color
+    tabBarComponent: props => {
+      return <TabBar {...props} />;
     }
   }
 );
