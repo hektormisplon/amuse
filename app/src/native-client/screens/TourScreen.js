@@ -39,7 +39,7 @@ export default class TourScreen extends Component {
     AppState.addEventListener("change", this._handleAppStateChange);
     this._checkLocationServices();
     this._getLocationAsync();
-    fetch(`${api}/api/v1/tours`)
+    fetch(`http://${api}/api/v1/tours`)
       .then(res => {
         return res.json();
       })
@@ -148,19 +148,22 @@ export default class TourScreen extends Component {
               </MapView.Marker>
               {!loading && (
                 <View>
-                  {tours[0].waypoints.map((waypoint, index) => {
-                    return (
-                      <MapView.Marker
-                        key={index.toString()}
-                        coordinate={{
-                          latitude: Number(waypoint["lat"]),
-                          longitude: Number(waypoint["lng"])
-                        }}
-                        title={tours[0].title}
-                      >
-                        <MuseumMarker />
-                      </MapView.Marker>
-                    );
+                  {console.log(tours)}
+                  {tours.map(tour => {
+                    return tour.waypoints.map((waypoint, index) => {
+                      return (
+                        <MapView.Marker
+                          key={index.toString()}
+                          coordinate={{
+                            latitude: waypoint["lat"],
+                            longitude: waypoint["lng"]
+                          }}
+                          title={tour.title}
+                        >
+                          <MuseumMarker />
+                        </MapView.Marker>
+                      );
+                    });
                   })}
                 </View>
               )}
@@ -185,6 +188,8 @@ const styles = StyleSheet.create({
     color: Colors.primaryBrand.light
   },
   map: {
-    flex: 1
+    // flex: 1,
+    height: "110%",
+    width: "100%"
   }
 });
