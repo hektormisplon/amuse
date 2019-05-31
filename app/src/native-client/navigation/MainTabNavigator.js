@@ -1,13 +1,6 @@
 import React from "react";
 import { Platform } from "react-native";
 import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  SafeAreaView,
-  TouchableOpacity
-} from "react-native";
-import {
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
@@ -17,10 +10,18 @@ import TourScreen from "../screens/TourScreen";
 import ClubScreen from "../screens/ClubScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
-import MainTourButton from "../components/MainTourButton";
-import { TabBar } from "../components/TabBar";
-
-import Colors from "../constants/Colors";
+const TourStack = createStackNavigator({
+  Tour: TourScreen
+});
+TourStack.navigationOptions = {
+  tabBarLabel: "Tours",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "map" : "map"}
+    />
+  )
+};
 
 const ProfileStack = createStackNavigator({
   Links: ProfileScreen
@@ -32,21 +33,6 @@ ProfileStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === "ios" ? "user" : "user"}
     />
-  )
-};
-
-const TourStack = createStackNavigator({
-  Tour: TourScreen
-});
-TourStack.navigationOptions = {
-  tabBarLabel: "Tours",
-  tabBarIcon: ({ focused }) => (
-    <View style={styles.tourTab}>
-      <TabBarIcon
-        focused={focused}
-        name={Platform.OS === "ios" ? "map" : "map"}
-      />
-    </View>
   )
 };
 
@@ -65,39 +51,17 @@ ClubStack.navigationOptions = {
 
 export default createBottomTabNavigator(
   {
-    ProfileStack,
-    // AddStack: {
-    //   screen: () => null, // Empty screen
-    //   navigationOptions: () => ({
-    //     tabBarIcon: <MainTourButton /> // Plus button component
-    //   })
-    // },
     TourStack,
+    ProfileStack,
     ClubStack
   },
   {
-    initialRouteName: "ProfileStack",
-    tabBarComponent: props => <TabBar {...props} />,
+    initialRouteName: "TourStack",
     tabBarOptions: {
       showLabel: false,
-      activeTintColor: "#F8F8F8",
-      inactiveTintColor: "#586589",
       style: {
-        backgroundColor: "#171F33"
-      },
-      tabStyle: {}
+        height: 60
+      }
     }
   }
 );
-
-const styles = StyleSheet.create({
-  tourTab: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 120,
-    height: 120,
-    backgroundColor: Colors.primaryBrand.light,
-    borderRadius: 60
-  }
-});

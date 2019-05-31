@@ -8,7 +8,13 @@ import {
   Button,
   AppState
 } from "react-native";
-import { Location, Permissions, IntentLauncherAndroid, MapView } from "expo";
+import {
+  Constants,
+  Location,
+  Permissions,
+  IntentLauncherAndroid,
+  MapView
+} from "expo";
 import { SafeAreaView } from "react-navigation";
 import { Text, Title } from "../components/StyledText";
 
@@ -17,14 +23,7 @@ import TourList from "../components/TourList";
 import { UserMarker, MuseumMarker } from "../components/MapMarker";
 import mapStyle from "../constants/mapStyle";
 
-import api from "../config/api";
-
 export default class TourScreen extends Component {
-  static navigationOptions = {
-    title: "Tours",
-    header: null
-  };
-
   state = {
     loading: true,
     tours: [],
@@ -39,22 +38,23 @@ export default class TourScreen extends Component {
     AppState.addEventListener("change", this._handleAppStateChange);
     this._checkLocationServices();
     this._getLocationAsync();
-    fetch(`${api}/api/v1/tours`)
+    fetch("http://192.168.20.116:3000/api/v1/tours")
       .then(res => {
         return res.json();
       })
       .then(json => this.setState({ tours: json, loading: false }))
-      .catch(err => {
-        this.setState({ loading: true });
-        console.log("Could not fetch maps");
-      });
+      .then(() => {
+        this.state.tours.forEach(tour => {
+          console.log(JSON.stringify(tour));
+        });
+      })
+      .catch(err => this.setState({ loading: false }));
   }
 
   componentWillUnmount() {
     AppState.removeEventListener("change", this._handleAppStateChange);
   }
 
-  // makes sure map reloads after user changes location settings
   _handleAppStateChange = nextAppState => {
     if (
       this.state.appState.match(/inactive|background/) &&
@@ -66,7 +66,6 @@ export default class TourScreen extends Component {
     this.setState({ appState: nextAppState });
   };
 
-  // check & remember if location services enabled
   _checkLocationServices = async () => {
     let locationEnabled = await Location.hasServicesEnabledAsync();
     locationEnabled
@@ -74,7 +73,6 @@ export default class TourScreen extends Component {
       : this.setState({ locationEnabled: false });
   };
 
-  // get user's current location
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
@@ -87,7 +85,6 @@ export default class TourScreen extends Component {
     this.setState({ location });
   };
 
-  // redirect to settings/location settings
   showLocationSettings = () => {
     if (Platform.OS === "ios") {
       Linking.openURL("app-settings:");
@@ -102,9 +99,12 @@ export default class TourScreen extends Component {
     const { loading, tours, locationEnabled, location } = this.state;
 
     return (
-      <React.Fragment>
+      <SafeAreaView>
         {locationEnabled ? (
-          <View style={styles.topContainer} />
+          <View style={styles.topContainer}>
+            <Title>Tour name</Title>
+            <Text>Tour details</Text>
+          </View>
         ) : (
           <View style={styles.topContainer}>
             <Button
@@ -167,21 +167,19 @@ export default class TourScreen extends Component {
             </MapView>
           )}
         </View>
-      </React.Fragment>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   topContainer: {
-    flex: 0.38,
-    // height: Dimensions.get("window").height * 0.38,
+    height: Dimensions.get("window").height * 0.38,
     justifyContent: "center",
     color: Colors.primaryBrand.light
   },
   bottomContainer: {
-    flex: 0.62,
-    // height: Dimensions.get("window").height * 0.62,
+    height: Dimensions.get("window").height * 0.62,
     color: Colors.primaryBrand.light
   },
   map: {
