@@ -17,7 +17,7 @@ import TourScreen from "../screens/TourScreen";
 import ClubScreen from "../screens/ClubScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
-import MainTourButton from "../components/MainTourButton";
+import { MainTourButton } from "../components/MainTourButton";
 import { TabBar } from "../components/TabBar";
 
 import Colors from "../constants/Colors";
@@ -68,15 +68,15 @@ export default createBottomTabNavigator(
     ProfileStack,
     // AddStack: {
     //   screen: () => null, // Empty screen
-    //   navigationOptions: () => ({
-    //     tabBarIcon: <MainTourButton /> // Plus button component
+    //   navigationOptions: ({ props }) => ({
+    //     tabBarIcon: <MainTourButton {...props} /> // Plus button component
     //   })
     // },
     TourStack,
     ClubStack
   },
   {
-    initialRouteName: "ProfileStack",
+    initialRouteName: "TourStack",
     tabBarComponent: props => <TabBar {...props} />,
     tabBarOptions: {
       showLabel: false,
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: 120,
-    height: 120,
+    width: 90,
+    height: 90,
     backgroundColor: Colors.primaryBrand.light,
     borderRadius: 60
   }

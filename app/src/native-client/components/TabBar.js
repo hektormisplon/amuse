@@ -32,7 +32,6 @@ export const TabBar = props => {
       <View pointerEvents="box-none" style={styles.content}>
         {routes.map((route, idx) => {
           const focused = index === idx;
-
           if (!route.params || !route.params.navigationDisabled) {
             return (
               <TabIcon
@@ -49,13 +48,11 @@ export const TabBar = props => {
               />
             );
           }
-
           const Icon = renderIcon({
             route,
             focused,
             tintColor: focused ? activeTintColor : inactiveTintColor
           });
-
           return {
             ...Icon,
             key: "simple"
@@ -101,30 +98,31 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     justifyContent: "flex-end",
-    minHeight: 120,
-    borderWidth: 1,
-    borderColor: "#ff0000"
-  },
-  fakeBackground: {
-    position: "absolute",
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#00ff00"
+    minHeight: 120
   },
   content: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#0000ff"
+    margin: 30,
+    borderRadius: 30,
+    backgroundColor: Colors.white,
+    shadowColor: Colors.primaryBrand.light,
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 10
   },
   tabStyle: {
-    height: 90,
-    width: 90,
+    height: 60,
+    width: 60,
+    borderRadius: 60,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "#000"
+    backgroundColor: Colors.white,
+    shadowColor: Colors.primaryBrand.light,
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 5
   }
 });
