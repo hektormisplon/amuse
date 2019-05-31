@@ -156,8 +156,8 @@ app.use((error, req, res, next) => {
 
 //http
 const httpServer = http.Server(app);
-httpServer.listen(config.nodePort, config.nodeHostname, () => {
-    logger.log({ level: 'info', message: `Server running at http://${config.nodeHostname}:${config.nodePort}`});
+httpServer.listen(config.nodePort, config.address, () => {
+    logger.log({ level: 'info', message: `Serving http://${config.address}:${config.nodePort}/`});
 });
 
 if (config.nodeEnvironment === 'Development') {
