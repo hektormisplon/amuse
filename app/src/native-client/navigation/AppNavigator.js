@@ -1,10 +1,17 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import bottomTabNavigator from "./MainTabNavigator";
+import MainStack from "./MainStack";
+import AuthStack from "./AuthStack";
 
 export default createAppContainer(
-  createSwitchNavigator({
-    // You could add another route here for authentication.
-    // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    Main: bottomTabNavigator
-  })
+  createSwitchNavigator(
+    {
+      // reference - https://reactnavigation.org/docs/en/auth-flow.html
+      Auth: AuthStack,
+      Main: MainStack
+    },
+    {
+      // initialRouteName: "Auth"
+      initialRouteName: "Main"
+    }
+  )
 );
