@@ -6,18 +6,17 @@ import {
   StyleSheet,
   View,
   Button,
-  AppState
+  AppState,
+  Animated
 } from "react-native";
 import { Location, Permissions, IntentLauncherAndroid, MapView } from "expo";
-import { SafeAreaView } from "react-navigation";
-import { Text, Title } from "../components/StyledText";
+import { Text } from "../components/StyledText";
 
 import Colors from "../constants/Colors";
-import TourList from "../components/TourList";
 import { UserMarker, MuseumMarker } from "../components/MapMarker";
 import mapStyle from "../constants/mapStyle";
 
-import MapCard from "../components/MapCard";
+import CardMap from "../components/CardMap";
 
 import api from "../config/api";
 
@@ -28,28 +27,31 @@ export default class TourScreen extends Component {
   };
 
   state = {
-    loading: true,
-    tours: [],
+    tours: null,
+    tourWaypoints: null,
     appState: AppState.currentState,
-    mapRegion: null,
     locationEnabled: null,
-    locationPermission: false,
-    location: null
+    location: null,
+    region: {
+      latitude: 51.0538286,
+      longitude: 3.7250121,
+      latitudeDelta: 0.04864195044303443,
+      longitudeDelta: 0.040142817690068
+    }
   };
 
   componentDidMount() {
-    AppState.addEventListener("change", this._handleAppStateChange);
     this._checkLocationServices();
     this._getLocationAsync();
     fetch(`http://${api}/api/v1/tours`)
       .then(res => {
         return res.json();
       })
-      .then(json => this.setState({ tours: json, loading: false }))
+      .then(json => this.setState({ tours: json }))
       .catch(err => {
-        this.setState({ loading: true });
         console.log("Could not fetch maps");
       });
+    AppState.addEventListener("change", this._handleAppStateChange);
   }
 
   componentWillUnmount() {
@@ -80,9 +82,6 @@ export default class TourScreen extends Component {
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
-      this.setState({
-        locationPermission: false
-      });
       return;
     }
     let location = await Location.getCurrentPositionAsync({});
@@ -100,9 +99,12 @@ export default class TourScreen extends Component {
     }
   };
 
-  render() {
-    const { loading, tours, locationEnabled, location } = this.state;
+  showTourWaypoints = index => {
+    this.setState({ tourWaypoints: this.state.tours[index].waypoints });
+  };
 
+  render() {
+    const { tours, locationEnabled, location, tourWaypoints } = this.state;
     return (
       <React.Fragment>
         {locationEnabled === false && (
@@ -117,59 +119,34 @@ export default class TourScreen extends Component {
             </Text>
           </View>
         )}
-        <View style={styles.bottomContainer}>
-          <MapCard />
-          {/* {location && (
-            <MapView
-              rotateEnabled={false}
-              loadingEnabled={true}
-              customMapStyle={mapStyle}
-              style={styles.map}
-              initialRegion={{
-                latitude: 51.05,
-                longitude: 3.71667,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421
-              }}
-              region={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421
-              }}
-            >
-              <MapView.Marker
-                coordinate={{
-                  latitude: location.coords.latitude,
-                  longitude: location.coords.longitude
-                }}
-                title={"Your are here"}
-              >
-                <UserMarker />
-              </MapView.Marker>
-              {!loading && (
-                <View>
-                  {tours.map(tour => {
-                    return tour.waypoints.map((waypoint, index) => {
-                      return (
-                        <MapView.Marker
-                          key={index.toString()}
-                          coordinate={{
-                            latitude: waypoint["lat"],
-                            longitude: waypoint["lng"]
-                          }}
-                          title={tour.title}
-                        >
-                          <MuseumMarker />
-                        </MapView.Marker>
-                      );
-                    });
-                  })}
-                </View>
-              )}
-            </MapView>
-          )} */}
-        </View>
+        {/* {tours && <CardMap data={tours} />} */}
+        {tours && (
+          <MapView
+            ref={map => (this.map = map)}
+            initialRegion={this.state.region}
+            style={styles.bottomContainer}
+            customMapStyle={mapStyle}
+          >
+            {tours.map((tour, index) => {
+              return (
+                <MapView.Marker
+                  key={index}
+                  coordinate={tour.waypoints[0]}
+                  onPress={() => this.showTourWaypoints(index)}
+                >
+                  <Animated.View style={styles.markerWrap}>
+                    <Animated.View style={styles.ring} />
+                    <View style={styles.marker} />
+                  </Animated.View>
+                </MapView.Marker>
+              );
+            })}
+            {tourWaypoints &&
+              tourWaypoints.map((waypoint, index) => {
+                return <MapView.Marker key={index} coordinate={waypoint} />;
+              })}
+          </MapView>
+        )}
       </React.Fragment>
     );
   }
@@ -177,19 +154,40 @@ export default class TourScreen extends Component {
 
 const styles = StyleSheet.create({
   topContainer: {
-    flex: 1,
+    flex: 1
     // height: Dimensions.get("window").height * 0.38,
-    justifyContent: "center",
-    color: Colors.primaryBrand.light
+    // color: Colors.primaryBrand.light
+    // justifyContent: "center",
   },
   bottomContainer: {
-    flex: 1.62,
+    flex: 1.62
     // height: Dimensions.get("window").height * 0.62,
-    color: Colors.primaryBrand.light
+    // color: Colors.primaryBrand.light
   },
   map: {
-    // flex: 1,
-    height: "110%",
-    width: "100%"
+    flex: 1
+  },
+
+  container: {
+    flex: 1
+  },
+  markerWrap: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  marker: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "rgba(130,4,150, 0.9)"
+  },
+  ring: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "rgba(130,4,150, 0.3)",
+    position: "absolute",
+    borderWidth: 1,
+    borderColor: "rgba(130,4,150, 0.5)"
   }
 });

@@ -11,6 +11,8 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import mapStyle from "../constants/mapStyle";
+
 import MapView from "react-native-maps";
 
 const Images = [
@@ -25,7 +27,7 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 0.38 * height - 45;
 const CARD_WIDTH = width;
 
-export default class MapCard extends Component {
+export default class CardMap extends Component {
   state = {
     markers: [
       {
@@ -133,6 +135,7 @@ export default class MapCard extends Component {
           ref={map => (this.map = map)}
           initialRegion={this.state.region}
           style={styles.container}
+          customMapStyle={mapStyle}
         >
           {this.state.markers.map((marker, index) => {
             const scaleStyle = {
@@ -182,14 +185,7 @@ export default class MapCard extends Component {
                 style={styles.cardImage}
                 resizeMode="cover"
               />
-              <View style={styles.textContent}>
-                {/* <Text numberOfLines={1} style={styles.cardtitle}>
-                  {marker.title}
-                </Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>
-                  {marker.description}
-                </Text> */}
-              </View>
+              <View style={styles.textContent} />
             </View>
           ))}
         </Animated.ScrollView>
@@ -264,5 +260,3 @@ const styles = StyleSheet.create({
     borderColor: "rgba(130,4,150, 0.5)"
   }
 });
-
-AppRegistry.registerComponent("mapfocus", () => MapCard);
