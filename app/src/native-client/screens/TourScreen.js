@@ -17,6 +17,8 @@ import TourList from "../components/TourList";
 import { UserMarker, MuseumMarker } from "../components/MapMarker";
 import mapStyle from "../constants/mapStyle";
 
+import MapCard from "../components/MapCard";
+
 import api from "../config/api";
 
 export default class TourScreen extends Component {
@@ -103,9 +105,7 @@ export default class TourScreen extends Component {
 
     return (
       <React.Fragment>
-        {locationEnabled ? (
-          <View style={styles.topContainer} />
-        ) : (
+        {locationEnabled === false && (
           <View style={styles.topContainer}>
             <Button
               title="Enable location"
@@ -118,7 +118,8 @@ export default class TourScreen extends Component {
           </View>
         )}
         <View style={styles.bottomContainer}>
-          {location && (
+          <MapCard />
+          {/* {location && (
             <MapView
               rotateEnabled={false}
               loadingEnabled={true}
@@ -167,7 +168,7 @@ export default class TourScreen extends Component {
                 </View>
               )}
             </MapView>
-          )}
+          )} */}
         </View>
       </React.Fragment>
     );
@@ -176,13 +177,13 @@ export default class TourScreen extends Component {
 
 const styles = StyleSheet.create({
   topContainer: {
-    flex: 0.38,
+    flex: 1,
     // height: Dimensions.get("window").height * 0.38,
     justifyContent: "center",
     color: Colors.primaryBrand.light
   },
   bottomContainer: {
-    flex: 0.62,
+    flex: 1.62,
     // height: Dimensions.get("window").height * 0.62,
     color: Colors.primaryBrand.light
   },
