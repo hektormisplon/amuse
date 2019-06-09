@@ -3,65 +3,71 @@ import { Text, SubTitle, Title } from "../components/StyledText";
 import { Dimensions, StyleSheet, Switch, View } from "react-native";
 import Colors from "../constants/Colors";
 import { SafeAreaView } from "react-navigation";
+
+import VerticalSplit from "../layouts/VerticalSplit";
+
 export default class ClubScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
   render() {
     return (
-      <SafeAreaView>
-        <View style={styles.topContainer}>
-          <Switch style={styles.switch} />
-          {/*   <Image source={require('../dist/client/static/media/logo.de89e55.svg')} /> */}
-          <Title>Mijn clubs</Title>
-          <View style={styles.cardContainer}>
-            <View style={styles.card}>
-              <SubTitle style={styles.cardText}>
-                Beeldhouwkunst {"\n"}
-                <Text>28 leden</Text>
-              </SubTitle>
+      <VerticalSplit
+        top={
+          <React.Fragment>
+            <Switch style={styles.switch} />
+            {/*   <Image source={require('../dist/client/static/media/logo.de89e55.svg')} /> */}
+            <Text type="title">Mijn clubs</Text>
+            <View style={styles.cardContainer}>
+              <View style={styles.card}>
+                <Text type="subtitle" style={styles.cardText}>
+                  Beeldhouwkunst {"\n"}
+                  <Text>28 leden</Text>
+                </Text>
+              </View>
+              <View style={styles.card}>
+                <Text type="subtitle" style={styles.cardText}>
+                  Schilderkunst {"\n"}
+                  <Text>28 leden</Text>
+                </Text>
+              </View>
+              <View style={styles.card}>
+                <Text type="subtitle" style={styles.cardText}>
+                  Moderne kunst {"\n"}
+                  <Text>28 leden</Text>
+                </Text>
+              </View>
+              {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Agenda')}>   */}
             </View>
-            <View style={styles.card}>
-              <SubTitle style={styles.cardText}>
-                Schilderkunst {"\n"}
-                <Text>28 leden</Text>
-              </SubTitle>
+          </React.Fragment>
+        }
+        bottom={
+          <React.Fragment>
+            <Text type="title">Opkomende evenementen</Text>
+            <View style={styles.cardContainer}>
+              <View style={styles.card}>
+                <Text type="subtitle" style={styles.cardText}>
+                  Evenement 1
+                </Text>
+              </View>
+              <View style={styles.card}>
+                <Text type="subtitle" style={styles.cardText}>
+                  Evenement 2
+                </Text>
+              </View>
+              <View style={styles.card}>
+                <Text type="subtitle" style={styles.cardText}>
+                  Evenement 3
+                </Text>
+              </View>
             </View>
-            <View style={styles.card}>
-              <SubTitle style={styles.cardText}>
-                Moderne kunst {"\n"}
-                <Text>28 leden</Text>
-              </SubTitle>
-            </View>
-            {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Agenda')}>   */}
-          </View>
-          <Title>Opkomende evenementen</Title>
-          <View style={styles.cardContainer}>
-            <View style={styles.card}>
-              <SubTitle style={styles.cardText}>Evenement 1</SubTitle>
-            </View>
-            <View style={styles.card}>
-              <SubTitle style={styles.cardText}>Evenement 2</SubTitle>
-            </View>
-            <View style={styles.card}>
-              <SubTitle style={styles.cardText}>Evenement 3</SubTitle>
-            </View>
-          </View>
-        </View>
-      </SafeAreaView>
+          </React.Fragment>
+        }
+      />
     );
   }
 }
 const styles = StyleSheet.create({
-  topContainer: {
-    height: Dimensions.get("window").height,
-    //justifyContent: 'center',
-    color: Colors.primaryBrand.light,
-    justifyContent: "center",
-    color: Colors.primaryBrand.dark,
-    margin: 20
-  },
-
   cardContainer: {
     flex: 1,
     flexDirection: "row",
@@ -73,13 +79,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryBrand.light,
     borderRadius: 15
   },
-
   switch: {
     // justifyContent: 'center',
     justifyContent: "center",
     marginLeft: 300
   },
-
   cardText: {
     color: "white",
     justifyContent: "center"
