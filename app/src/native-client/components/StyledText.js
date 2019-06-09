@@ -1,21 +1,36 @@
-import React from 'react';
-import { Text as NativeText } from 'react-native';
+import React from "react";
+import { Text as NativeText } from "react-native";
 
-export class Text extends React.Component {
-  render() {
-    return <NativeText {... this.props} style={[this.props.style, {fontFamily: 'HKGrotesk-light', fontSize: 18}]}></NativeText>
+const getStyle = type => {
+  const style = {
+    text: {
+      fontFamily: "HKGrotesk-light",
+      fontSize: 18
+    },
+    subTitle: {
+      fontFamily: "HKGrotesk-medium",
+      fontSize: 20
+    },
+    title: {
+      fontFamily: "VremenaGrotesk-medium",
+      fontSize: 32
+    }
+  };
+  switch (type) {
+    case "text":
+      return style.text;
+    case "subTitle":
+      return style.subTitle;
+    case "title":
+      return style.title;
   }
-}
+};
 
-// 32
-export class Title extends React.Component {
-  render() {
-    return <NativeText {... this.props} style={[this.props.style, {fontFamily: 'VremenaGrotesk-medium', fontSize: 32}]}></NativeText>
-  }
-}
-
-export class SubTitle extends React.Component {
-  render() {
-    return <NativeText {... this.props} style={[this.props.style, {fontFamily: 'HKGrotesk-medium', fontSize: 20}]}></NativeText>
-  }
-}
+export const Text = props => {
+  // TODO: add dynamic indexes (1 title - 2 subtitle - 3 text)
+  return (
+    <NativeText {...props} style={[props.style, getStyle(props.type)]}>
+      {props.children}
+    </NativeText>
+  );
+};
