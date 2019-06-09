@@ -119,8 +119,8 @@ export default class TourScreen extends Component {
             </Text>
           </View>
         )}
-        {/* {tours && <CardMap data={tours} />} */}
-        {tours && (
+        {tours && <CardMap data={tours} />}
+        {/* {tours && (
           <MapView
             ref={map => (this.map = map)}
             initialRegion={this.state.region}
@@ -141,12 +141,14 @@ export default class TourScreen extends Component {
                 </MapView.Marker>
               );
             })}
-            {tourWaypoints &&
-              tourWaypoints.map((waypoint, index) => {
-                return <MapView.Marker key={index} coordinate={waypoint} />;
-              })}
+            {tourWaypoints && (
+              <MapView.Polyline coordinates={tourWaypoints} />
+              // tourWaypoints.map((waypoint, index) => {
+              //   return <MapView.Marker key={index} coordinate={waypoint} />;
+              // })
+            )}
           </MapView>
-        )}
+        )} */}
       </React.Fragment>
     );
   }
