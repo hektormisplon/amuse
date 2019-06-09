@@ -1,7 +1,9 @@
 import React from "react";
-import { View, StyleSheet, FlatList, Button } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import Colors from "../constants/Colors";
+
+import Button from "../components/Button";
 
 import VerticalSplit from "../layouts/VerticalSplit";
 import BadgesContainer from "../components/BadgesContainer";

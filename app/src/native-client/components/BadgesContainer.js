@@ -31,7 +31,7 @@ export default class BadgesContainer extends Component {
   renderBadges = (badge, index) => {
     return (
       <View key={index} style={styles.badge}>
-        <Icon.Feather name="award" size={20} color={Colors.ternaryBrand} />
+        <Icon.Feather name="star" size={20} color={Colors.ternaryBrand} />
         <Text
           style={{
             color: Colors.white,
@@ -41,7 +41,6 @@ export default class BadgesContainer extends Component {
         >
           1/5
         </Text>
-        {/* <Text>{badge.title}</Text> */}
       </View>
     );
   };
