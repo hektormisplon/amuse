@@ -1,11 +1,20 @@
-import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon, Constants, Location, Permissions } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import React from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import {
+  AppLoading,
+  Asset,
+  Font,
+  Constants,
+  Location,
+  Permissions
+} from "expo";
+import AppNavigator from "./navigation/AppNavigator";
+
+import Icon from '@expo/vector-icons';
 
 export default class App extends React.Component {
   state = {
-    isLoadingComplete: false,
+    isLoadingComplete: false
   };
 
   render() {
@@ -21,7 +30,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           <AppNavigator />
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
         </View>
       );
     }
@@ -29,14 +38,13 @@ export default class App extends React.Component {
 
   _loadResourcesAsync = async () => {
     return Promise.all([
-      Asset.loadAsync([
-      ]),
+      Asset.loadAsync([]),
       Font.loadAsync({
         ...Icon.Feather.font,
-        'HKGrotesk-light': require('./assets/fonts/HKGrotesk-Light.otf'),
-        'HKGrotesk-medium': require('./assets/fonts/HKGrotesk-Medium.otf'),
-        'VremenaGrotesk-medium': require('./assets/fonts/VremenaGroteskMedium.otf'),
-      }),
+        "HKGrotesk-light": require("./assets/fonts/HKGrotesk-Light.otf"),
+        "HKGrotesk-medium": require("./assets/fonts/HKGrotesk-Medium.otf"),
+        "VremenaGrotesk-medium": require("./assets/fonts/VremenaGroteskMedium.otf")
+      })
     ]);
   };
 
@@ -52,7 +60,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
+    justifyContent: "center",
+    backgroundColor: "#fff"
+  }
 });
