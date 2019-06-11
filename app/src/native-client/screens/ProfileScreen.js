@@ -1,19 +1,14 @@
-import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-
-import Colors from "../constants/Colors";
-
-import Button from "../components/Button";
-
-import VerticalSplit from "../layouts/VerticalSplit";
-import BadgesContainer from "../components/BadgesContainer";
-import { Text } from "../components/StyledText";
+import React from 'react'
+import BadgesContainer from '../components/BadgesContainer'
+import Button from '../components/Button'
+import { Text } from '../components/StyledText'
+import VerticalSplit from '../layouts/VerticalSplit'
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
-    title: "Profile",
+    title: 'Profile',
     header: null
-  };
+  }
 
   render() {
     return (
@@ -25,7 +20,7 @@ export default class ProfileScreen extends React.Component {
         }
         bottom={
           <React.Fragment>
-            <Text type={"title"}>Hello, Jon Doe</Text>
+            <Text type={'title'}>Hello, Jon Doe</Text>
             <Button title="Settings" onPress={() => {}} />
             {/* TODO: make button component */}
             <Button
@@ -33,13 +28,13 @@ export default class ProfileScreen extends React.Component {
               onPress={() => {
                 // TODO: refactor
                 // TODO: sign out the user
-                this.props.navigation.navigate("Auth");
+                this.props.navigation.navigate('Auth')
               }}
             />
           </React.Fragment>
         }
       />
-    );
+    )
   }
 }
 

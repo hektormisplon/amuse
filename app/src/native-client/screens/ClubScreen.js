@@ -1,15 +1,13 @@
-import React from "react";
-import { Text, SubTitle, Title } from "../components/StyledText";
-import { Dimensions, StyleSheet, Switch, View } from "react-native";
-import Colors from "../constants/Colors";
-import { SafeAreaView } from "react-navigation";
-
-import VerticalSplit from "../layouts/VerticalSplit";
+import React from 'react'
+import { StyleSheet, Switch, View } from 'react-native'
+import { Text } from '../components/StyledText'
+import Colors from '../constants/Colors'
+import VerticalSplit from '../layouts/VerticalSplit'
 
 export default class ClubScreen extends React.Component {
   static navigationOptions = {
     header: null
-  };
+  }
   render() {
     return (
       <VerticalSplit
@@ -21,19 +19,19 @@ export default class ClubScreen extends React.Component {
             <View style={styles.cardContainer}>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
-                  Beeldhouwkunst {"\n"}
+                  Beeldhouwkunst {'\n'}
                   <Text>28 leden</Text>
                 </Text>
               </View>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
-                  Schilderkunst {"\n"}
+                  Schilderkunst {'\n'}
                   <Text>28 leden</Text>
                 </Text>
               </View>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
-                  Moderne kunst {"\n"}
+                  Moderne kunst {'\n'}
                   <Text>28 leden</Text>
                 </Text>
               </View>
@@ -64,28 +62,28 @@ export default class ClubScreen extends React.Component {
           </React.Fragment>
         }
       />
-    );
+    )
   }
 }
 const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly"
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   },
   card: {
-    width: "30%",
-    height: "30%",
+    width: '30%',
+    height: '30%',
     backgroundColor: Colors.primaryBrand.light,
     borderRadius: 15
   },
   switch: {
     // justifyContent: 'center',
-    justifyContent: "center",
+    justifyContent: 'center',
     marginLeft: 300
   },
   cardText: {
-    color: "white",
-    justifyContent: "center"
+    color: 'white',
+    justifyContent: 'center'
   }
-});
+})
