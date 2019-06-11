@@ -1,30 +1,13 @@
-import React, { Component } from "react";
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView
-} from "react-native";
-
-import axios from "axios";
-
-import Svg, { Path } from "react-native-svg";
-
-import { Icon } from "expo";
-
-import AuthActionContainer from "../components/AuthActionContainer";
+import React, { Component } from 'react'
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import Svg, { Path } from 'react-native-svg'
+import AuthActionContainer from '../components/AuthActionContainer'
+import Blob from '../components/Blob'
 
 export default class AuthScreen extends Component {
   static navigationOptions = {
     header: null
-  };
+  }
 
   render() {
     return (
@@ -34,6 +17,7 @@ export default class AuthScreen extends Component {
           behavior="height"
           enabled
         >
+          <Blob />
           <Svg width={150.104} height={75}>
             <Path fill="none" d="M0 0h150v75H0z" />
             <Path
@@ -46,15 +30,15 @@ export default class AuthScreen extends Component {
           <AuthActionContainer navigation={this.props.navigation} />
         </View>
       </React.Fragment>
-    );
+    )
   }
 }
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1.62,
-    justifyContent: "space-between"
+    justifyContent: 'space-between'
   },
   bottomContainer: {
     flex: 1
   }
-});
+})

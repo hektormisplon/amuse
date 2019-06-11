@@ -1,7 +1,6 @@
-import { createStackNavigator } from "react-navigation";
-
-import AuthLoadingScreen from "../screens/AuthLoadingScreen";
-import AuthScreen from "../screens/AuthScreen";
+import { createStackNavigator } from 'react-navigation'
+import AuthLoadingScreen from '../screens/AuthLoadingScreen'
+import AuthScreen from '../screens/AuthScreen'
 
 export default createStackNavigator(
   {
@@ -9,6 +8,6 @@ export default createStackNavigator(
     Auth: AuthScreen
   },
   {
-    initialRouteName: "AuthLoading"
+    initialRouteName: 'AuthLoading'
   }
-);
+)

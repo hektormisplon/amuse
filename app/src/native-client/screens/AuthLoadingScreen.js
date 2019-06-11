@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Button, StatusBar, ActivityIndicator } from "react-native";
+import { ActivityIndicator, Button, StatusBar, View } from "react-native";
 
 export default class AuthLoadingScreen extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class AuthLoadingScreen extends Component {
             this.props.navigation.navigate("Main");
           }}
         />
-      </View>
+        </View>
     );
   }
 }
