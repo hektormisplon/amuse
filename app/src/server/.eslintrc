@@ -5,6 +5,7 @@
       "func-names": 0,
       "indent": [ 2, 4 ],
       "no-underscore-dangle": [2, { "allow": ["_id"] }],
-      "prefer-default-export": false
+      "prefer-default-export": false,
+      "linebreak-style": "off"
     }
 }
