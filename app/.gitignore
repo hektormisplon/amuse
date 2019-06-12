@@ -68,3 +68,6 @@ dist/config/
 dist/utilities/
 dist/views/
 dist/index.js
+
+# Other
+.DS_Store
