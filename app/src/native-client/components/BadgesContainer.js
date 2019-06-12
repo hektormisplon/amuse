@@ -11,7 +11,7 @@ import {
 import { Colors } from '../styles'
 
 const data = [
-  { title: 'Badge', id: '01', icon: 'start' },
+  { title: 'Badge', id: '01', icon: 'star' },
   { title: 'Badge', id: '02', icon: 'star' },
   {
     title: 'Badge',
@@ -113,8 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
-    alignItems: 'center',
-    backgroundColor: Colors.primaryBrand.light
+    alignItems: 'center'
   },
   badgeHeader: {
     margin: 60
