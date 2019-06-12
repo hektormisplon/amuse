@@ -1,67 +1,56 @@
-import React from "react";
-import { Platform } from "react-native";
+import React from 'react'
+import { Platform, StyleSheet, View } from 'react-native'
 import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  SafeAreaView,
-  TouchableOpacity
-} from "react-native";
-import {
-  createStackNavigator,
-  createBottomTabNavigator
-} from "react-navigation";
-
-import TabBarIcon from "../components/TabBarIcon";
-import TourScreen from "../screens/TourScreen";
-import ClubScreen from "../screens/ClubScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-
-import { MainTourButton } from "../components/MainTourButton";
-import { TabBar } from "../components/TabBar";
-
-import Colors from "../constants/Colors";
+  createBottomTabNavigator,
+  createStackNavigator
+} from 'react-navigation'
+import { TabBar } from '../components/TabBar'
+import TabBarIcon from '../components/TabBarIcon'
+import ClubScreen from '../screens/ClubScreen'
+import ProfileScreen from '../screens/ProfileScreen'
+import TourScreen from '../screens/TourScreen'
+import { Colors } from '../styles'
 
 const ProfileStack = createStackNavigator({
   Links: ProfileScreen
-});
+})
 ProfileStack.navigationOptions = {
-  tabBarLabel: "Badges",
+  tabBarLabel: 'Badges',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "user" : "user"}
+      name={Platform.OS === 'ios' ? 'user' : 'user'}
     />
   )
-};
+}
 
 const TourStack = createStackNavigator({
   Tour: TourScreen
-});
+})
 TourStack.navigationOptions = {
-  tabBarLabel: "Tours",
+  tabBarLabel: 'Tours',
   tabBarIcon: ({ focused }) => (
     <View style={styles.tourTab}>
       <TabBarIcon
         focused={focused}
-        name={Platform.OS === "ios" ? "map" : "map"}
+        name={Platform.OS === 'ios' ? 'map' : 'map'}
       />
     </View>
   )
-};
+}
 
 const ClubStack = createStackNavigator({
   Club: ClubScreen
-});
+})
 ClubStack.navigationOptions = {
-  tabBarLabel: "Clubs",
+  tabBarLabel: 'Clubs',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "users" : "users"}
+      name={Platform.OS === 'ios' ? 'users' : 'users'}
     />
   )
-};
+}
 
 export default createBottomTabNavigator(
   {
@@ -76,22 +65,22 @@ export default createBottomTabNavigator(
     ClubStack
   },
   {
-    initialRouteName: "TourStack",
+    initialRouteName: 'TourStack',
     // TODO: redux tabbar color
     tabBarComponent: props => {
-      return <TabBar {...props} />;
+      return <TabBar {...props} />
     }
   }
-);
+)
 
 const styles = StyleSheet.create({
   tourTab: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 90,
     height: 90,
     backgroundColor: Colors.primaryBrand.light,
     borderRadius: 60
   }
-});
+})

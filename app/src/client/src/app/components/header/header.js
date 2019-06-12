@@ -17,7 +17,7 @@ export default class Header extends Component {
             Musea
           </a>
           <a href="/about" className="header_nav-link">
-            About
+           About
           </a>
           <a href="/login" className="header_nav-link">
             Sign In
