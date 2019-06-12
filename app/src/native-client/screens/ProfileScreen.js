@@ -1,7 +1,7 @@
 import React from 'react'
+import { Text, View } from 'react-native'
 import BadgesContainer from '../components/BadgesContainer'
-import Button from '../components/Button'
-import { Text } from '../components/StyledText'
+import ProfileActionContainer from '../components/ProfileActionContainer'
 import VerticalSplit from '../layouts/VerticalSplit'
 
 export default class ProfileScreen extends React.Component {
@@ -19,35 +19,14 @@ export default class ProfileScreen extends React.Component {
           </React.Fragment>
         }
         bottom={
-          <React.Fragment>
+          <View style={{ margin: 30 }}>
             <Text type={'title'}>Hello, Jon Doe</Text>
-            <Button title="Settings" onPress={() => {}} />
-            {/* TODO: make button component */}
-            <Button
-              title="Log out"
-              onPress={() => {
-                // TODO: refactor
-                // TODO: sign out the user
-                this.props.navigation.navigate('Auth')
-              }}
-            />
-          </React.Fragment>
+            <ProfileActionContainer />
+          </View>
         }
+        colored="top"
+        noPadding
       />
     )
   }
 }
-
-// const styles = StyleSheet.create({
-//   topContainer: {
-//     flex: 0.62,
-//     justifyContent: "center",
-//     color: Colors.primaryBrand.light,
-//     backgroundColor: Colors.primaryBrand.light
-//   },
-//   bottomContainer: {
-//     flex: 0.38,
-//     color: Colors.primaryBrand.light
-//     // backgroundColor: Colors.ternaryBrand
-//   }
-// });
