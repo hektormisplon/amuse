@@ -25,17 +25,17 @@ const initializeEndpoints = (parentRouter, authService) => {
     /**
      * @swagger
      * /api/v1/users/create:
-     *   get:
+     *   post:
      *     tags:
      *       - User
-     *     description: Returns specific viewmodel such as categories
+     *     description: Returns created user
      *     produces:
      *       - application/json
      *     responses:
      *       200:
      *         description: Create user
      */
-    parentRouter.get('/users/create/', userController.create);
+    parentRouter.post('/users/create/', userController.create);
     /**
      * @swagger
      * /api/v1/users/{id}:
@@ -59,10 +59,10 @@ const initializeEndpoints = (parentRouter, authService) => {
     /**
      * @swagger
      * /api/v1/users:
-     *   user:
+     *   post:
      *     tags:
      *       - User
-     *     description: Save user
+     *     description: Store user
      *     produces:
      *       - application/json
      *     parameters:
@@ -72,7 +72,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *         required: true
      *     responses:
      *       200:
-     *         description: Return saved user
+     *         description: Return stored user
      */
     parentRouter.post('/users', userController.store);
     /**
