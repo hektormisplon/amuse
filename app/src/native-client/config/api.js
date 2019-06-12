@@ -7,6 +7,7 @@ const api =
         .split(`:`)
         .shift()
         .concat(`:8080`)
-    : `http://192.168.20.116:8080`
+    : // :   `http://10.130.76.9:8080/`
+      `http://192.168.20.116:8080`
 
 export default api
