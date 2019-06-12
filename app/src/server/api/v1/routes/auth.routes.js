@@ -1,6 +1,6 @@
 import { AuthController } from '../controller';
 
-// Create instance of AuthController otherwise you can't use it
+// instantiate AuthController
 const authController = new AuthController();
 
 const initializeEndpoints = (parentRouter, authService) => {
