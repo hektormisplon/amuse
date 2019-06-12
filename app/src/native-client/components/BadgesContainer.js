@@ -1,17 +1,16 @@
 import Icon from '@expo/vector-icons'
 import React, { Component } from 'react'
-import {
-  Dimensions,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import { Dimensions, FlatList, StyleSheet, View } from 'react-native'
+import Badge from '../components/Badge'
 import { Colors } from '../styles'
 
 const data = [
-  { title: 'Badge', id: '01', icon: 'star' },
+  {
+    title: 'Badge',
+    id: '01',
+    icon: 'user',
+    description: 'Complete your profile'
+  },
   { title: 'Badge', id: '02', icon: 'star' },
   {
     title: 'Badge',
@@ -46,40 +45,6 @@ const data = [
 const width = Dimensions.get('window').width
 
 export default class BadgesContainer extends Component {
-  renderBadges = badge => {
-    const { title, id, icon, amount, locked } = badge.item
-    if (!locked) {
-      return (
-        <TouchableOpacity style={[styles.badge, styles.unlockedBadge]}>
-          <Icon.Feather
-            name={icon ? icon : 'star'}
-            size={15}
-            color={Colors.ternaryBrand}
-          />
-          <Text
-            style={{
-              color: Colors.white,
-              textAlign: 'center',
-              alignSelf: 'center'
-            }}
-          >
-            {amount && <Text>{amount}</Text>}
-          </Text>
-        </TouchableOpacity>
-      )
-    } else {
-      return (
-        <View style={[styles.badge, styles.lockedBadge]}>
-          <Icon.Feather
-            name={'lock'}
-            size={15}
-            color={Colors.secondaryBrand.light}
-          />
-        </View>
-      )
-    }
-  }
-
   formatData = (data, numCol) => {
     let numElIncompleteRow = data.length % numCol
     while (numElIncompleteRow !== numCol && numElIncompleteRow !== 0) {
@@ -88,10 +53,8 @@ export default class BadgesContainer extends Component {
     }
     return data
   }
-
   // TODO: unique badge id
   _keyExtractor = (item, index) => item.id
-
   render() {
     return (
       <View style={styles.container}>
@@ -100,7 +63,8 @@ export default class BadgesContainer extends Component {
         </View>
         <FlatList
           data={this.formatData(data, 5)}
-          renderItem={this.renderBadges}
+          // renderItem={this.renderBadges}
+          renderItem={({ item }) => <Badge {...item} />}
           numColumns={5}
           keyExtractor={this._keyExtractor}
         />
