@@ -1,8 +1,8 @@
-import Icon from '@expo/vector-icons'
-import React, { Component } from 'react'
-import { Dimensions, FlatList, StyleSheet, View } from 'react-native'
-import Badge from '../components/Badge'
-import { Colors } from '../styles'
+import Icon from '@expo/vector-icons';
+import React, { Component } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import Badge from '../components/Badge';
+import { Colors } from '../styles';
 
 const data = [
   {
@@ -42,8 +42,6 @@ const data = [
   { title: 'Badge', id: '20', icon: '', locked: true }
 ]
 
-const width = Dimensions.get('window').width
-
 export default class BadgesContainer extends Component {
   formatData = (data, numCol) => {
     let numElIncompleteRow = data.length % numCol
@@ -58,7 +56,7 @@ export default class BadgesContainer extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.badgeHeader}>
+        <View style={styles.header}>
           <Icon.Feather name="award" size={30} color={Colors.white} />
         </View>
         <FlatList
@@ -79,25 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center'
   },
-  badgeHeader: {
+  header: {
     margin: 60
-  },
-  badge: {
-    margin: 5,
-    width: width / 5 - 21,
-    height: width / 5 - 21,
-    borderRadius: width / 5 - 15
-  },
-  lockedBadge: {
-    // borderColor: Colors.primaryBrand.light,
-    opacity: 0.5
-    // borderWidth: 5
-  },
-  unlockedBadge: {
-    backgroundColor: Colors.primaryBrand.light,
-    shadowColor: Colors.primaryBrand.light,
-    shadowOpacity: 0.8,
-    shadowRadius: 20,
-    elevation: 5
   }
 })
