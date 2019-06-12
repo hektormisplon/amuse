@@ -3,9 +3,11 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Colors } from '../../styles'
 
 export const Button = props => {
+  const { title, style, size, children } = props
   return (
-    <TouchableOpacity style={[styles.btn, props.style]} onPress={props.onPress}>
-      <Text>{props.title}</Text>
+    <TouchableOpacity style={[styles.btn, style]} onPress={props.onPress}>
+      {children}
+      {title && <Text>{title}</Text>}
     </TouchableOpacity>
   )
 }
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.white,
     shadowColor: Colors.primaryBrand.light,
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.5,
     shadowRadius: 20,
     elevation: 5
   }
