@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect, Switch } from 'react-router-dom';
-
-// utilities
-import { RouteWithLayout } from './utilities';
-
+import { AdminLayout } from './admin/layouts';
+import AdminPage from './admin/pages/admin';
 // layouts
 import { LoginLayout, PageLayout } from './layouts';
-import { AdminLayout } from './admin/layouts';
-
+import SignupPage from './pages/auth/SignupPage';
 import HomePage from './pages/home';
-import AdminPage from './admin/pages/admin';
 import LoginPage from './pages/login';
 import NewsPage from './pages/news';
 import PostDetailPage from './pages/post-detail';
+// utilities
+import { RouteWithLayout } from './utilities';
 
 class Main extends Component {
   render() {
@@ -42,6 +40,11 @@ class Main extends Component {
             path="/login"
             layout={LoginLayout}
             component={LoginPage}
+          />
+          <RouteWithLayout
+            path="/auth"
+            layout={LoginLayout}
+            component={SignupPage}
           />
           <RouteWithLayout
             path="/admin"

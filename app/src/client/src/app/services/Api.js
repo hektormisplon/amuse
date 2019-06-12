@@ -1,6 +1,12 @@
 class Api {
   static URL = '/api/v1';
 
+  // static createUser = async user => {
+  //   let url = `${this.URL}/users/create`;
+  //   const response = await axios.post(`${url}`);
+  //   return await response.json();
+  // };
+
   static findAllPosts = async (queryParams = null) => {
     let url = `${this.URL}/posts`;
     if (queryParams !== null) {

@@ -56,7 +56,7 @@ const styles = theme => ({
   }
 });
 
-class Signup extends Component {
+class SignupPage extends Component {
   state = {
     username: '',
     email: '',
@@ -68,6 +68,7 @@ class Signup extends Component {
       [event.target.name]: event.target.value
     });
   };
+
   handleSubmit = event => {
     console.log('sign-up handleSubmit, username: ');
     console.log(this.state.username);
@@ -76,7 +77,7 @@ class Signup extends Component {
     console.log(this.state);
 
     axios
-      .post('/api/v1/users/', {
+      .post('/api/v1/users/create', {
         username: this.state.username,
         email: this.state.email,
         localProvider: {
@@ -96,6 +97,7 @@ class Signup extends Component {
         console.error(err);
       });
   };
+
   render() {
     const { classes } = this.props;
 
@@ -151,4 +153,4 @@ class Signup extends Component {
   }
 }
 
-export default withStyles(styles)(Signup);
+export default withStyles(styles)(SignupPage);
