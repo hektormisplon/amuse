@@ -1,13 +1,12 @@
-import React from "react";
+import React from 'react'
 import {
-  View,
-  StyleSheet,
   // TouchableWithoutFeedback,
   SafeAreaView,
-  TouchableOpacity
-} from "react-native";
-
-import Colors from "../constants/Colors";
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import { Colors } from '../styles'
 
 export const TabBar = props => {
   const {
@@ -19,20 +18,20 @@ export const TabBar = props => {
     inactiveTintColor,
     renderIcon,
     jumpTo
-  } = props;
+  } = props
 
   return (
     <SafeAreaView
       pointerEvents="box-none"
       style={styles.container}
       forceInset={{
-        top: "never",
-        bottom: "always"
+        top: 'never',
+        bottom: 'always'
       }}
     >
       <View pointerEvents="box-none" style={[styles.content, style]}>
         {routes.map((route, idx) => {
-          const focused = index === idx;
+          const focused = index === idx
           if (!route.params || !route.params.navigationDisabled) {
             return (
               <TabIcon
@@ -47,22 +46,22 @@ export const TabBar = props => {
                   jumpTo(route.key)
                 }
               />
-            );
+            )
           }
           const Icon = renderIcon({
             route,
             focused,
             tintColor: focused ? activeTintColor : inactiveTintColor
-          });
+          })
           return {
             ...Icon,
-            key: "simple"
-          };
+            key: 'simple'
+          }
         })}
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const TabIcon = ({
   route,
@@ -82,30 +81,30 @@ const TabIcon = ({
       tintColor: focused ? activeTintColor : inactiveTintColor
     })}
   </TouchableOpacity>
-);
+)
 
 const styles = StyleSheet.create({
   tourTab: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 120,
     height: 120,
     backgroundColor: Colors.primaryBrand.light,
     borderRadius: 60
   },
   container: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%",
-    justifyContent: "flex-end",
+    width: '100%',
+    justifyContent: 'flex-end',
     minHeight: 120
   },
   content: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     margin: 30,
     borderRadius: 30,
     backgroundColor: Colors.white,
@@ -118,12 +117,12 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 60,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: Colors.white,
     shadowColor: Colors.primaryBrand.light,
     shadowOpacity: 0.8,
     shadowRadius: 20,
     elevation: 5
   }
-});
+})

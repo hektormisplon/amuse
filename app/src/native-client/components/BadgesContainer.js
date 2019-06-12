@@ -1,47 +1,83 @@
 import Icon from '@expo/vector-icons'
 import React, { Component } from 'react'
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
-import Colors from '../constants/Colors'
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import { Colors } from '../styles'
 
 const data = [
-  { title: 'Badge', id: '01' },
-  { title: 'Badge', id: '02' },
-  { title: 'Badge', id: '04' },
-  { title: 'Badge', id: '05' },
-  { title: 'Badge', id: '06' },
-  { title: 'Badge', id: '07' },
-  { title: 'Badge', id: '08' },
-  { title: 'Badge', id: '09' },
-  { title: 'Badge', id: '10' },
-  { title: 'Badge', id: '11' },
-  { title: 'Badge', id: '12' },
-  { title: 'Badge', id: '14' },
-  { title: 'Badge', id: '15' },
-  { title: 'Badge', id: '16' },
-  { title: 'Badge', id: '17' },
-  { title: 'Badge', id: '18' },
-  { title: 'Badge', id: '19' },
-  { title: 'Badge', id: '20' }
+  { title: 'Badge', id: '01', icon: 'start' },
+  { title: 'Badge', id: '02', icon: 'star' },
+  {
+    title: 'Badge',
+    id: '04',
+    icon: 'users',
+    description: 'Join a club',
+    amount: '1'
+  },
+  {
+    title: 'Badge',
+    id: '05',
+    icon: 'users',
+    description: 'Join 3 clubs',
+    amount: '3'
+  },
+  { title: 'Badge', id: '06', icon: 'user' },
+  { title: 'Badge', id: '07', icon: '' },
+  { title: 'Badge', id: '08', icon: '' },
+  { title: 'Badge', id: '09', icon: '' },
+  { title: 'Badge', id: '10', icon: '' },
+  { title: 'Badge', id: '11', icon: '' },
+  { title: 'Badge', id: '12', icon: '' },
+  { title: 'Badge', id: '14', icon: '' },
+  { title: 'Badge', id: '15', icon: '' },
+  { title: 'Badge', id: '16', icon: '', locked: true },
+  { title: 'Badge', id: '17', icon: '', locked: true },
+  { title: 'Badge', id: '18', icon: '', locked: true },
+  { title: 'Badge', id: '19', icon: '', locked: true },
+  { title: 'Badge', id: '20', icon: '', locked: true }
 ]
 
 const width = Dimensions.get('window').width
 
 export default class BadgesContainer extends Component {
-  renderBadges = (badge, index) => {
-    return (
-      <View key={index} style={styles.badge}>
-        <Icon.Feather name="star" size={20} color={Colors.ternaryBrand} />
-        <Text
-          style={{
-            color: Colors.white,
-            textAlign: 'center',
-            alignSelf: 'center'
-          }}
-        >
-          1/5
-        </Text>
-      </View>
-    )
+  renderBadges = badge => {
+    const { title, id, icon, amount, locked } = badge.item
+    if (!locked) {
+      return (
+        <TouchableOpacity style={[styles.badge, styles.unlockedBadge]}>
+          <Icon.Feather
+            name={icon ? icon : 'star'}
+            size={15}
+            color={Colors.ternaryBrand}
+          />
+          <Text
+            style={{
+              color: Colors.white,
+              textAlign: 'center',
+              alignSelf: 'center'
+            }}
+          >
+            {amount && <Text>{amount}</Text>}
+          </Text>
+        </TouchableOpacity>
+      )
+    } else {
+      return (
+        <View style={[styles.badge, styles.lockedBadge]}>
+          <Icon.Feather
+            name={'lock'}
+            size={15}
+            color={Colors.secondaryBrand.light}
+          />
+        </View>
+      )
+    }
   }
 
   formatData = (data, numCol) => {
@@ -87,7 +123,18 @@ const styles = StyleSheet.create({
     margin: 5,
     width: width / 5 - 21,
     height: width / 5 - 21,
-    backgroundColor: Colors.primaryBrand.dark,
     borderRadius: width / 5 - 15
+  },
+  lockedBadge: {
+    // borderColor: Colors.primaryBrand.light,
+    opacity: 0.5
+    // borderWidth: 5
+  },
+  unlockedBadge: {
+    backgroundColor: Colors.primaryBrand.light,
+    shadowColor: Colors.primaryBrand.light,
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 5
   }
 })

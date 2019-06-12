@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, Switch, View } from 'react-native'
 import { Text } from '../components/StyledText'
-import Colors from '../constants/Colors'
 import VerticalSplit from '../layouts/VerticalSplit'
+import { Colors } from '../styles'
 
 export default class ClubScreen extends React.Component {
   static navigationOptions = {

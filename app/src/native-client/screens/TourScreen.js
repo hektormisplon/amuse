@@ -117,7 +117,7 @@ export default class TourScreen extends Component {
             ref={map => (this.map = map)}
             initialRegion={this.state.region}
             style={styles.bottomContainer}
-            customMapStyle={mapStyle}
+            customMapStyle={MapStyle}
           >
             {tours.map((tour, index) => {
               return (
