@@ -5,18 +5,15 @@ Import the external libraries:
 import dotenv from 'dotenv';
 import os from 'os';
 
-
 // Activatie the dotenv settings from .env file
 dotenv.config();
 
 // Find external ip adress
 let address = null;
 const ifaces = os.networkInterfaces();
-for (let dev in ifaces) {
-    const iface = ifaces[dev].filter(info => {
-        return info.family === 'IPv4' && info.internal === false;
-    });
-    if(iface.length) address = iface[0].address;
+for (const dev in ifaces) {
+    const iface = ifaces[dev].filter(info => info.family === 'IPv4' && info.internal === false);
+    if (iface.length) address = iface[0].address;
 }
 
 // Create configuration object
