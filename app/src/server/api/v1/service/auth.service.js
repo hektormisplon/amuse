@@ -1,16 +1,23 @@
 import passport from 'passport';
+import passportFacebook from 'passport-facebook';
+import passportGoogle from 'passport-google-oauth';
 import passportJWT from 'passport-jwt';
 import * as passportLocal from 'passport-local';
 import config from '../../../config';
 import { User } from '../database';
 
 const LocalStrategy = passportLocal.Strategy;
+const FacebookStrategy = passportFacebook.Strategy;
+const GoogleStrategy = passportGoogle.OAuthStrategy;
+
 const { ExtractJwt, Strategy: JwtStrategy } = passportJWT;
 
 class AuthService {
     constructor() {
         this.initializeLocalStrategy();
         this.initializeJwtStrategy();
+        this.initializeFacebookStrategy();
+        this.initializeGoogleStrategy();
         passport.serializeUser((user, done) => {
             done(null, user);
         });
@@ -53,7 +60,6 @@ class AuthService {
     };
 
     initializeJwtStrategy = () => {
-        console.log('initializing jwt strategy');
         passport.use(
             new JwtStrategy(
                 {
@@ -71,6 +77,36 @@ class AuthService {
                         }
                         return done(null, user);
                     });
+                },
+            ),
+        );
+    };
+
+    initializeFacebookStrategy = () => {
+        passport.use(
+            new FacebookStrategy(
+                {
+                    clientID: config.auth.facebook.clientID,
+                    clientSecret: config.auth.facebook.clientSecret,
+                    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+                },
+                (accessToken, refreshToken, profile, cb) => {
+                    User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
+                },
+            ),
+        );
+    };
+
+    initializeGoogleStrategy = () => {
+        passport.use(
+            new GoogleStrategy(
+                {
+                    consumerKey: config.auth.google.consumerKey,
+                    consumerSecret: config.auth.google.consumerSecret,
+                    callbackURL: 'http://www.example.com/auth/google/callback',
+                },
+                (token, tokenSecret, profile, done) => {
+                    User.findOrCreate({ googleId: profile.id }, (err, user) => done(err, user));
                 },
             ),
         );
