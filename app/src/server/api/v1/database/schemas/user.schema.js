@@ -2,22 +2,15 @@
 Import external libraries:
 - config
 */
+import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
 import slug from 'slug';
-import bcrypt from 'bcrypt';
-
-/*
-Import internal libraries:
-- config
-*/
-import config from '../../../../config';
 
 /*
 Constants
 */
 const { Schema } = mongoose;
-
 const UserSchema = new Schema(
     {
         email: {
@@ -25,7 +18,7 @@ const UserSchema = new Schema(
             required: true,
             trim: true,
             unique: true,
-            match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
         },
         localProvider: {
             password: {
@@ -62,34 +55,31 @@ UserSchema.pre('validate', function (next) {
 
 UserSchema.pre('save', function (next) {
     const user = this;
-
-    if (!user.isModified('localProvider.password')) return next();// only hash the password if it has been modified (or is new)
-
+    if (!user.isModified('localProvider.password')) return next(); // only hash the password if it has been modified (or is new)
     try {
-        return bcrypt.genSalt(config.auth.bcrypt.SALT_WORK_FACTOR, (errSalt, salt) => {
-            if (errSalt) throw errSalt;
-
-            return bcrypt.hash(user.localProvider.password, salt, (errHash, hash) => {
-                if (errHash) throw errHash;
-
-                user.localProvider.password = hash;
-                return next();
-            });
+        return bcrypt.hash(user.localProvider.password, 10, (err, hash) => {
+            if (err) throw err;
+            user.localProvider.password = hash;
+            return next();
         });
-    } catch (error) {
-        return next(error);
+    } catch (err) {
+        return next(err);
     }
 });
 
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
     const user = this;
-    bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
-        if (err) return cb(err, null);
-        return cb(null, isMatch);
+    bcrypt.compare(candidatePassword, user.localProvider.password, (err, isMatch) => {
+        if (err) {
+            return cb(err, null);
+        }
+        return cb(isMatch);
     });
 };
 
-UserSchema.virtual('id').get(function () { return this._id; });
+UserSchema.virtual('id').get(function () {
+    return this._id;
+});
 
 UserSchema.plugin(mongoosePaginate);
 export default mongoose.model('User', UserSchema);
