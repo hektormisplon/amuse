@@ -8,6 +8,7 @@ import { PostController } from '../controller';
 const postController = new PostController();
 
 const initializeEndpoints = (parentRouter, authService) => {
+    const auth = authService.passport.authenticate('jwt');
     /**
      * @swagger
      * /api/v1/posts:
@@ -35,7 +36,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Create post
      */
-    parentRouter.get('/posts/create/', postController.create);
+    parentRouter.post('/posts/create/', auth, postController.create);
     /**
      * @swagger
      * /api/v1/posts/{id}:
@@ -74,7 +75,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Return saved post
      */
-    parentRouter.post('/posts', postController.store);
+    parentRouter.post('/posts', auth, postController.store);
     /**
      * @swagger
      * /api/v1/posts/{id}/edit:
@@ -94,7 +95,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Edit post by id
      */
-    parentRouter.get('/posts/:id/edit', postController.edit);
+    parentRouter.get('/posts/:id/edit', auth, postController.edit);
     /**
      * @swagger
      * /api/v1/posts/{id}:
@@ -118,7 +119,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Update post
      */
-    parentRouter.put('/posts/:id', postController.update);
+    parentRouter.put('/posts/:id', auth, postController.update);
     /**
      * @swagger
      * /api/v1/posts/{id}:
@@ -138,7 +139,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Delete post
      */
-    parentRouter.delete('/posts/:id', postController.destroy);
+    parentRouter.delete('/posts/:id', auth, postController.destroy);
 };
 
 export default initializeEndpoints;

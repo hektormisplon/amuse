@@ -38,7 +38,9 @@ class AuthService {
 
                         return user.comparePassword(password, (isMatch) => {
                             if (!isMatch) {
-                                return done(null, false);
+                                return done(null, false, {
+                                    message: 'Please enter a valid password',
+                                });
                             }
                             return done(null, user);
                         });
@@ -51,6 +53,7 @@ class AuthService {
     };
 
     initializeJwtStrategy = () => {
+        console.log('initializing jwt strategy');
         passport.use(
             new JwtStrategy(
                 {
