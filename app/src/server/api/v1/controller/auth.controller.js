@@ -4,9 +4,11 @@ import { createToken } from '../../../utilities';
 class AuthController {
     loginLocal = async (authService, req, res, next) => {
         authService.passport.authenticate('local', config.jwtSession, (err, user, info) => {
-            if (err) { return next(err); }
+            if (err) {
+                return next(err);
+            }
             if (!user) {
-                return next(new Error('Not logged in.'));
+                return next(new Error(`Not logged in. ${info.message}`));
             }
             req.auth = {
                 id: user.id,
