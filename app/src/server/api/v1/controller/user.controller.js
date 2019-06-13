@@ -74,7 +74,7 @@ class UserController {
                 localProvider: req.body.localProvider,
             });
             const user = await userCreate.save();
-            return res.status(201).json(user);
+            return res.json(user);
         } catch (err) {
             return handleAPIError(
                 err.status || 500,
