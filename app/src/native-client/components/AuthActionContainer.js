@@ -2,6 +2,7 @@ import Icon from '@expo/vector-icons'
 import axios from 'axios'
 import React, { Component } from 'react'
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   TextInput,
@@ -18,6 +19,7 @@ export default class AuthActionContainer extends Component {
     password: '',
     formFeedback: null,
     user: '',
+    loading: false,
   }
 
   signUp = async () => {
@@ -37,7 +39,7 @@ export default class AuthActionContainer extends Component {
 
   signIn = () => {
     const { email, password } = this.state
-    this.setState({ formFeedback: '', loading: true })
+    this.setState({ loading: true })
     axios
       .post(`http://${api}/api/v1/login/local`, {
         email,
@@ -56,11 +58,12 @@ export default class AuthActionContainer extends Component {
           : this.setState({
               formFeedback: 'Error, please try again later.',
             })
+        this.setState({ loading: false })
       })
   }
 
   render() {
-    const { formFeedback } = this.state
+    const { formFeedback, loading } = this.state
     return (
       <View style={styles.authForm}>
         {formFeedback && (
@@ -104,6 +107,13 @@ export default class AuthActionContainer extends Component {
             onPress={this.signIn}
           >
             <Text style={styles.btnText}>Sign in</Text>
+            {loading && (
+              <ActivityIndicator
+                style={styles.spinner}
+                size="large"
+                color={Colors.white}
+              />
+            )}
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.btn, styles.btnSignup]}
@@ -144,15 +154,15 @@ const styles = StyleSheet.create({
   btn: {
     flex: 1,
     paddingLeft: 30,
-    justifyContent: 'center',
+    paddingRight: 15,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   btnSignin: {
     backgroundColor: Colors.primaryBrand.dark,
     flex: 1.62,
     borderRadius: 45,
-  },
-  btnSignup: {
-    alignItems: 'center',
   },
   btnText: {
     color: Colors.white,
