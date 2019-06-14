@@ -21,7 +21,7 @@ export default class ProfileScreen extends React.Component {
         bottom={
           <View style={{ margin: 30 }}>
             <Text type={'title'}>Hello, Jon Doe</Text>
-            <ProfileActionContainer />
+            <ProfileActionContainer navigation={this.props.navigation} />
           </View>
         }
         colored="top"

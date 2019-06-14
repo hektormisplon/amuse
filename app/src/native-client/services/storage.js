@@ -17,23 +17,31 @@ const deviceStorage = {
     }
   },
 
-  async loadJWT() {
-    try {
-      const value = this.load('jwtToken')
-      if (value !== null) {
-        this.setState({
-          jwt: value,
-          loading: false,
-        })
-      } else {
-        this.setState({
-          loading: false,
-        })
-      }
+  async remove(key) {
+    try{
+      await AsyncStorage.removeItem(key)
     } catch (error) {
-      console.log('AsyncStorage Error: ' + error.message)
+        console.log(`Could not remove from AsyncStorage: ${err.message}`)
     }
-  },
+  }
+//   async loadJWT() {
+//     try {
+//       const value = this.load('jwtToken')
+//       if (value !== null) {
+//         this.setState({
+//           jwt: value,
+//           loading: false,
+//         })
+//       } else {
+//         this.setState({
+//           loading: false,
+//         })
+//       }
+//     } catch (error) {
+//       console.log('AsyncStorage Error: ' + error.message)
+//     }
+//   },
+
 }
 
 export default deviceStorage

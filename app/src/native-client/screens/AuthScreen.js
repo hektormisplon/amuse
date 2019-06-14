@@ -1,16 +1,8 @@
 import React, { Component } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
-import AuthActionContainer from '../components/AuthActionContainer';
-
+import Svg, { Path } from 'react-native-svg'
+import AuthActionContainer from '../components/AuthActionContainer'
 import VerticalSplit from '../layouts/VerticalSplit'
-
-import Svg, {
-  Use,
-  Image,
-  Path
-} from 'react-native-svg';
-
-
 
 export default class AuthScreen extends Component {
   static navigationOptions = {

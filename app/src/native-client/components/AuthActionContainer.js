@@ -1,40 +1,38 @@
-import Icon from '@expo/vector-icons'
-import axios from 'axios'
-import React, { Component } from 'react'
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import api from '../config/api'
-import { DeviceStorage } from '../services'
-import { Colors } from '../styles'
+import Icon from '@expo/vector-icons';
+import axios from 'axios';
+import React, { Component } from 'react';
+import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import AuthFormInput from '../components/AuthFormInput';
+import api from '../config/api';
+import { DeviceStorage } from '../services';
+import { Colors } from '../styles';
+
 
 export default class AuthActionContainer extends Component {
   state = {
     email: '',
     password: '',
+    passwordConfirm: '',
     formFeedback: null,
     user: '',
     loading: false,
+    showPasswordConfirm: false,
   }
 
   signUp = async () => {
     const { email, password } = this.state
-    return axios
-      .post(`http://${api}/api/v1/users/create`, {
-        email,
-        localProvider: { password },
-      })
-      .then(res => {
-        console.warn({ user: res.data })
-        this.setState({ user: res.data })
-        deviceStorage.save('jwtToken', res.data.token)
-      })
-      .catch(err => console.error(err))
+    email && password ?     this.setState({showPasswordConfirm: true}) : this.setState({ formFeedback: 'To register enter your email & password'})
+    // return axios
+    //   .post(`http://${api}/api/v1/users/create`, {
+    //     email,
+    //     localProvider: { password },
+    //   })
+    //   .then(res => {
+    //     console.warn({ user: res.data })
+    //     this.setState({ user: res.data })
+    //     deviceStorage.save('jwtToken', res.data.token)
+    //   })
+    //   .catch(err => console.error(err))
   }
 
   signIn = () => {
@@ -63,44 +61,31 @@ export default class AuthActionContainer extends Component {
   }
 
   render() {
-    const { formFeedback, loading } = this.state
+    const { formFeedback, loading, email, password, showPasswordConfirm, passwordConfirm } = this.state
     return (
       <View style={styles.authForm}>
         {formFeedback && (
           <Text style={styles.formFeedback}>{formFeedback}</Text>
         )}
-        <View style={styles.input}>
-          <Icon.Feather
-            name="user"
-            size={20}
-            color="#fff"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            autoCorrect={false}
-            value={this.state.email}
-            onChangeText={email => {
-              this.setState({ email })
-            }}
-            placeholder="Email"
-            autoFocus
-          />
-        </View>
-        <View style={styles.input}>
-          <Icon.Feather
-            name="lock"
-            size={20}
-            color="#fff"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={this.state.password}
-            onChangeText={password => {
-              this.setState({ password })
-            }}
-            placeholder="Password"
-          />
-        </View>
+        {!showPasswordConfirm ? (
+          <React.Fragment>
+        <AuthFormInput
+          placeholder="Email"
+          value={email}
+          icon="user"
+          onChangeText={email => {
+            this.setState({ email })
+          }}
+          autoFocus
+        />
+        <AuthFormInput
+          placeholder="Password"
+          value={password}
+          icon="lock"
+          onChangeText={password => {
+            this.setState({ password })
+          }}
+        />
         <View style={styles.btnGroup}>
           <TouchableOpacity
             style={[styles.btn, styles.btnSignin]}
@@ -117,11 +102,41 @@ export default class AuthActionContainer extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.btn, styles.btnSignup]}
-            onPress={this.handleSubmit}
+            onPress={this.signUp}
           >
             <Text style={styles.btnText}>Sign up</Text>
           </TouchableOpacity>
         </View>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+
+          <Text>Please confirm your password below</Text>
+          <AuthFormInput
+          placeholder="Confirm your password"
+          value={passwordConfirm}
+          icon="lock"
+          onChangeText={passwordConfirm => {
+            this.setState({ passwordConfirm })
+          }}
+          />
+          <View style={styles.btnGroup}>
+
+          <TouchableOpacity
+            style={[styles.btn, styles.btnSignup]}
+            onPress={this.signUp}
+          >
+          <Icon.Feather name="check" size={30} color={Colors.white}></Icon.Feather>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.btn, styles.btnSignup]}
+            onPress={() => this.setState({showPasswordConfirm: false})}
+          >
+          <Icon.Feather name="x" size={30} color={Colors.white}></Icon.Feather>
+          </TouchableOpacity>
+          </View>
+          </React.Fragment>
+        )}
       </View>
     )
   }
@@ -138,15 +153,7 @@ const styles = StyleSheet.create({
     height: 30,
     color: Colors.ternaryBrand,
   },
-  input: {
-    height: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  inputIcon: {
-    marginRight: 15,
-    marginLeft: 15,
-  },
+
   btnGroup: {
     height: 60,
     flexDirection: 'row',
