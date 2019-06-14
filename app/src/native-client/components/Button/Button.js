@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     shadowColor: Colors.primaryBrand.light,
     shadowOpacity: 0.5,
     shadowRadius: 20,
-    elevation: 5
-  }
+    elevation: 5,
+  },
 })

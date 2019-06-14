@@ -65,7 +65,8 @@ export default createBottomTabNavigator(
     ClubStack
   },
   {
-    initialRouteName: 'TourStack',
+    // initialRouteName: 'TourStack',
+    initialRouteName: 'ProfileStack',
     // TODO: redux tabbar color
     tabBarComponent: props => {
       return <TabBar {...props} />
