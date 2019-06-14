@@ -1,23 +1,25 @@
-import React, { Component } from "react";
-import { ActivityIndicator, Button, StatusBar, View } from "react-native";
+import React, { Component } from 'react'
+import { ActivityIndicator, Button, StatusBar, View } from 'react-native'
+import { DeviceStorage } from '../services'
 
 export default class AuthLoadingScreen extends Component {
   constructor(props) {
-    super(props);
-    this._bootstrapAsync();
+    super(props)
+    this._bootstrapAsync()
+    DeviceStorage.load('jwtToken')
   }
 
   _bootstrapAsync = async () => {
-    // sample code
+    // sample <code></code>
     // const userToken = await AsyncStorage.getItem("userToken");
 
     // TODO: server authentication request
-    const userToken = null;
+    const userToken = null
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? "App" : "Auth");
-  };
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth')
+  }
 
   render() {
     return (
@@ -27,10 +29,10 @@ export default class AuthLoadingScreen extends Component {
         <Button
           title="Skip authentication check"
           onPress={() => {
-            this.props.navigation.navigate("Main");
+            this.props.navigation.navigate('Main')
           }}
         />
-        </View>
-    );
+      </View>
+    )
   }
 }
