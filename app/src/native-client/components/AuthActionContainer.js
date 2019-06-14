@@ -6,80 +6,113 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native'
 import api from '../config/api'
+import { DeviceStorage } from '../services'
+import { Colors } from '../styles'
 
 export default class AuthActionContainer extends Component {
   state = {
     email: '',
     password: '',
-    formFeedback: ''
+    formFeedback: null,
+    user: '',
   }
 
-  handleSubmit = () => {
+  signUp = async () => {
     const { email, password } = this.state
-    email && password ? this.postUser() : this.formFeedback()
-  }
-
-  formFeedback = () => {
-    this.setState({ formFeedback: 'Enter your email & password.' })
-  }
-
-  postUser = () => {
-    const { email, password } = this.state
-    axios
-      .post(`http://${api}/api/v1/users/`, {
+    return axios
+      .post(`http://${api}/api/v1/users/create`, {
         email,
-        localProvider: { password }
+        localProvider: { password },
       })
       .then(res => {
-        console.log(res)
-        !res.data.errmsg
-          ? console.log('Signed up')
-          : console.warn('Username taken')
+        console.warn({ user: res.data })
+        this.setState({ user: res.data })
+        deviceStorage.save('jwtToken', res.data.token)
       })
       .catch(err => console.error(err))
   }
 
+  signIn = () => {
+    const { email, password } = this.state
+    this.setState({ formFeedback: '', loading: true })
+    axios
+      .post(`http://${api}/api/v1/login/local`, {
+        email,
+        password,
+      })
+      .then(res => {
+        if (res.status === 200) {
+          DeviceStorage.save('jwtToken', res.data.token)
+          this.props.navigation.navigate('Main')
+        }
+      })
+      .catch(err => {
+        const { status, data } = err.response
+        status === 401
+          ? this.setState({ formFeedback: data.message })
+          : this.setState({
+              formFeedback: 'Error, please try again later.',
+            })
+      })
+  }
+
   render() {
+    const { formFeedback } = this.state
     return (
-      <React.Fragment>
-        <View style={styles.authForm}>
-          <View style={styles.inputContainer}>
-            <Icon.Feather name="user" size={16} color="#fff" />
-            <TextInput
-              autoCorrect={false}
-              value={this.state.email}
-              onChangeText={email => {
-                this.setState({ email })
-              }}
-              placeholder="Email"
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <Icon.Feather name="lock" size={16} color="#fff" />
-            <TextInput
-              value={this.state.password}
-              onChangeText={password => {
-                this.setState({ password })
-              }}
-              placeholder="Password"
-              secureTextEntry
-              style={styles.input}
-            />
-          </View>
+      <View style={styles.authForm}>
+        {formFeedback && (
+          <Text style={styles.formFeedback}>{formFeedback}</Text>
+        )}
+        <View style={styles.input}>
+          <Icon.Feather
+            name="user"
+            size={20}
+            color="#fff"
+            style={styles.inputIcon}
+          />
+          <TextInput
+            autoCorrect={false}
+            value={this.state.email}
+            onChangeText={email => {
+              this.setState({ email })
+            }}
+            placeholder="Email"
+            autoFocus
+          />
+        </View>
+        <View style={styles.input}>
+          <Icon.Feather
+            name="lock"
+            size={20}
+            color="#fff"
+            style={styles.inputIcon}
+          />
+          <TextInput
+            value={this.state.password}
+            onChangeText={password => {
+              this.setState({ password })
+            }}
+            placeholder="Password"
+          />
         </View>
         <View style={styles.btnGroup}>
-          <TouchableOpacity style={styles.btn} onPress={this.handleSubmit}>
+          <TouchableOpacity
+            style={[styles.btn, styles.btnSignin]}
+            onPress={this.signIn}
+          >
             <Text style={styles.btnText}>Sign in</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btn} onPress={this.handleSubmit}>
+          <TouchableOpacity
+            style={[styles.btn, styles.btnSignup]}
+            onPress={this.handleSubmit}
+          >
             <Text style={styles.btnText}>Sign up</Text>
           </TouchableOpacity>
         </View>
-      </React.Fragment>
+      </View>
     )
   }
 }
@@ -88,33 +121,40 @@ const styles = StyleSheet.create({
   authForm: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: '#000'
+    margin: 30,
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    alignItems: 'center',
-    padding: 30
+  formFeedback: {
+    marginLeft: 15,
+    height: 30,
+    color: Colors.ternaryBrand,
   },
   input: {
-    flex: 1,
-    color: '#fff',
-    paddingLeft: 15,
-    borderBottomWidth: 1,
-    borderColor: '#fff',
-    padding: 20
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputIcon: {
+    marginRight: 15,
+    marginLeft: 15,
+  },
+  btnGroup: {
+    height: 60,
+    flexDirection: 'row',
   },
   btn: {
     flex: 1,
-    borderWidth: 1,
-    backgroundColor: '#111'
+    paddingLeft: 30,
+    justifyContent: 'center',
+  },
+  btnSignin: {
+    backgroundColor: Colors.primaryBrand.dark,
+    flex: 1.62,
+    borderRadius: 45,
+  },
+  btnSignup: {
+    alignItems: 'center',
   },
   btnText: {
-    color: '#fff'
+    color: Colors.white,
   },
-  btnGroup: {
-    flex: 0.33,
-    flexDirection: 'row'
-  }
 })
