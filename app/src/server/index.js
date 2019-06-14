@@ -2,21 +2,6 @@ import bodyParser from 'body-parser';
 import chalk from 'chalk';
 import cors from 'cors';
 import express from 'express';
-/*
-Import the external libraries:
-- http
-- https
-- express
-- morgan
-- chalk
-- body-parser
-- cors
-- path
-- ejs
-- mongoose
-- swagger
-- passport
-*/
 import http from 'http';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
@@ -24,13 +9,13 @@ import passport from 'passport';
 import path from 'path';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { Seeder } from './api/v1/database';
 /*
 Import internal libraries
 - apiV1Router
 - logger
 - Seeder
 */
+import { Seeder } from './api/v1/database';
 import apiV1Router from './api/v1/routes';
 import config from './config';
 import { logger } from './utilities';
