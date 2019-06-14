@@ -8,7 +8,10 @@ class AuthController {
                 return next(err);
             }
             if (!user) {
-                return next(new Error(`Not logged in. ${info.message}`));
+                // return next(new Error(`Not logged in. ${info.message}`));
+                return res.status(401).json({
+                    message: `${info.message}`,
+                });
             }
             req.auth = {
                 id: user.id,
