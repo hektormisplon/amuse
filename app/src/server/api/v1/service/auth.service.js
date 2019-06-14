@@ -103,7 +103,7 @@ class AuthService {
                 {
                     clientID: config.auth.google.clientID,
                     clientSecret: config.auth.google.clientSecret,
-                    callbackURL: 'http://www.example.com/auth/google/callback',
+                    callbackURL: 'http://localhost:3000/auth/google/callback',
                 },
                 (accessToken, refreshToken, profile, cb) => {
                     User.findOrCreate({ googleId: profile.id }, (err, user) => cb(err, user));
