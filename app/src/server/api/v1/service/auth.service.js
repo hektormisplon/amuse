@@ -1,6 +1,6 @@
 import passport from 'passport';
 import passportFacebook from 'passport-facebook';
-import passportGoogle from 'passport-google-oauth';
+import passportGoogle from 'passport-google-oauth20';
 import passportJWT from 'passport-jwt';
 import * as passportLocal from 'passport-local';
 import config from '../../../config';
@@ -8,7 +8,7 @@ import { User } from '../database';
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
-const GoogleStrategy = passportGoogle.OAuthStrategy;
+const GoogleStrategy = passportGoogle.Strategy;
 
 const { ExtractJwt, Strategy: JwtStrategy } = passportJWT;
 
@@ -101,12 +101,12 @@ class AuthService {
         passport.use(
             new GoogleStrategy(
                 {
-                    consumerKey: config.auth.google.consumerKey,
-                    consumerSecret: config.auth.google.consumerSecret,
+                    clientID: config.auth.google.clientID,
+                    clientSecret: config.auth.google.clientSecret,
                     callbackURL: 'http://www.example.com/auth/google/callback',
                 },
-                (token, tokenSecret, profile, done) => {
-                    User.findOrCreate({ googleId: profile.id }, (err, user) => done(err, user));
+                (accessToken, refreshToken, profile, cb) => {
+                    User.findOrCreate({ googleId: profile.id }, (err, user) => cb(err, user));
                 },
             ),
         );
