@@ -6,9 +6,10 @@ const { Schema } = mongoose;
 
 const TourSchema = new Schema(
     {
-        title: {type:String, required: true, max: 128},
-        museum: {type:String, required: false}, // this should be the id of the correspondingmuseum
+        title: { type: String, required: true, max: 128 },
+        museum: { type: String, required: false }, // this should be the id of the correspondingmuseum
         body: { type: String, required: false },
+        waypoints: { type: Object, required: false },
         published_at: { type: Date, required: false },
         deleted_at: { type: Date, required: false },
         categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: false },
@@ -33,7 +34,9 @@ TourSchema.pre('validate', function (next) {
     return next();
 });
 
-TourSchema.virtual('id').get(function () { return this._id; });
+TourSchema.virtual('id').get(function () {
+    return this._id;
+});
 TourSchema.virtual('category', {
     ref: 'Category',
     localField: 'categoryId',
