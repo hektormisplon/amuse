@@ -8,8 +8,8 @@ Import the internal libraries:
 - * from database
 - errorHandler
 */
-import { Tour } from '../database';
 import { APIError, handleAPIError } from '../../../utilities';
+import { Tour } from '../database';
 
 class MuseumController {
     // List all the models
@@ -26,7 +26,10 @@ class MuseumController {
                 };
                 tours = await Tour.paginate({}, options);
             } else {
-                tours = await Tour.find().populate('category').sort({ created_at: -1 }).exec();
+                tours = await Tour.find()
+                    .populate('category')
+                    .sort({ created_at: -1 })
+                    .exec();
             }
 
             if (tours === undefined || tours === null) {
@@ -34,7 +37,11 @@ class MuseumController {
             }
             return res.status(200).json(tours);
         } catch (err) {
-            return handleAPIError(500, err.message || 'Some error occurred while retrieving tours', next);
+            return handleAPIError(
+                500,
+                err.message || 'Some error occurred while retrieving tours',
+                next,
+            );
         }
     };
 
@@ -42,15 +49,21 @@ class MuseumController {
     show = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const item = await Tour.findById(id).populate('category').exec();
+            const item = await Tour.findById(id)
+                .populate('category')
+                .exec();
             if (item === undefined || item === null) {
                 throw new APIError(404, `Tour with id: ${id} not found!`);
             }
             return res.status(200).json(item);
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || 'Some error occurred while retrieving tours', next);
+            return handleAPIError(
+                err.status || 500,
+                err.message || 'Some error occurred while retrieving tours',
+                next,
+            );
         }
-    }
+    };
 
     // ViewModel for Insert / Create
     create = (req, res) => {
@@ -58,7 +71,7 @@ class MuseumController {
             categories: [],
         };
         return res.status(200).json(vm);
-    }
+    };
 
     // Store / Create the new model
     store = async (req, res, next) => {
@@ -66,19 +79,22 @@ class MuseumController {
             const museumCreate = new Tour({
                 title: req.body.title,
                 body: req.body.body,
-                categoryId: req.body.categoryId
+                categoryId: req.body.categoryId,
             });
             const tour = await museumCreate.save();
             return res.status(201).json(tour);
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || 'Some error occurred while saving the Tour!', next);
+            return handleAPIError(
+                err.status || 500,
+                err.message || 'Some error occurred while saving the Tour!',
+                next,
+            );
         }
-    }
+    };
 
     // ViewModel for Edit / Update
     edit = async (req, res, next) => {
         const { id } = req.params;
-
         try {
             const tour = await Tour.findById(id).exec();
 
@@ -92,26 +108,35 @@ class MuseumController {
                 return res.status(200).json(vm);
             }
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || `Some error occurred while deleting the Tour with id: ${id}!`, next);
+            return handleAPIError(
+                err.status || 500,
+                err.message || `Some error occurred while deleting the Tour with id: ${id}!`,
+                next,
+            );
         }
-    }
+    };
 
     // Update the model
     update = async (req, res, next) => {
         const { id } = req.params;
-
         try {
             const museumUpdate = req.body;
-            const tour = await Tour.findOneAndUpdate({ _id: id }, museumUpdate, { new: true }).exec();
+            const tour = await Tour.findOneAndUpdate({ _id: id }, museumUpdate, {
+                new: true,
+            }).exec();
 
             if (!tour) {
                 throw new APIError(404, `Tour with id: ${id} not found!`);
             }
             return res.status(200).json(tour);
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || `Some error occurred while deleting the Tour with id: ${id}!`, next);
+            return handleAPIError(
+                err.status || 500,
+                err.message || `Some error occurred while deleting the Tour with id: ${id}!`,
+                next,
+            );
         }
-    }
+    };
 
     // Delete / Destroy the model
     destroy = async (req, res, next) => {
@@ -122,7 +147,11 @@ class MuseumController {
 
             let { mode } = req.query;
             if (mode) {
-                tour = await Tour.findByIdAndUpdate({ _id: id }, { deleted_at: (mode === 'softdelete' ? Date.now() : null) }, { new: true });
+                tour = await Tour.findByIdAndUpdate(
+                    { _id: id },
+                    { deleted_at: mode === 'softdelete' ? Date.now() : null },
+                    { new: true },
+                );
             } else {
                 mode = 'delete';
                 tour = await Tour.findOneAndRemove({ _id: id });
@@ -131,12 +160,18 @@ class MuseumController {
             if (!tour) {
                 throw new APIError(404, `Tour with id: ${id} not found!`);
             } else {
-                return res.status(200).json({ message: `Successful deleted the Tour with id: ${id}!`, tour, mode });
+                return res
+                    .status(200)
+                    .json({ message: `Successful deleted the Tour with id: ${id}!`, tour, mode });
             }
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || `Some error occurred while deleting the Musem with id: ${id}!`, next);
+            return handleAPIError(
+                err.status || 500,
+                err.message || `Some error occurred while deleting the Musem with id: ${id}!`,
+                next,
+            );
         }
-    }
+    };
 }
 
 export default MuseumController;
