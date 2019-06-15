@@ -9,8 +9,7 @@ export default class AuthLoadingScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
-    const jwtToken = DeviceStorage.load("jwtToken");
-    console.log(jwtToken)
+    const jwtToken = DeviceStorage.load('jwtToken')
     this.props.navigation.navigate(jwtToken ? 'Main' : 'Auth')
   }
 
