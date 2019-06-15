@@ -48,8 +48,9 @@ class BadgeController {
         try {
             const categoryCreate = new Badge({
                 title: req.body.title,
-                // synopsis: req.body.synopsis,
-                // body: req.body.body,
+                type: req.body.type,
+                description: req.body.description,
+                amount: req.body.amount,
             });
             const badge = await categoryCreate.save();
             return res.status(201).json(badge);

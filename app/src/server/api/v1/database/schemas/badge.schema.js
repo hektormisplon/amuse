@@ -6,7 +6,10 @@ const { Schema } = mongoose;
 
 const BadgeSchema = new Schema(
     {
-        title: { type: String, required: true, max: 256 },
+        title: { type: String, required: true, max: 128 },
+        type: { type: String, required: true, max: 64 },
+        description: { type: String, required: false, max: 256 },
+        amount: { type: Number, required: false },
         // slug: {
         //     type: String, lowercase: true, unique: true, required: true
         // },
@@ -31,7 +34,9 @@ BadgeSchema.pre('validate', function (next) {
     return next();
 });
 
-BadgeSchema.virtual('id').get(function () { return this._id; });
+BadgeSchema.virtual('id').get(function () {
+    return this._id;
+});
 BadgeSchema.virtual('category', {
     ref: 'Category',
     localField: 'categoryId',
