@@ -22,7 +22,6 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           <AppNavigator />
-          {/* // TODO: statusbar styling */}
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         </View>
       )

@@ -33,7 +33,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       - application/json
      *     responses:
      *       200:
-     *         description: Create museum
+     *         description: Create tour
      */
     parentRouter.get('/tours/create/', tourController.create);
     /**
@@ -42,37 +42,37 @@ const initializeEndpoints = (parentRouter, authService) => {
      *   get:
      *     tags:
      *       - Tours
-     *     description: Returns specific museum
+     *     description: Returns specific tour
      *     produces:
      *       - application/json
      *     parameters:
      *       - name: id
-     *         description: Museum id
+     *         description: tour id
      *         in: path
      *         required: true
      *         type: string
      *     responses:
      *       200:
-     *         description: Get museum by id
+     *         description: Get tour by id
      */
     parentRouter.get('/tours/:id', tourController.show);
     /**
      * @swagger
      * /api/v1/tours:
-     *   museum:
+     *   tour:
      *     tags:
      *       - Tours
-     *     description: Save museum
+     *     description: Save tour
      *     produces:
      *       - application/json
      *     parameters:
-     *       - name: museum
-     *         description: Museum object
+     *       - name: tour
+     *         description: tour object
      *         in: body
      *         required: true
      *     responses:
      *       200:
-     *         description: Return saved museum
+     *         description: Return saved tour
      */
     parentRouter.post('/tours', tourController.store);
     /**
@@ -94,7 +94,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Edit post by id
      */
-    parentRouter.get('/tours/:id/edit', tourController.edit);
+    parentRouter.put('/tours/:id/edit', tourController.edit);
     /**
      * @swagger
      * /api/v1/tours/{id}:
