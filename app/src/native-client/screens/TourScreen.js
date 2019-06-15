@@ -1,21 +1,22 @@
-import { IntentLauncherAndroid, Location, Permissions } from 'expo'
+import { IntentLauncherAndroid, Location, MapView, Permissions } from 'expo'
 import React, { Component } from 'react'
 import {
+  Animated,
   AppState,
   Button,
   Linking,
   Platform,
   StyleSheet,
-  View
+  View,
 } from 'react-native'
-import CardMap from '../components/CardMap'
 import { Text } from '../components/StyledText'
 import api from '../config/api'
+import { MapStyle } from '../styles'
 
 export default class TourScreen extends Component {
   static navigationOptions = {
     title: 'Tours',
-    header: null
+    header: null,
   }
 
   state = {
@@ -24,17 +25,18 @@ export default class TourScreen extends Component {
     appState: AppState.currentState,
     locationEnabled: null,
     location: null,
+    locationPermission: false,
     region: {
       latitude: 51.0538286,
       longitude: 3.7250121,
       latitudeDelta: 0.04864195044303443,
-      longitudeDelta: 0.040142817690068
-    }
+      longitudeDelta: 0.040142817690068,
+    },
   }
 
   componentDidMount() {
-    this._checkLocationServices()
-    this._getLocationAsync()
+    this.getLocationServices()
+    this.getLocationPermissions()
     fetch(`http://${api}/api/v1/tours`)
       .then(res => {
         return res.json()
@@ -50,43 +52,46 @@ export default class TourScreen extends Component {
     AppState.removeEventListener('change', this._handleAppStateChange)
   }
 
-  // makes sure map reloads after user changes location settings
+  /**
+   * Handle user toggling location
+   */
   _handleAppStateChange = nextAppState => {
     if (
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      this._checkLocationServices()
-      this._getLocationAsync()
+      this.getLocationServices()
     }
     this.setState({ appState: nextAppState })
   }
 
-  // check & remember if location services enabled
-  _checkLocationServices = async () => {
-    let locationEnabled = await Location.hasServicesEnabledAsync()
-    locationEnabled
-      ? this.setState({ locationEnabled: true })
-      : this.setState({ locationEnabled: false })
-  }
-
-  // get user's current location
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION)
-    if (status !== 'granted') {
-      return
+  getLocationServices = async () => {
+    try {
+      let locationEnabled = await Location.hasServicesEnabledAsync()
+      this.setState({ locationEnabled })
+    } catch {
+      console.error('Could not get location service status')
     }
-    let location = await Location.getCurrentPositionAsync({})
-    this.setState({ location })
   }
 
-  // redirect to settings/location settings
-  showLocationSettings = () => {
+  getLocationPermissions = async () => {
+    try {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION)
+      if (status !== 'granted') {
+        return
+      }
+      this.setState({ locationPermission: true })
+    } catch {
+      console.error('Could not get location permission status')
+    }
+  }
+
+  openLocationSettings = () => {
     if (Platform.OS === 'ios') {
       Linking.openURL('app-settings:')
     } else {
       IntentLauncherAndroid.startActivityAsync(
-        IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS
+        IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS,
       )
     }
   }
@@ -96,28 +101,34 @@ export default class TourScreen extends Component {
   }
 
   render() {
-    const { tours, locationEnabled, location, tourWaypoints } = this.state
+    const {
+      tours,
+      locationEnabled,
+      locationPermission,
+      tourWaypoints,
+    } = this.state
     return (
       <React.Fragment>
         {locationEnabled === false && (
           <View style={styles.topContainer}>
-            <Button
-              title="Enable location"
-              onPress={this.showLocationSettings}
-            />
             <Text>
               Your location services are disabled. Get the best out of our app
               and enable location services.
             </Text>
+            <Button
+              title="Enable location"
+              onPress={this.openLocationSettings}
+            />
           </View>
         )}
-        {tours && <CardMap data={tours} />}
-        {/* {tours && (
+        {/* {tours && <CardMap data={tours} />} */}
+        {tours && (
           <MapView
             ref={map => (this.map = map)}
             initialRegion={this.state.region}
             style={styles.bottomContainer}
             customMapStyle={MapStyle}
+            showsUserLocation={locationPermission}
           >
             {tours.map((tour, index) => {
               return (
@@ -131,16 +142,22 @@ export default class TourScreen extends Component {
                     <View style={styles.marker} />
                   </Animated.View>
                 </MapView.Marker>
-              );
+              )
             })}
-            {tourWaypoints && (
-              <MapView.Polyline coordinates={tourWaypoints} />
-              // tourWaypoints.map((waypoint, index) => {
-              //   return <MapView.Marker key={index} coordinate={waypoint} />;
-              // })
-            )}
+            {tourWaypoints &&
+              // <MapView.Polyline coordinates={tourWaypoints} />
+              tourWaypoints.map((waypoint, index) => {
+                return <MapView.Marker key={index} coordinate={waypoint} />
+              })}
+            {/* {testWaypoints && (
+              <MapView.Polyline
+                coordinates={testWaypoints}
+                strokeWidth={5}
+                strokeColor={Colors.primaryBrand.light}
+              />
+            )} */}
           </MapView>
-        )} */}
+        )}
       </React.Fragment>
     )
   }
@@ -148,32 +165,27 @@ export default class TourScreen extends Component {
 
 const styles = StyleSheet.create({
   topContainer: {
-    flex: 1
-    // height: Dimensions.get("window").height * 0.38,
-    // color: Colors.primaryBrand.light
-    // justifyContent: "center",
+    flex: 1,
   },
   bottomContainer: {
-    flex: 1.62
-    // height: Dimensions.get("window").height * 0.62,
-    // color: Colors.primaryBrand.light
+    flex: 1.62,
   },
   map: {
-    flex: 1
+    flex: 1,
   },
 
   container: {
-    flex: 1
+    flex: 1,
   },
   markerWrap: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   marker: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: 'rgba(130,4,150, 0.9)'
+    backgroundColor: 'rgba(130,4,150, 0.9)',
   },
   ring: {
     width: 24,
@@ -182,6 +194,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(130,4,150, 0.3)',
     position: 'absolute',
     borderWidth: 1,
-    borderColor: 'rgba(130,4,150, 0.5)'
-  }
+    borderColor: 'rgba(130,4,150, 0.5)',
+  },
 })
