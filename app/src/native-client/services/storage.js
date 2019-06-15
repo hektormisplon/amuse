@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 
-const deviceStorage = {
+const DeviceStorage = {
   async save(key, value) {
     try {
       await AsyncStorage.setItem(key, value)
@@ -18,30 +18,12 @@ const deviceStorage = {
   },
 
   async remove(key) {
-    try{
+    try {
       await AsyncStorage.removeItem(key)
-    } catch (error) {
-        console.log(`Could not remove from AsyncStorage: ${err.message}`)
+    } catch (err) {
+      console.log(`Could not remove from AsyncStorage: ${err.message}`)
     }
-  }
-//   async loadJWT() {
-//     try {
-//       const value = this.load('jwtToken')
-//       if (value !== null) {
-//         this.setState({
-//           jwt: value,
-//           loading: false,
-//         })
-//       } else {
-//         this.setState({
-//           loading: false,
-//         })
-//       }
-//     } catch (error) {
-//       console.log('AsyncStorage Error: ' + error.message)
-//     }
-//   },
-
+  },
 }
 
-export default deviceStorage
+export default DeviceStorage
