@@ -4,7 +4,9 @@ import { StyleSheet, View } from 'react-native'
 import Button from '../components/Button'
 import { Colors } from '../styles'
 
-const ProfileActionContainer = () => {
+import { DeviceStorage } from '../services/'
+
+const ProfileActionContainer = props => {
   return (
     <View style={styles.btnGroup}>
       <Button onPress={() => {}} style={styles.btn}>
@@ -13,9 +15,8 @@ const ProfileActionContainer = () => {
       <Button
         size={30}
         onPress={() => {
-          // TODO: refactor
-          // TODO: sign out the user
-          this.props.navigation.navigate('Auth')
+          DeviceStorage.remove('jwtToken')
+          props.navigation.navigate('Auth')
         }}
         style={styles.btn}
       >
