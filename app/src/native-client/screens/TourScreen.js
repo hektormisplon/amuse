@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { Text } from '../components/StyledText'
 import api from '../config/api'
-import { MapStyle } from '../styles'
+import { Colors, MapStyle } from '../styles'
 
 export default class TourScreen extends Component {
   static navigationOptions = {
@@ -144,18 +144,13 @@ export default class TourScreen extends Component {
                 </MapView.Marker>
               )
             })}
-            {tourWaypoints &&
-              // <MapView.Polyline coordinates={tourWaypoints} />
-              tourWaypoints.map((waypoint, index) => {
-                return <MapView.Marker key={index} coordinate={waypoint} />
-              })}
-            {/* {testWaypoints && (
+            {tourWaypoints && (
               <MapView.Polyline
-                coordinates={testWaypoints}
-                strokeWidth={5}
+                coordinates={tourWaypoints}
+                strokeWidth={3}
                 strokeColor={Colors.primaryBrand.light}
               />
-            )} */}
+            )}
           </MapView>
         )}
       </React.Fragment>

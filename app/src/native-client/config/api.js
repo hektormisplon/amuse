@@ -1,4 +1,4 @@
-import { Constants } from 'expo'
+import { Constants } from 'expo';
 const { manifest } = Constants
 
 const api =
@@ -8,6 +8,6 @@ const api =
         .shift()
         .concat(`:8080`)
     : // :   `http://10.130.76.9:8080/`
-      `http://192.168.20.116:8080`
+      `http://192.168.0.163:8080`
 
 export default api
