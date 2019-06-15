@@ -80,6 +80,7 @@ class MuseumController {
                 title: req.body.title,
                 body: req.body.body,
                 categoryId: req.body.categoryId,
+                waypoints: req.body.waypoints,
             });
             const tour = await museumCreate.save();
             return res.status(201).json(tour);
