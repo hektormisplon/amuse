@@ -2,7 +2,7 @@ import React from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import {
   createBottomTabNavigator,
-  createStackNavigator
+  createStackNavigator,
 } from 'react-navigation'
 import { TabBar } from '../components/TabBar'
 import TabBarIcon from '../components/TabBarIcon'
@@ -12,7 +12,7 @@ import TourScreen from '../screens/TourScreen'
 import { Colors } from '../styles'
 
 const ProfileStack = createStackNavigator({
-  Links: ProfileScreen
+  Links: ProfileScreen,
 })
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Badges',
@@ -21,11 +21,11 @@ ProfileStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === 'ios' ? 'user' : 'user'}
     />
-  )
+  ),
 }
 
 const TourStack = createStackNavigator({
-  Tour: TourScreen
+  Tour: TourScreen,
 })
 TourStack.navigationOptions = {
   tabBarLabel: 'Tours',
@@ -36,11 +36,11 @@ TourStack.navigationOptions = {
         name={Platform.OS === 'ios' ? 'map' : 'map'}
       />
     </View>
-  )
+  ),
 }
 
 const ClubStack = createStackNavigator({
-  Club: ClubScreen
+  Club: ClubScreen,
 })
 ClubStack.navigationOptions = {
   tabBarLabel: 'Clubs',
@@ -49,7 +49,7 @@ ClubStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === 'ios' ? 'users' : 'users'}
     />
-  )
+  ),
 }
 
 export default createBottomTabNavigator(
@@ -62,7 +62,7 @@ export default createBottomTabNavigator(
     //   })
     // },
     TourStack,
-    ClubStack
+    ClubStack,
   },
   {
     // initialRouteName: 'TourStack',
@@ -70,8 +70,8 @@ export default createBottomTabNavigator(
     // TODO: redux tabbar color
     tabBarComponent: props => {
       return <TabBar {...props} />
-    }
-  }
+    },
+  },
 )
 
 const styles = StyleSheet.create({
@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     backgroundColor: Colors.primaryBrand.light,
-    borderRadius: 60
-  }
+    borderRadius: 60,
+  },
 })
