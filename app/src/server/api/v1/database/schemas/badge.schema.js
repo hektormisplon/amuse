@@ -6,13 +6,14 @@ const { Schema } = mongoose;
 
 const BadgeSchema = new Schema(
     {
-        title: { type: String, required: true, max: 128 },
-        type: { type: String, required: true, max: 64 },
+        title: { type: String, required: true, max: 256 },
+        type: { type: String, required: true, max: 256 },
+        difficulty: { type: Number, required: true },
         description: { type: String, required: false, max: 256 },
         amount: { type: Number, required: false },
-        // slug: {
-        //     type: String, lowercase: true, unique: true, required: true
-        // },
+        published_at: { type: Date, required: false },
+        deleted_at: { type: Date, required: false },
+        categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: false },
     },
     {
         toJSON: { virtuals: true },
@@ -46,4 +47,4 @@ BadgeSchema.virtual('category', {
 
 BadgeSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('Bagdge', BadgeSchema);
+export default mongoose.model('badge', BadgeSchema);
