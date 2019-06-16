@@ -6,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
 import Badge from '../components/Badge'
@@ -20,6 +21,7 @@ export default class BadgesContainer extends Component {
   state = {
     loading: true,
     badges: [],
+    details: null,
   }
 
   componentDidMount() {
@@ -50,26 +52,48 @@ export default class BadgesContainer extends Component {
   // TODO: unique badge id
   _keyExtractor = (item, index) => item.id
   render() {
-    const { loading, badges } = this.state
+    const { loading, badges, details } = this.state
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Icon.Feather name="award" size={30} color={Colors.white} />
-        </View>
-        <FlatList
-          data={this.formatData(badges, 5)}
-          renderItem={({ item }) => <Badge {...item} />}
-          numColumns={5}
-          keyExtractor={this._keyExtractor}
-          ListEmptyComponent={<Loading title="Loading badges" />}
-          contentContainerStyle={styles.badgeContainer}
-        />
-        {!badges && loading === false && (
-          <View style={styles.container}>
-            <Text>
-              Sorry, we could not load your badges at this time. Please verify
-              if you have an internet connection.
-            </Text>
+        {!details ? (
+          <React.Fragment>
+            <View style={styles.header}>
+              <Icon.Feather name="award" size={30} color={Colors.white} />
+            </View>
+            <FlatList
+              data={this.formatData(badges, 5)}
+              renderItem={({ item }) => (
+                <Badge
+                  data={item}
+                  onPress={() => this.setState({ details: item })}
+                />
+              )}
+              numColumns={5}
+              keyExtractor={this._keyExtractor}
+              ListEmptyComponent={<Loading title="Loading badges" />}
+              contentContainerStyle={styles.badgeContainer}
+            />
+
+            {!badges && loading === false && (
+              <View style={styles.container}>
+                <Text>
+                  Sorry, we could not load your badges at this time. Please
+                  verify if you have an internet connection.
+                </Text>
+              </View>
+            )}
+          </React.Fragment>
+        ) : (
+          <View>
+            <Text>{details.title}</Text>
+            <Text>{details.description}</Text>
+            <TouchableOpacity
+              style={styles.closeDetailButton}
+              icon="x"
+              onPress={() => {
+                this.setState({ details: null })
+              }}
+            />
           </View>
         )}
       </View>
@@ -91,5 +115,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 120,
+  },
+  closeDetailButton: {
+    width: 60,
+    height: 60,
+    backgroundColor: Colors.primaryBrand.dark,
+    borderRadius: 30,
   },
 })
