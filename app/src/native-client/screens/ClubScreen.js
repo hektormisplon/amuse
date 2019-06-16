@@ -4,9 +4,17 @@ import { Text } from '../components/StyledText'
 import VerticalSplit from '../layouts/VerticalSplit'
 import { Colors } from '../styles'
 
+import Button from '../components/Button'
+
+import TabMenu from '../components/TabMenu'
+
 export default class ClubScreen extends React.Component {
   static navigationOptions = {
-    header: null
+    header: null,
+  }
+
+  state = {
+    page: 'first'
   }
   render() {
     return (
@@ -22,6 +30,7 @@ export default class ClubScreen extends React.Component {
                   Beeldhouwkunst {'\n'}
                   <Text>28 leden</Text>
                 </Text>
+                <Button title="See details" onPress={() => { this.props.navigation.navigate('ClubDetails')}}></Button>
               </View>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
@@ -32,8 +41,8 @@ export default class ClubScreen extends React.Component {
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
                   Moderne kunst {'\n'}
-                  <Text>28 leden</Text>
                 </Text>
+                  <Text>28 leden</Text>
               </View>
               {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Agenda')}>   */}
             </View>
@@ -85,5 +94,5 @@ const styles = StyleSheet.create({
   cardText: {
     color: 'white',
     justifyContent: 'center'
-  }
+  },
 })
