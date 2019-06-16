@@ -1,0 +1,104 @@
+import Icon from '@expo/vector-icons'
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Colors, Dimensions } from '../styles'
+
+class Badge extends React.Component {
+  state = {
+    details: null,
+  }
+
+  showDetails = () => {
+    const { title, description } = this.props.badge
+    this.setState({
+      details: {
+        title,
+        description,
+      },
+    })
+  }
+
+  getIcon = () => {
+    const { type } = this.props.badge
+    switch (type) {
+      case 'intro':
+        return 'target'
+      case 'mystery':
+        return 'help-circle'
+      case 'scan':
+        return 'camera'
+      default:
+        return 'star'
+    }
+  }
+
+  render() {
+    const { type, amount } = this.props.badge
+    const { details } = this.state
+    const iconName = this.getIcon()
+    return (
+      <React.Fragment>
+        {type !== 'locked' ? (
+          <TouchableOpacity
+            style={[styles.badge, styles.unlockedBadge]}
+            onPress={this.showDetails}
+          >
+            <Icon.Feather
+              name={iconName}
+              size={15}
+              color={Colors.ternaryBrand}
+            />
+            <Text
+              style={{
+                color: Colors.white,
+                textAlign: 'center',
+                alignSelf: 'center',
+              }}
+            >
+              {amount && <Text>{amount}</Text>}
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={[styles.badge, styles.lockedBadge]}>
+            <Icon.Feather
+              name={'lock'}
+              size={15}
+              color={Colors.secondaryBrand.light}
+            />
+          </View>
+        )}
+        <View style={styles.detailsContainer}>
+          {details && <Text>{details.title}</Text>}
+        </View>
+      </React.Fragment>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  badge: {
+    margin: 5,
+    width: Dimensions.window.width / 5 - 21,
+    height: Dimensions.window.width / 5 - 21,
+    borderRadius: Dimensions.window.width / 5 - 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  lockedBadge: {
+    // borderColor: Colors.primaryBrand.light,
+    opacity: 0.5,
+    // borderWidth: 5
+  },
+  unlockedBadge: {
+    backgroundColor: Colors.primaryBrand.light,
+    shadowColor: Colors.primaryBrand.light,
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 5,
+  },
+  detailsContainer: {
+    ...StyleSheet.absoluteFillObject,
+  },
+})
+
+export default Badge
