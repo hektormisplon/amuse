@@ -1,6 +1,8 @@
 import { createStackNavigator } from 'react-navigation'
 import AuthLoadingScreen from '../screens/AuthLoadingScreen'
 import AuthScreen from '../screens/AuthScreen'
+import { Colors, ScreenTransitions } from '../styles'
+
 
 export default createStackNavigator(
   {
@@ -8,6 +10,7 @@ export default createStackNavigator(
     Auth: AuthScreen
   },
   {
-    initialRouteName: 'AuthLoading'
+    initialRouteName: 'AuthLoading',
+    transitionConfig: () => ScreenTransitions.fromLeft(),
   }
 )
