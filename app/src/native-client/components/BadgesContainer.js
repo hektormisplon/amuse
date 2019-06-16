@@ -6,10 +6,10 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native'
 import Badge from '../components/Badge'
+import Button from '../components/Button'
 import api from '../config/api'
 import { Colors } from '../styles'
 
@@ -55,45 +55,48 @@ export default class BadgesContainer extends Component {
     const { loading, badges, details } = this.state
     return (
       <View style={styles.container}>
-        {!details ? (
-          <React.Fragment>
-            <View style={styles.header}>
-              <Icon.Feather name="award" size={30} color={Colors.white} />
-            </View>
-            <FlatList
-              data={this.formatData(badges, 5)}
-              renderItem={({ item }) => (
-                <Badge
-                  data={item}
-                  onPress={() => this.setState({ details: item })}
-                />
-              )}
-              numColumns={5}
-              keyExtractor={this._keyExtractor}
-              ListEmptyComponent={<Loading title="Loading badges" />}
-              contentContainerStyle={styles.badgeContainer}
-            />
-
-            {!badges && loading === false && (
-              <View style={styles.container}>
-                <Text>
-                  Sorry, we could not load your badges at this time. Please
-                  verify if you have an internet connection.
-                </Text>
-              </View>
+        <React.Fragment>
+          <View style={styles.header}>
+            <Icon.Feather name="award" size={30} color={Colors.white} />
+          </View>
+          <FlatList
+            data={this.formatData(badges, 5)}
+            renderItem={({ item }) => (
+              <Badge
+                data={item}
+                onPress={() => this.setState({ details: item })}
+              />
             )}
-          </React.Fragment>
-        ) : (
-          <View>
-            <Text>{details.title}</Text>
-            <Text>{details.description}</Text>
-            <TouchableOpacity
+            numColumns={5}
+            keyExtractor={this._keyExtractor}
+            ListEmptyComponent={<Loading title="Loading badges" />}
+            contentContainerStyle={styles.badgeContainer}
+          />
+          {!badges && loading === false && (
+            <View style={styles.container}>
+              <Text>
+                Sorry, we could not load your badges at this time. Please verify
+                if you have an internet connection.
+              </Text>
+            </View>
+          )}
+        </React.Fragment>
+        {details && (
+          <View style={styles.detailsContainer}>
+            <Text style={styles.titleText}>{details.title}</Text>
+            <View style={styles.detailBadge}>
+              <Text style={styles.descriptionText}>{details.description}</Text>
+              {details.amount && (
+                // TODO user amount from db
+                <Text style={styles.amountText}>{`0/${details.amount}`}</Text>
+              )}
+            </View>
+            <Button
               style={styles.closeDetailButton}
-              icon="x"
-              onPress={() => {
-                this.setState({ details: null })
-              }}
-            />
+              onPress={() => this.setState({ details: null })}
+              icon={'x'}
+              iconColor={Colors.primaryBrand.dark}
+            ></Button>
           </View>
         )}
       </View>
@@ -116,10 +119,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 120,
   },
-  closeDetailButton: {
-    width: 60,
-    height: 60,
+  detailsContainer: {
+    ...StyleSheet.absoluteFillObject,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 30,
     backgroundColor: Colors.primaryBrand.dark,
-    borderRadius: 30,
+    shadowColor: Colors.primaryBrand.light,
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 5,
+    paddingTop: 120,
+    paddingBottom: 30,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  detailBadge: {
+    width: 240,
+    height: 240,
+    borderRadius: 120,
+    backgroundColor: Colors.primaryBrand.light,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: 60
+  },
+  titleText: {  
+    textAlign: 'center'
+  },
+  descriptionText: {
+    textAlign: 'center'
+  },
+  amountText: {
+    fontSize: 60,
+    color: Colors.ternaryBrand
+  },
+  closeDetailButton: {
+    backgroundColor: Colors.primaryBrand.light,
   },
 })
