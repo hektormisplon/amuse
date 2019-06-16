@@ -5,6 +5,10 @@ import Button from '../components/Button';
 import { DeviceStorage } from '../services/';
 import { Colors } from '../styles';
 
+
+/**
+ * Buttons + functionality for the profile screen
+ */
 const ProfileActionContainer = props => {
 
   const signOut = async () => {
