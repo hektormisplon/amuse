@@ -30,6 +30,11 @@ const UserSchema = new Schema(
             id: { type: String, required: false },
             token: { type: String, required: false },
         },
+        googleProvider: {
+            id: { type: String, required: false },
+            token: { type: String, required: false },
+        },
+        badges: { type: Array, required: false },
         published_at: { type: Date, required: false },
         deleted_at: { type: Date, required: false },
     },
