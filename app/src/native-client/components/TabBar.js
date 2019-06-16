@@ -30,8 +30,8 @@ export const TabBar = props => {
       }}
     >
       <View pointerEvents="box-none" style={[styles.content, style]}>
-        {routes.map((route, idx) => {
-          const focused = index === idx
+        {routes.map((route, id) => {
+          const focused = index === id
           if (!route.params || !route.params.navigationDisabled) {
             return (
               <TabIcon

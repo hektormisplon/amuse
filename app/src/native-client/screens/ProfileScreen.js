@@ -6,7 +6,6 @@ import VerticalSplit from '../layouts/VerticalSplit'
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
-    title: 'Profile',
     header: null
   }
 

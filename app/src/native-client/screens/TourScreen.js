@@ -15,7 +15,6 @@ import { Colors, MapStyle } from '../styles'
 
 export default class TourScreen extends Component {
   static navigationOptions = {
-    title: 'Tours',
     header: null,
   }
 
