@@ -2,6 +2,8 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
 
+import { ScreenTransisions } from '../styles'
+
 export default createAppContainer(
   createSwitchNavigator(
     {
@@ -10,8 +12,9 @@ export default createAppContainer(
       Main: MainStack
     },
     {
-      initialRouteName: 'Auth'
+      initialRouteName: 'Auth',
       // initialRouteName: 'Main'
+      transitionConfig: () => ScreenTransitions.fromLeft(),
     }
   )
 )
