@@ -1,10 +1,10 @@
-import Icon from '@expo/vector-icons'
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import Button from '../components/Button'
-import { Colors } from '../styles'
+import Icon from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import Button from '../components/Button';
+import { DeviceStorage } from '../services/';
+import { Colors } from '../styles';
 
-import { DeviceStorage } from '../services/'
 
 const ProfileActionContainer = props => {
   return (
@@ -38,8 +38,12 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 150,
     justifyContent: 'space-between',
-    backgroundColor: Colors.ternaryBrand,
-    borderRadius: 30
+    backgroundColor: Colors.white,
+    borderRadius: 30,
+    shadowColor: Colors.primaryBrand.light,
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 5,
   }
 })
 
