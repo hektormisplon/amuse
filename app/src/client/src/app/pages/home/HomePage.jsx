@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
 import Api from '../../services';
-import PostsList from '../../components/posts-list';
-
 // import GoldenLayout from '../../layouts/GoldenLayout';
+import './HomePage.sass';
+
+import landing from './landing.png'
+console.log(landing);
 
 class HomePage extends Component {
   state = {
@@ -37,6 +38,9 @@ class HomePage extends Component {
       <React.Fragment>
         <div className="golden-grid_2">
           <h1 className="hidden">Let us be your guide.</h1>
+        <div>
+          <image src={landing} className="landing-img" />
+        </div>
           <h5>
             <br />
             Your own virtual museum tour guide. <br />
@@ -53,20 +57,36 @@ class HomePage extends Component {
               }}
             >
               <div className="musea-card">
-                <h5>S.M.A.K.</h5>
-                <img src="https://picsum.photos/210" alt="" />
+                <h5>Ipsum</h5>
+                <img
+                  className={'museum_image'}
+                  src="https://picsum.photos/210"
+                  alt=""
+                />
               </div>
               <div className="musea-card">
-                <h5>Design Museum</h5>
-                <img src="https://picsum.photos/210" alt="" />
+                <h5>L.O.R.</h5>
+                <img
+                  className={'museum_image'}
+                  src="https://picsum.photos/210"
+                  alt=""
+                />
               </div>
               <div className="musea-card">
-                <h5>M.A.S.</h5>
-                <img src="https://picsum.photos/210" alt="" />
+                <h5>E.M.</h5>
+                <img
+                  className={'museum_image'}
+                  src="https://picsum.photos/210"
+                  alt=""
+                />
               </div>
               <div className="musea-card">
-                <h5>Some other</h5>
-                <img src="https://picsum.photos/210" alt="" />
+                <h5>Sit amet.</h5>
+                <img
+                  className={'museum_image'}
+                  src="https://picsum.photos/210"
+                  alt=""
+                />
               </div>
             </div>
           </div>
