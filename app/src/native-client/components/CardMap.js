@@ -15,6 +15,12 @@ const { width, height } = Dimensions.get('window')
 const CARD_HEIGHT = 0.38 * height - 45
 const CARD_WIDTH = width
 
+/**
+ * Map scrollview
+ * - shows cards of current location
+ * - horizontal swipe w/ focus on card location
+ */
+
 export default class CardMap extends Component {
   state = {
     markers: [

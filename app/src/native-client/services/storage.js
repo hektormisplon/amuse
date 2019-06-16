@@ -1,5 +1,8 @@
 import { AsyncStorage } from 'react-native'
 
+/**
+ * Services for storage on device
+ */
 const DeviceStorage = {
   async save(key, value) {
     try {
@@ -11,7 +14,8 @@ const DeviceStorage = {
 
   async load(key) {
     try {
-      await AsyncStorage.getItem(key)
+      let item = await AsyncStorage.getItem(key)
+      return item;
     } catch (err) {
       console.log(`Could not load from AsyncStorage: ${err.message}`)
     }

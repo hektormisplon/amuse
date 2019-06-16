@@ -4,6 +4,10 @@ import Svg, { Path } from 'react-native-svg'
 import AuthActionContainer from '../components/AuthActionContainer'
 import VerticalSplit from '../layouts/VerticalSplit'
 
+
+/**
+ * Sign in/ sign up screen
+ */
 export default class AuthScreen extends Component {
   static navigationOptions = {
     header: null,

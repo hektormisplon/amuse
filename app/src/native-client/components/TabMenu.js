@@ -3,7 +3,6 @@ import React from 'react';
 import {
     StyleSheet,
     View,
-    Text,
     TouchableOpacity,
     Keyboard,
     Platform,
@@ -12,7 +11,12 @@ import {
 import { Icon } from 'expo'
 
 import { Colors } from '../styles'
+import { Text } from '../components/StyledText'
 
+
+/**
+ * A custom tab bar component for a nested or secondary bottomTabNavigator
+ */
 export const TabMenu = props => {
     const {
         navigation: {
@@ -34,48 +38,27 @@ export const TabMenu = props => {
                         key={route.key}
                         route={route}
                         style={styles.tab}
-                        renderIcon={renderIcon}
                         title={getLabelText({ route })}
                         onPress={() =>
                             (!route.params || !route.params.navigationDisabled) &&
                             jumpTo(route.key)
                         }
                     />
-                )
-                }
-        const Icon = renderIcon({
-            route,
-            focused,
-            tintColor: focused ? activeTintColor : inactiveTintColor
-          })
-          return {
-            ...Icon,
-            key: 'simple'
-          }
-            })}
+                )}})}
         </View>
     );
 }
 
 const TabIcon = ({
     route,
-    renderIcon,
-    focused,
-    activeTintColor,
-    inactiveTintColor,
     onPress,
     title
-    }) => (
+}) => (
     <TouchableOpacity
         onPress={() => onPress && onPress()}
-        style={styles.iconView}
+        style={styles.tab}
     > 
-        <Text>{title}</Text>
-        {renderIcon({
-        route,
-        focused,
-        tintColor: focused ? Colors.primaryBrand.light : Colors.ternaryBrand
-        })}
+        <Text type={'text'}>{title}</Text>
     </TouchableOpacity>
 )
 
@@ -83,8 +66,8 @@ const  styles = StyleSheet.create({
     tabbarView: {
         height: 135,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
+        justifyContent: 'center',
+        alignItems: 'stretch',
         margin: 30,
         paddingBottom: 75,
         backgroundColor: 'transparent',
@@ -98,6 +81,5 @@ const  styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f00'
     },
 });

@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
-  Text,
   View,
 } from 'react-native'
 import Badge from '../components/Badge'
@@ -13,10 +12,18 @@ import Button from '../components/Button'
 import api from '../config/api'
 import { Colors } from '../styles'
 
+
+import { Text } from '../components/StyledText'
+
 const Loading = ({ title }) => (
   <ActivityIndicator size="large" color={Colors.ternaryBrand} />
 )
 
+/**
+ * User badges container
+ * - fetch badges
+ * - render badges to flatlist grid layout
+ */
 export default class BadgesContainer extends Component {
   state = {
     loading: true,

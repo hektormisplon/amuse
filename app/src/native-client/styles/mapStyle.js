@@ -1,3 +1,6 @@
+/**
+ * Google maps custom styling object
+ */
 export default [
   {
     elementType: 'geometry',

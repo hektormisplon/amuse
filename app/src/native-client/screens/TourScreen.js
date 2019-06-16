@@ -13,6 +13,11 @@ import { Text } from '../components/StyledText'
 import api from '../config/api'
 import { Colors, MapStyle } from '../styles'
 
+/**
+ * Mapview for tours
+ * Previews for tour stops
+ * Start tour
+ */
 export default class TourScreen extends Component {
   static navigationOptions = {
     header: null,

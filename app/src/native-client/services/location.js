@@ -1,6 +1,9 @@
 import { IntentLauncherAndroid, Location, Permissions } from 'expo'
 import { Linking, Platform } from 'react-native'
 
+/**
+ * Device location related services
+ */
 const DeviceLocation = {
   async getLocationServices() {
     try {

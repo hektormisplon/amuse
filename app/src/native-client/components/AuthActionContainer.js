@@ -1,13 +1,17 @@
 import Icon from '@expo/vector-icons';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import AuthFormInput from '../components/AuthFormInput';
 import api from '../config/api';
 import { DeviceStorage } from '../services';
 import { Colors } from '../styles';
+import { Text } from '../components/StyledText'
 
 
+/**
+ * Component containing login/register layout & logic
+ */
 export default class AuthActionContainer extends Component {
   state = {
     email: '',
@@ -35,7 +39,7 @@ export default class AuthActionContainer extends Component {
     //   .catch(err => console.error(err))
   }
 
-  signIn = () => {
+  signIn =  async () => {
     const { email, password } = this.state
     this.setState({ loading: true })
     axios
@@ -46,8 +50,9 @@ export default class AuthActionContainer extends Component {
       .then(res => {
         if (res.status === 200) {
           DeviceStorage.save('jwtToken', res.data.token)
-          this.props.navigation.navigate('Main')
         }
+      }).then(() => {
+        this.props.navigation.navigate('Main')
       })
       .catch(err => {
         const { status, data } = err.response

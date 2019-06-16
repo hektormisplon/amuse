@@ -1,5 +1,8 @@
 import { Animated, Easing, Platform } from 'react-native';
 
+/**
+ *  Helpers for screen transitions 
+ */
 export function fromLeft(duration = 300) {
     return {
       transitionSpec: {

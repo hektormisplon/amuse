@@ -2,6 +2,9 @@ import Icon from '@expo/vector-icons'
 import React from 'react'
 import { Colors } from '../styles'
 
+/**
+ * Tabbar icon for bottomTabNavigator
+ */
 const TabBarIcon = props => {
   return (
     <Icon.Feather

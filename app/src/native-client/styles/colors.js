@@ -1,3 +1,8 @@
+/**
+ * Colors to be added from this object
+ * - Dynamic color theming
+ */
+
 const tintColor = '#2f95dc'
 
 export default {

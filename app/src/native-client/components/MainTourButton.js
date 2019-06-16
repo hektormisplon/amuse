@@ -3,6 +3,9 @@ import { Icon } from 'expo'
 import React, { Component } from 'react'
 import { Animated, TouchableHighlight } from 'react-native'
 
+/**
+ * BottomTabNavigator custom button containing multiple subbuttons
+ */
 export const MainTourButton = ({ navigation }) => {
   const SIZE = 100
   navigation = { navigation }

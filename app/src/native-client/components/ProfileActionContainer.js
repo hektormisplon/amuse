@@ -5,19 +5,21 @@ import Button from '../components/Button';
 import { DeviceStorage } from '../services/';
 import { Colors } from '../styles';
 
-
 const ProfileActionContainer = props => {
+
+  const signOut = async () => {
+      await DeviceStorage.remove('jwtToken')
+      props.navigation.navigate('Auth')
+  }
+
   return (
     <View style={styles.btnGroup}>
-      <Button onPress={() => {}} style={styles.btn}>
+      <Button onPress={() => {console.log('settings')}} style={styles.btn}>
         <Icon.Feather name="settings" size={30} color={Colors.ternaryBrand} />
       </Button>
       <Button
         size={30}
-        onPress={() => {
-          DeviceStorage.remove('jwtToken')
-          props.navigation.navigate('Auth')
-        }}
+        onPress={signOut}
         style={styles.btn}
       >
         <Icon.Feather

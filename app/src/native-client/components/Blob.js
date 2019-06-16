@@ -9,8 +9,6 @@ const height = 125
 const radius = width / 2
 const padding = 30
 
-// const randomRadius = () => _.round(_.random(radius - 5, radius));
-
 type ProgressProps = {}
 
 export default class Progress extends React.Component<ProgressProps> {

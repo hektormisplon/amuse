@@ -1,5 +1,8 @@
 import Colors from './colors'
 
+/**
+ * Reusable atomic badge styling
+ */
 export const base = {
   alignItems: 'center',
   borderRadius: 50

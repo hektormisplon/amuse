@@ -27,7 +27,7 @@ export default class App extends React.Component {
       )
     }
   }
-
+  
   _loadResourcesAsync = async () => {
     return Promise.all([
       Asset.loadAsync([]),

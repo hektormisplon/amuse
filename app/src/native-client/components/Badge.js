@@ -1,8 +1,13 @@
 import Icon from '@expo/vector-icons'
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colors, Dimensions } from '../styles'
 
+import { Text } from '../components/StyledText'
+
+/**
+ * Reusable badge copmonent
+ */
 const Badge = ({ ...props }) => {
   const { title, description, id, icon, amount, type } = props.data
 

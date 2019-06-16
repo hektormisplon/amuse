@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, StyleSheet, View,Text } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import {
   createBottomTabNavigator,
   createStackNavigator,
@@ -11,11 +11,14 @@ import { TabMenu } from '../components/TabMenu'
 import TabBarIcon from '../components/TabBarIcon'
 import ClubScreen from '../screens/ClubScreen'
 import ClubDiscoveryScreen from '../screens/ClubDiscoveryScreen'
-import ClubDetailScreen from '../screens/ClubDetailScreen'
+import ClubNewsScreen from '../screens/ClubNewsScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import TourScreen from '../screens/TourScreen'
 import { Colors, ScreenTransitions } from '../styles'
 
+/**
+ * Stacknavigator for Profile screens
+ */
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
 })
@@ -29,6 +32,9 @@ ProfileStack.navigationOptions = {
   ),
 }
 
+/**
+ * Stacknavigator for Tour screens
+ */
 const TourStack = createStackNavigator({
   Tour: TourScreen,
 })
@@ -45,12 +51,15 @@ TourStack.navigationOptions = {
   ),
 }
 
+/**
+ * Stacknavigator for Club screens
+ */
 const ClubStack = createBottomTabNavigator(
   {
     Club:{
       screen: ClubScreen,
       navigationOptions: {
-        tabBarLabel: 'Overview',
+        tabBarLabel: 'My clubs',
         gesturesEnabled: true 
 
       }
@@ -60,13 +69,21 @@ const ClubStack = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'Discover',
         gesturesEnabled: true 
+      },
+      tabBarIcon: ({ focused }) => (
+        <View style={{flex: 1}}>
 
-      }
+          <TabBarIcon
+            focused={focused}
+            name={'user'}
+          />
+        </View>
+      ),
     },
     ClubDetails: {
-      screen: ClubDetailScreen,
+      screen: ClubNewsScreen,
       navigationOptions: {
-        tabBarLabel: 'Details',
+        tabBarLabel: 'News',
     gesturesEnabled: true 
       }
     },
@@ -89,6 +106,9 @@ ClubStack.navigationOptions = {
   ),
 }
 
+/**
+ * Bottom navigation for logged in users
+ */
 export default createBottomTabNavigator(
   {
     ProfileStack,

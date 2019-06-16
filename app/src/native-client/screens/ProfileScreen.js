@@ -1,9 +1,14 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import BadgesContainer from '../components/BadgesContainer'
 import ProfileActionContainer from '../components/ProfileActionContainer'
 import VerticalSplit from '../layouts/VerticalSplit'
+import { Text } from '../components/StyledText'
 
+/**
+ * Badges view
+ * User related actions
+ */
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -19,7 +24,6 @@ export default class ProfileScreen extends React.Component {
         }
         bottom={
           <View style={{ margin: 30 }}>
-            <Text type={'title'}>Hello, Jon Doe</Text>
             <ProfileActionContainer navigation={this.props.navigation} />
           </View>
         }

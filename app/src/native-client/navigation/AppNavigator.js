@@ -4,6 +4,12 @@ import MainStack from './MainStack';
 
 import { ScreenTransisions } from '../styles'
 
+/**
+ * Appcontainer for navigation (react navigation)
+ * - Top level navigator
+ * - Entry point for authentication
+ */
+
 export default createAppContainer(
   createSwitchNavigator(
     {

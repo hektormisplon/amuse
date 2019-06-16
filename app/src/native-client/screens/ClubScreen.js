@@ -8,6 +8,10 @@ import Button from '../components/Button'
 
 import TabMenu from '../components/TabMenu'
 
+
+/**
+ * Overview screen which shows most important club related information
+ */
 export default class ClubScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -27,16 +31,16 @@ export default class ClubScreen extends React.Component {
             <View style={styles.cardContainer}>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
-                  Beeldhouwkunst {'\n'}
-                  <Text>28 leden</Text>
+                  Beeldhouwkunst
                 </Text>
+                  <Text>28 leden</Text>
                 <Button title="See details" onPress={() => { this.props.navigation.navigate('ClubDetails')}}></Button>
               </View>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
                   Schilderkunst {'\n'}
-                  <Text>28 leden</Text>
                 </Text>
+                  <Text>28 leden</Text>
               </View>
               <View style={styles.card}>
                 <Text type="subtitle" style={styles.cardText}>
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-between'
   },
   card: {
     width: '30%',

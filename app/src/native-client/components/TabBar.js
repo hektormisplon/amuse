@@ -1,12 +1,15 @@
 import React from 'react'
 import {
-  // TouchableWithoutFeedback,
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   View
 } from 'react-native'
 import { Colors } from '../styles'
+
+/**
+ * Custom tab bar component w/ transparent background
+ */ 
 
 export const TabBar = props => {
   const {

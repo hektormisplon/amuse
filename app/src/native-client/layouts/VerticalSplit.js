@@ -2,6 +2,10 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Colors } from '../styles'
 
+/**
+ * Layout component for splitting layouts vertically
+ * - Golden ratio subdivision
+ */
 const VerticalSplit = props => {
   const { top, bottom, colored, noPadding } = props
   return (

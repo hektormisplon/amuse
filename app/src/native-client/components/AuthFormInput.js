@@ -2,6 +2,9 @@ import Icon from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
+/**
+ * Form input component for the login/register page
+ */
 const AuthFormInput = ({...props }) => {
 
   const { icon, autoCorrect, value, onChangeText, placeholder, autoFocus} = props
