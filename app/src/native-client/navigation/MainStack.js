@@ -1,18 +1,23 @@
 import React from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View,Text } from 'react-native'
 import {
   createBottomTabNavigator,
   createStackNavigator,
+  createDrawerNavigator,
 } from 'react-navigation'
 import { TabBar } from '../components/TabBar'
+import { TabMenu } from '../components/TabMenu'
+
 import TabBarIcon from '../components/TabBarIcon'
 import ClubScreen from '../screens/ClubScreen'
+import ClubDiscoveryScreen from '../screens/ClubDiscoveryScreen'
+import ClubDetailScreen from '../screens/ClubDetailScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import TourScreen from '../screens/TourScreen'
-import { Colors } from '../styles'
+import { Colors, ScreenTransitions } from '../styles'
 
 const ProfileStack = createStackNavigator({
-  Links: ProfileScreen,
+  Profile: ProfileScreen,
 })
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Badges',
@@ -28,6 +33,7 @@ const TourStack = createStackNavigator({
   Tour: TourScreen,
 })
 TourStack.navigationOptions = {
+  header: null,
   tabBarLabel: 'Tours',
   tabBarIcon: ({ focused }) => (
     <View style={styles.tourTab}>
@@ -39,9 +45,40 @@ TourStack.navigationOptions = {
   ),
 }
 
-const ClubStack = createStackNavigator({
-  Club: ClubScreen,
-})
+const ClubStack = createBottomTabNavigator(
+  {
+    Club:{
+      screen: ClubScreen,
+      navigationOptions: {
+        tabBarLabel: 'Overview',
+        gesturesEnabled: true 
+
+      }
+    },
+    ClubDiscovery:{
+      screen: ClubDiscoveryScreen,
+      navigationOptions: {
+        tabBarLabel: 'Discover',
+        gesturesEnabled: true 
+
+      }
+    },
+    ClubDetails: {
+      screen: ClubDetailScreen,
+      navigationOptions: {
+        tabBarLabel: 'Details',
+    gesturesEnabled: true 
+      }
+    },
+  },
+  {
+      initialRouteName: 'Club',
+      tabBarComponent: props => {
+        return <TabMenu {...props} />
+      }
+  },
+)
+
 ClubStack.navigationOptions = {
   tabBarLabel: 'Clubs',
   tabBarIcon: ({ focused }) => (
