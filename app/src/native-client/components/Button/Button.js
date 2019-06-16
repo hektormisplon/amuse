@@ -1,13 +1,15 @@
+import { Icon } from 'expo'
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Colors } from '../../styles'
 
 export const Button = props => {
-  const { title, style, size, children } = props
+  const { title, style, size, children, icon, iconColor } = props
   return (
     <TouchableOpacity style={[styles.btn, style]} onPress={props.onPress}>
       {children}
       {title && <Text>{title}</Text>}
+      {icon && <Icon.Feather name={icon} size={30} color={iconColor} />}
     </TouchableOpacity>
   )
 }
