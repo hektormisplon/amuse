@@ -5,16 +5,33 @@ class BadgeController {
     // List all models
     index = async (req, res, next) => {
         try {
-            const badges = await Badge.find()
-                .populate('__category')
-                .sort({ created_at: -1 })
-                .exec();
+            const { limit, skip } = req.query;
+            let badges = null;
+            if (limit && skip) {
+                const options = {
+                    page: parseInt(skip, 10) || 1,
+                    limit: parseInt(limit, 10) || 10,
+                    populate: 'category',
+                    sort: { created_at: -1 },
+                };
+                badges = await Badge.paginate({}, options);
+            } else {
+                badges = await Badge.find()
+                    .populate('category')
+                    .sort({ created_at: -1 })
+                    .exec();
+            }
+
             if (badges === undefined || badges === null) {
-                throw new APIError(404, 'Collection for badges not found');
+                throw new APIError(404, 'Collection for badges not found!');
             }
             return res.status(200).json(badges);
         } catch (err) {
-            return handleAPIError(500, err.message || 'Could not list badges', next);
+            return handleAPIError(
+                500,
+                err.message || 'Some error occurred while retrieving badges',
+                next,
+            );
         }
     };
 
@@ -49,6 +66,7 @@ class BadgeController {
             const categoryCreate = new Badge({
                 title: req.body.title,
                 type: req.body.type,
+                difficulty: req.body.difficulty,
                 description: req.body.description,
                 amount: req.body.amount,
             });
